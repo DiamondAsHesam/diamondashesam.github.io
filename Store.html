@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>لوکس‌استودیو — خرید و فروش ملک</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23E4572E'/%3E%3Ccircle cx='32' cy='32' r='14' fill='%23F4EEE1'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script>document.documentElement.className += ' js';</script>
+<style>
+/* ==========================================================
+   لوکس‌استودیو — سبک: پوسترِ باهاوس · رنگِ تخت · خطِ ضخیم
+   ========================================================== */
+:root{
+  --paper:#F4EEE1;
+  --card:#FBF7EC;
+  --ink:#171310;
+  --ink2:#6E6558;
+  --accent:#E4572E;   /* با لکه‌های رنگِ سرصفحه عوض می‌شود */
+  --green:#1F5F4A;
+  --yellow:#F5B82E;
+  --blue:#2C5784;
+  --bd:2px solid var(--ink);
+  --sh:6px 6px 0 var(--ink);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:92px}
+body{
+  font-family:'Vazirmatn',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.9;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button,input,select,textarea{font-family:inherit}
+::selection{background:var(--accent);color:var(--paper)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+::-webkit-scrollbar{width:12px}
+::-webkit-scrollbar-track{background:var(--paper);border-inline-start:2px solid var(--ink)}
+::-webkit-scrollbar-thumb{background:var(--ink);border:3px solid var(--paper)}
+
+.container{max-width:1240px;margin:0 auto;padding:0 26px}
+.ic{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.12em;flex:none}
+.h-font{font-family:'Lalezar',cursive;font-weight:400;letter-spacing:0}
+
+/* ظهورِ تدریجی */
+.js .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1);transition-delay:var(--d,0s)}
+.js .reveal.in{opacity:1;transform:none}
+
+/* دکمه‌ها — آجریِ تخت */
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);border:var(--bd);padding:13px 26px;font-size:.95rem;font-weight:700;cursor:pointer;transition:.2s;box-shadow:var(--sh)}
+.btn:hover{background:var(--accent);border-color:var(--ink);transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
+.btn:active{transform:translate(0,0);box-shadow:2px 2px 0 var(--ink)}
+.btn.ghost{background:var(--paper);color:var(--ink)}
+.btn.ghost:hover{background:var(--yellow)}
+.btn.cream{background:var(--paper);color:var(--ink);box-shadow:6px 6px 0 rgba(23,19,16,.9)}
+
+/* سرِ بخش */
+.section{padding:78px 0}
+.shead{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:38px}
+.shead h2{font-family:'Lalezar';font-size:clamp(2rem,4vw,3rem);line-height:1.15}
+.shead h2 i{font-style:normal;color:var(--accent)}
+.sbar{width:64px;height:8px;background:var(--accent);border:var(--bd);margin-top:8px}
+.snote{max-width:280px;font-size:.85rem;color:var(--ink2);text-align:left}
+
+/* ==========================================================
+   پیش‌بارگذار — شکل‌ها یکی‌یکی می‌پرند بیرون
+   ========================================================== */
+#loader{position:fixed;inset:0;background:var(--paper);z-index:4000;display:grid;place-items:center;transition:opacity .4s,visibility .4s}
+#loader.done{opacity:0;visibility:hidden}
+.ld{display:flex;flex-direction:column;align-items:center;gap:20px}
+.ld-shapes{display:flex;align-items:flex-end;gap:14px;height:56px}
+.ld-shapes span{border:2.5px solid var(--ink);animation:pop .45s cubic-bezier(.3,1.6,.5,1) both}
+.ld-shapes .s1{width:44px;height:44px;border-radius:50%;background:var(--yellow);animation-delay:.05s}
+.ld-shapes .s2{width:44px;height:44px;background:var(--accent);animation-delay:.2s}
+.ld-shapes .s3{width:0;height:0;border:0;border-left:26px solid transparent;border-right:26px solid transparent;border-bottom:44px solid var(--green);animation-delay:.35s}
+@keyframes pop{from{transform:translateY(30px) scale(.3);opacity:0}}
+.ld b{font-family:'Lalezar';font-size:1.5rem}
+.ld small{font-size:.68rem;letter-spacing:.5em;color:var(--ink2)}
+
+/* نوار پیشرفت */
+#progress{position:fixed;top:0;right:0;height:5px;width:0;background:var(--accent);z-index:1600;border-inline-end:2px solid var(--ink)}
+
+/* ==========================================================
+   سرصفحه
+   ========================================================== */
+.topstrip{background:var(--ink);color:var(--paper);font-size:.76rem}
+.ts-in{display:flex;justify-content:space-between;gap:14px;padding:7px 0}
+.ts-in .mid{color:var(--yellow);font-weight:700}
+header{position:sticky;top:0;z-index:1200;background:var(--paper);border-bottom:var(--bd)}
+.hd-in{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px 0}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{width:44px;height:44px;background:var(--accent);border:var(--bd);border-radius:50%;display:grid;place-items:center;color:var(--paper);font-family:'Lalezar';font-size:1.4rem;transition:.3s;box-shadow:3px 3px 0 var(--ink)}
+.brand:hover .brand-mark{transform:rotate(-14deg);border-radius:8px}
+.brand-txt b{font-family:'Lalezar';font-size:1.45rem;display:block;line-height:1.2}
+.brand-txt small{font-size:.6rem;letter-spacing:.4em;color:var(--ink2);font-weight:700}
+.nav{display:flex;gap:4px;list-style:none}
+.nav a{font-size:.92rem;font-weight:600;padding:8px 14px;border:2px solid transparent;transition:.2s;display:inline-block}
+.nav a:hover{border-color:var(--ink);background:var(--card)}
+.nav a.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.actions{display:flex;align-items:center;gap:12px}
+.icon-btn{width:40px;height:40px;border:var(--bd);background:var(--card);display:grid;place-items:center;cursor:pointer;position:relative;transition:.2s;font-size:1.05rem;color:var(--ink)}
+.icon-btn:hover{background:var(--yellow);transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--ink)}
+.icon-btn .cnt{position:absolute;top:-9px;left:-9px;min-width:20px;height:20px;padding:0 3px;background:var(--accent);color:var(--paper);border:2px solid var(--ink);font-size:.66rem;font-weight:800;display:grid;place-items:center}
+.swatches{display:flex;gap:6px;margin-inline-start:6px}
+.swatch{width:20px;height:20px;border:var(--bd);cursor:pointer;transition:.2s;padding:0}
+.swatch:hover{transform:scale(1.25) rotate(10deg)}
+.swatch.on{outline:2.5px solid var(--ink);outline-offset:2px}
+.sw-red{background:var(--accent)}.sw-green{background:var(--green)}.sw-blue{background:var(--blue)}
+.burger{display:none;width:42px;height:42px;border:var(--bd);background:var(--card);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.burger span{width:20px;height:3px;background:var(--ink);transition:.3s}
+body.menu-open .burger span:first-child{transform:translateY(4.5px) rotate(45deg)}
+body.menu-open .burger span:last-child{transform:translateY(-4.5px) rotate(-45deg)}
+
+/* منوی موبایل */
+.mmenu{position:fixed;inset:0;background:var(--paper);z-index:1100;transform:translateX(102%);transition:transform .45s cubic-bezier(.7,0,.3,1);display:flex;flex-direction:column;justify-content:center;padding:40px 34px;border-inline-start:var(--bd)}
+body.menu-open .mmenu{transform:none}
+body.menu-open{overflow:hidden}
+.mm-list{list-style:none;display:flex;flex-direction:column;gap:4px}
+.mm-list a{display:flex;align-items:baseline;gap:14px;font-family:'Lalezar';font-size:2.3rem;padding:8px 4px;border-bottom:2px solid var(--ink);transition:.2s}
+.mm-list a i{font-style:normal;font-family:'Vazirmatn';font-size:.8rem;font-weight:800;color:var(--paper);background:var(--accent);border:2px solid var(--ink);padding:0 8px}
+.mm-list a:hover{padding-inline-start:18px;color:var(--accent)}
+.mm-tel{margin-top:26px;font-size:.9rem;color:var(--ink2)}
+
+/* ==========================================================
+   جلد
+   ========================================================== */
+.cover{overflow:hidden;border-bottom:var(--bd)}
+.cover-grid{display:grid;grid-template-columns:6.5fr 5.5fr;gap:52px;align-items:center;padding:56px 0 70px}
+.cover-tag{display:inline-flex;align-items:center;gap:10px;background:var(--yellow);border:var(--bd);padding:5px 16px;font-size:.82rem;font-weight:800;box-shadow:4px 4px 0 var(--ink);margin-bottom:22px}
+.cover-tag .dot{width:9px;height:9px;background:var(--ink);border-radius:50%;animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.2}}
+.cover h1{font-family:'Lalezar';font-size:clamp(2.9rem,6vw,4.9rem);line-height:1.12;margin-bottom:14px}
+.cover h1 .mark{position:relative;display:inline-block;color:var(--paper);z-index:1;white-space:nowrap}
+.cover h1 .mark::before{content:'';position:absolute;inset:8% -8px;background:var(--accent);border:2.5px solid var(--ink);transform:rotate(-2deg);z-index:-1}
+.cover .sub{font-size:1.05rem;color:var(--ink2);max-width:460px;margin-bottom:30px}
+.cover-cta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:40px}
+.stats{display:flex;border:var(--bd);background:var(--card);box-shadow:var(--sh);max-width:520px}
+.stat{flex:1;padding:16px 10px;text-align:center}
+.stat + .stat{border-inline-start:var(--bd)}
+.stat b{font-family:'Lalezar';font-size:2rem;display:block;line-height:1.2;color:var(--accent)}
+.stat span{font-size:.74rem;font-weight:600;color:var(--ink2)}
+
+/* سمتِ تصویر */
+.hero-vis{position:relative;min-height:480px}
+.sun{position:absolute;top:-40px;left:-40px;width:250px;height:250px;border-radius:50%;
+  background:repeating-conic-gradient(var(--yellow) 0 9deg,transparent 9deg 18deg);
+  border:2.5px solid var(--ink);animation:spin 40s linear infinite;z-index:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sun::after{content:'';position:absolute;inset:24%;background:var(--yellow);border:2.5px solid var(--ink);border-radius:50%}
+.arch{position:relative;z-index:2;width:min(390px,88%);margin:44px auto 0;border:var(--bd);border-radius:200px 200px 10px 10px;overflow:hidden;background:var(--card);box-shadow:10px 10px 0 var(--ink)}
+.arch img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:transform .6s}
+.arch:hover img{transform:scale(1.05)}
+.hero-chip{position:absolute;z-index:3;background:var(--card);border:var(--bd);box-shadow:5px 5px 0 var(--ink);padding:12px 18px;display:flex;align-items:center;gap:12px;transition:.25s}
+.hero-chip:hover{transform:translate(-2px,-2px) rotate(-2deg)}
+.chip-price{bottom:36px;right:-8px}
+.chip-price b{font-family:'Lalezar';font-size:1.5rem;line-height:1}
+.chip-price small{display:block;font-size:.68rem;color:var(--ink2);font-weight:600}
+.chip-price .sq{width:38px;height:38px;background:var(--accent);border:2px solid var(--ink);display:grid;place-items:center;color:var(--paper);font-size:1.1rem}
+.chip-check{top:64px;left:-6px;background:var(--green);color:var(--paper);border:var(--bd);font-size:.82rem;font-weight:800}
+.chip-check .ck{width:26px;height:26px;border-radius:50%;border:2px solid var(--paper);display:grid;place-items:center}
+
+/* ==========================================================
+   نوار متحرک
+   ========================================================== */
+.marquee{background:var(--ink);color:var(--paper);overflow:hidden;padding:13px 0;border-bottom:var(--bd)}
+.mq-track{display:flex;width:max-content;animation:mq 30s linear infinite}
+.marquee:hover .mq-track{animation-play-state:paused}
+.mq-item{display:inline-flex;align-items:center;gap:12px;white-space:nowrap;font-size:.9rem;font-weight:600}
+.mq-item b{color:var(--yellow)}
+.mq-sq{width:9px;height:9px;background:var(--accent);margin:0 24px;transform:rotate(45deg);flex:none}
+@keyframes mq{to{transform:translateX(50%)}}
+
+/* ==========================================================
+   ردیف تعهد
+   ========================================================== */
+.promise{border-bottom:var(--bd);background:var(--card)}
+.pr-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.pr-item{padding:26px 22px;display:flex;gap:14px;align-items:flex-start}
+.pr-item + .pr-item{border-inline-start:var(--bd)}
+.pr-num{width:44px;height:44px;flex:none;border:var(--bd);display:grid;place-items:center;font-family:'Lalezar';font-size:1.25rem;color:var(--paper);box-shadow:3px 3px 0 var(--ink);transition:.25s}
+.pr-item:nth-child(1) .pr-num{background:var(--accent)}
+.pr-item:nth-child(2) .pr-num{background:var(--green)}
+.pr-item:nth-child(3) .pr-num{background:var(--yellow);color:var(--ink)}
+.pr-item:nth-child(4) .pr-num{background:var(--blue)}
+.pr-item:hover .pr-num{transform:rotate(-8deg) translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
+.pr-item h4{font-size:.98rem;font-weight:800}
+.pr-item p{font-size:.8rem;color:var(--ink2)}
+
+/* ==========================================================
+   املاک
+   ========================================================== */
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+.tab{background:var(--card);border:var(--bd);padding:9px 18px;font-size:.9rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:10px;transition:.2s;box-shadow:3px 3px 0 var(--ink)}
+.tab em{font-style:normal;background:var(--ink);color:var(--paper);font-size:.7rem;padding:0 8px;display:inline-grid;place-items:center;min-width:24px;height:20px}
+.tab:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
+.tab.on{background:var(--ink);color:var(--paper);box-shadow:3px 3px 0 var(--accent)}
+
+.props{display:grid;grid-template-columns:repeat(6,1fr);gap:28px}
+.pc{grid-column:span 2;background:var(--card);border:var(--bd);display:flex;flex-direction:column;transition:.25s;box-shadow:var(--sh)}
+.pc:hover{transform:translate(-4px,-4px);box-shadow:11px 11px 0 var(--ink)}
+.pc.wide{grid-column:span 4;flex-direction:row}
+.pc.wide .pc-img{width:46%;flex:none;border-inline-end:var(--bd);border-bottom:0}
+.pc.wide .pc-img img{height:100%;aspect-ratio:auto}
+.pc.wide .pc-body{padding:26px 24px}
+.pc-img{position:relative;border-bottom:var(--bd);overflow:hidden}
+.pc-img img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .5s}
+.pc:hover .pc-img img{transform:scale(1.06)}
+.pc-code{position:absolute;top:12px;right:12px;background:var(--ink);color:var(--paper);font-size:.72rem;font-weight:800;padding:2px 10px;border:2px solid var(--paper)}
+.pc-badge{position:absolute;bottom:12px;left:12px;background:var(--yellow);color:var(--ink);border:2px solid var(--ink);font-size:.74rem;font-weight:800;padding:2px 12px;transform:rotate(-3deg)}
+.pc.sold .pc-img img{filter:grayscale(1) contrast(.95);opacity:.75}
+.sold-tag{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-8deg);background:var(--accent);color:var(--paper);border:2.5px solid var(--ink);padding:4px 22px;font-family:'Lalezar';font-size:1.4rem;box-shadow:4px 4px 0 var(--ink)}
+.pc-body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
+.pc-loc{font-size:.78rem;color:var(--ink2);display:flex;align-items:center;gap:6px}
+.pc-loc .ic{color:var(--accent)}
+.pc-body h3{font-family:'Lalezar';font-size:1.55rem;line-height:1.25;margin:2px 0 8px}
+.specs{display:flex;gap:16px;font-size:.78rem;color:var(--ink2);font-weight:600;border-block:2px dashed rgba(23,19,16,.25);padding:9px 0;margin-bottom:12px}
+.specs span{display:inline-flex;align-items:center;gap:6px}
+.specs .ic{color:var(--green)}
+.prow{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:auto}
+.prow .pr{font-family:'Lalezar';font-size:2rem;line-height:1;color:var(--accent)}
+.prow .pu{font-size:.72rem;font-weight:600;color:var(--ink2)}
+.prow s{font-size:.82rem;color:var(--ink2)}
+.prow .disc{background:var(--green);color:var(--paper);border:2px solid var(--ink);font-size:.72rem;font-weight:800;padding:0 9px}
+.pc-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px}
+.req{flex:1;background:var(--ink);color:var(--paper);border:var(--bd);padding:10px;font-weight:700;font-size:.88rem;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.req:hover{background:var(--accent)}
+.fav{width:42px;height:42px;flex:none;border:var(--bd);background:var(--paper);display:grid;place-items:center;cursor:pointer;transition:.2s;font-size:1.05rem;color:var(--ink)}
+.fav:hover{background:var(--yellow);transform:rotate(-8deg)}
+.fav.on{background:var(--accent);color:var(--paper)}
+.fav.on .ic{fill:currentColor}
+.pc-more{grid-column:span var(--sp,2);border:2.5px dashed rgba(23,19,16,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:22px;min-height:220px;transition:.25s}
+.pc-more:hover{border-color:var(--accent);background:var(--card)}
+.pc-more b{font-family:'Lalezar';font-size:2.4rem;color:var(--accent);line-height:1}
+.pc-more small{color:var(--ink2);font-weight:600}
+@keyframes cardin{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.props.fin .pc,.props.fin .pc-more{animation:cardin .45s both}
+
+/* ==========================================================
+   آفر
+   ========================================================== */
+.offer{background:var(--accent);border-block:var(--bd);transition:background .4s}
+.stripes{height:16px;background:repeating-linear-gradient(-45deg,var(--ink) 0 14px,transparent 14px 28px);border-bottom:var(--bd)}
+.offer-in{padding:58px 0;display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center}
+.offer h2{font-family:'Lalezar';color:var(--paper);font-size:clamp(2.2rem,4.5vw,3.4rem);line-height:1.15;text-shadow:3px 3px 0 var(--ink)}
+.offer p{color:var(--paper);opacity:.92;max-width:440px;margin:8px 0 24px}
+.tgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;background:var(--card);border:2.5px solid var(--ink);padding:18px;box-shadow:8px 8px 0 var(--ink)}
+.tu{text-align:center;background:var(--paper);border:2px solid var(--ink);padding:10px 4px 6px}
+.tu b{font-family:'Lalezar';font-size:2.2rem;line-height:1.1;display:block}
+.tu span{font-size:.68rem;font-weight:700;color:var(--ink2)}
+.tnote{grid-column:1/-1;font-size:.74rem;color:var(--ink2);text-align:center;font-weight:600}
+
+/* ==========================================================
+   دسته‌بندی — شکل‌های هندسی
+   ========================================================== */
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+.cat{border:var(--bd);background:var(--card);padding:26px 18px 20px;text-align:center;cursor:pointer;transition:.25s;box-shadow:var(--sh);position:relative;overflow:hidden}
+.cat:hover{transform:translate(-4px,-4px);box-shadow:10px 10px 0 var(--ink)}
+.cat:hover .cat-shape{transform:rotate(-6deg) scale(1.05)}
+.cat-shape{width:120px;height:120px;margin:0 auto 16px;border:var(--bd);overflow:hidden;transition:.35s}
+.sh-circle{border-radius:50%}
+.sh-arch{border-radius:70px 70px 6px 6px}
+.sh-diamond{width:100px;height:100px;transform:rotate(45deg);margin:14px auto 30px}
+.cat:hover .sh-diamond{transform:rotate(45deg) scale(1.07)}
+.sh-tri{clip-path:polygon(50% 0,100% 100%,0 100%);border:0;position:relative;background:var(--yellow)}
+.sh-tri img{clip-path:polygon(50% 0,100% 100%,0 100%)}
+.cat-shape img{width:100%;height:100%;object-fit:cover}
+.cat h4{font-family:'Lalezar';font-size:1.35rem}
+.cat small{font-size:.76rem;font-weight:700;color:var(--paper);background:var(--ink);padding:1px 12px;display:inline-block;margin-top:4px}
+
+/* ==========================================================
+   تازه‌ها — ریل
+   ========================================================== */
+.rail-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:30px}
+.rail-btns{display:flex;gap:10px}
+.sqbtn{width:46px;height:46px;border:var(--bd);background:var(--card);display:grid;place-items:center;cursor:pointer;transition:.2s;font-size:1.1rem;box-shadow:3px 3px 0 var(--ink)}
+.sqbtn:hover{background:var(--ink);color:var(--paper);transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--accent)}
+.rail{display:flex;gap:26px;overflow-x:auto;padding:4px 4px 22px;cursor:grab;scrollbar-width:none;scroll-snap-type:x proximity}
+.rail::-webkit-scrollbar{display:none}
+.rail.drag{cursor:grabbing}
+.rail .pc{flex:0 0 300px;scroll-snap-align:start}
+.rail-line{height:10px;border:var(--bd);background:var(--card);position:relative}
+.rail-line span{position:absolute;inset:0;right:0;width:0;background:var(--accent);transition:width .15s}
+
+/* ==========================================================
+   نظرات
+   ========================================================== */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.quote{border:var(--bd);padding:26px 24px;box-shadow:var(--sh);position:relative;transition:.25s;background:var(--card)}
+.quote:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
+.quote .qnum{position:absolute;top:-18px;right:20px;width:42px;height:42px;border:var(--bd);display:grid;place-items:center;font-family:'Lalezar';font-size:1.3rem;color:var(--paper)}
+.quote:nth-child(1) .qnum{background:var(--accent)}
+.quote:nth-child(2) .qnum{background:var(--green)}
+.quote:nth-child(3) .qnum{background:var(--blue)}
+.quote:nth-child(4) .qnum{background:var(--yellow);color:var(--ink)}
+.quote p{font-size:.94rem;margin:8px 0 18px}
+.q-author{display:flex;align-items:center;gap:12px;border-top:2px dashed rgba(23,19,16,.25);padding-top:14px}
+.q-av{width:44px;height:44px;flex:none;border:var(--bd);display:grid;place-items:center;font-family:'Lalezar';font-size:1.1rem;background:var(--yellow)}
+.q-author b{display:block;font-size:.9rem;line-height:1.4}
+.q-author small{color:var(--ink2);font-size:.75rem}
+
+/* ==========================================================
+   ژورنال
+   ========================================================== */
+.jrow{display:grid;grid-template-columns:70px 1fr 100px 40px;align-items:center;gap:18px;padding:18px 10px;border:var(--bd);border-bottom:0;background:var(--card);cursor:pointer;transition:.2s}
+.jrow:last-of-type{border-bottom:var(--bd)}
+.jrow:hover{background:var(--yellow);transform:translateX(-6px)}
+.jrow .jn{font-family:'Lalezar';font-size:1.5rem;color:var(--accent)}
+.jrow h4{font-family:'Lalezar';font-size:1.35rem;line-height:1.3}
+.jrow .jd{font-size:.76rem;color:var(--ink2);font-weight:600;text-align:left}
+.jrow .ic{opacity:0;transition:.25s;color:var(--ink)}
+.jrow:hover .ic{opacity:1;transform:translateX(-6px)}
+
+/* ==========================================================
+   تماس
+   ========================================================== */
+.contact{border-top:var(--bd);background:var(--card)}
+.c-grid{display:grid;grid-template-columns:5fr 7fr;gap:50px;align-items:start}
+.c-phone{display:inline-flex;align-items:center;gap:14px;margin:20px 0 6px}
+.c-phone .box{width:56px;height:56px;background:var(--green);border:var(--bd);display:grid;place-items:center;color:var(--paper);font-size:1.5rem;box-shadow:4px 4px 0 var(--ink);transition:.25s}
+.c-phone:hover .box{transform:rotate(-8deg)}
+.c-phone b{font-family:'Lalezar';font-size:1.9rem;line-height:1.1;display:block}
+.c-phone small{color:var(--ink2);font-weight:600}
+.c-addr{margin-top:16px;font-size:.88rem;color:var(--ink2);border-inline-start:5px solid var(--accent);padding-inline-start:16px}
+.c-addr b{color:var(--ink)}
+.frm{background:var(--paper);border:var(--bd);padding:30px;box-shadow:8px 8px 0 var(--ink)}
+.frm-head{display:flex;justify-content:space-between;align-items:center;background:var(--ink);color:var(--paper);margin:-30px -30px 24px;padding:12px 24px}
+.frm-head b{font-family:'Lalezar';font-size:1.3rem}
+.frm-head span{font-size:.72rem;color:var(--yellow);font-weight:700}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+.fld{margin-bottom:14px}
+.fld label{display:block;font-size:.82rem;font-weight:800;margin-bottom:5px}
+.fld input,.fld select,.fld textarea{width:100%;background:var(--card);border:var(--bd);padding:11px 14px;font-size:.92rem;transition:.2s;border-radius:0;-webkit-appearance:none;appearance:none}
+.fld select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23171310' stroke-width='2'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 14px center;cursor:pointer}
+.fld textarea{resize:vertical;min-height:70px}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:0;box-shadow:4px 4px 0 var(--accent)}
+.fld .bad{border-color:var(--accent);background:#FBE7DF}
+.err{display:block;min-height:18px;font-size:.72rem;font-weight:700;color:var(--accent);padding-top:3px}
+.frm .btn{width:100%;justify-content:center}
+
+/* ==========================================================
+   پابرگ
+   ========================================================== */
+footer{background:var(--ink);color:var(--paper)}
+.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.6fr;gap:40px;padding:56px 0 40px}
+.f-grid h5{font-family:'Lalezar';font-size:1.3rem;margin-bottom:14px;color:var(--yellow)}
+.f-grid p{font-size:.86rem;opacity:.75}
+.f-grid a{display:block;font-size:.88rem;opacity:.75;padding:4px 0;transition:.2s}
+.f-grid a:hover{opacity:1;color:var(--yellow);padding-inline-start:8px}
+.f-soc{display:flex;gap:10px;margin-top:16px}
+.f-soc a{width:40px;height:40px;border:2px solid var(--paper);display:grid;place-items:center;font-size:1rem;opacity:1;padding:0;transition:.2s}
+.f-soc a:hover{background:var(--accent);border-color:var(--accent);transform:translateY(-3px)}
+.nl input{width:100%;background:transparent;border:2px solid var(--paper);padding:11px 14px;color:var(--paper);font-size:.9rem;margin-bottom:12px}
+.nl input::placeholder{color:rgba(244,238,225,.5)}
+.nl input:focus{outline:0;border-color:var(--yellow)}
+.nl .btn{background:var(--yellow);color:var(--ink);border-color:var(--yellow);box-shadow:5px 5px 0 rgba(244,238,225,.25)}
+.nl .btn:hover{background:var(--paper)}
+.f-big{font-family:'Lalezar';font-size:clamp(3.5rem,10vw,7.5rem);line-height:1;text-align:center;color:transparent;-webkit-text-stroke:1.5px rgba(244,238,225,.25);user-select:none;white-space:nowrap;overflow:hidden}
+.f-bottom{border-top:2px solid rgba(244,238,225,.2);padding:16px 0 22px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.76rem;opacity:.6}
+
+/* ==========================================================
+   ابزارهای شناور
+   ========================================================== */
+#backTop{position:fixed;bottom:24px;left:24px;width:48px;height:48px;background:var(--card);border:var(--bd);box-shadow:4px 4px 0 var(--ink);display:grid;place-items:center;cursor:pointer;font-size:1.1rem;opacity:0;visibility:hidden;transform:translateY(14px);transition:.3s;z-index:900}
+#backTop.show{opacity:1;visibility:visible;transform:none}
+#backTop:hover{background:var(--accent);color:var(--paper)}
+#toast{position:fixed;bottom:28px;left:50%;transform:translate(-50%,18px);opacity:0;pointer-events:none;background:var(--ink);color:var(--paper);border:2.5px solid var(--ink);box-shadow:6px 6px 0 var(--accent);padding:13px 22px;font-size:.9rem;font-weight:600;z-index:1700;transition:.3s;display:flex;align-items:center;gap:12px;max-width:min(92vw,520px)}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#toast .t-ic{width:26px;height:26px;flex:none;background:var(--yellow);color:var(--ink);display:grid;place-items:center;border:2px solid var(--paper)}
+
+/* ==========================================================
+   واکنش‌گرایی
+   ========================================================== */
+@media (max-width:1024px){
+  .cover-grid{grid-template-columns:1fr;gap:20px;padding-bottom:56px}
+  .hero-vis{min-height:0;margin-top:26px}
+  .pc,.pc.wide{grid-column:span 3}
+  .pr-grid{grid-template-columns:1fr 1fr}
+  .pr-item:nth-child(3){border-inline-start:0}
+  .pr-item:nth-child(1),.pr-item:nth-child(2){border-bottom:var(--bd)}
+  .cats{grid-template-columns:1fr 1fr}
+  .quotes{grid-template-columns:1fr 1fr}
+  .quote:last-child{grid-column:1/-1}
+  .offer-in{grid-template-columns:1fr}
+  .c-grid{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr 1fr}
+  .snote{display:none}
+}
+@media (max-width:940px){
+  .nav{display:none}
+  .burger{display:flex}
+  .topstrip .ts-in span:last-child{display:none}
+}
+@media (max-width:680px){
+  .container{padding:0 18px}
+  .section{padding:56px 0}
+  .pc,.pc.wide{grid-column:span 6}
+  .pc.wide{flex-direction:column}
+  .pc.wide .pc-img{width:100%;border-inline-end:0;border-bottom:var(--bd)}
+  .pr-grid{grid-template-columns:1fr}
+  .pr-item + .pr-item{border-inline-start:0;border-top:var(--bd)}
+  .stats{flex-direction:column}
+  .stat + .stat{border-inline-start:0;border-top:var(--bd)}
+  .hero-chip{position:static;margin:14px 8px 0;display:inline-flex}
+  .hero-chips{display:flex;flex-wrap:wrap}
+  .cats{grid-template-columns:1fr 1fr;gap:16px}
+  .quotes{grid-template-columns:1fr}
+  .quote:last-child{grid-column:auto}
+  .f2{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr;gap:30px}
+  .jrow{grid-template-columns:44px 1fr 30px}
+  .jrow .jd{display:none}
+  .tabs{gap:8px}
+  .tab{padding:7px 12px;font-size:.84rem}
+  .swatches{display:none}
+  .rail .pc{flex:0 0 270px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .js .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- نمادها -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-5.2-7-11a7 7 0 1 1 14 0c0 5.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+  <symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 18v-7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v7M3 18h18M6 9V6h12v3M7 12h5"/></symbol>
+  <symbol id="i-bath" viewBox="0 0 24 24"><path d="M4 12h16v2a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-2zM6 12V6a2 2 0 0 1 4 0M8 19l-1 2M16 19l1 2"/></symbol>
+  <symbol id="i-area" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><path d="M4 9h5V4M20 15h-5v5"/></symbol>
+  <symbol id="i-arr" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.6-4.8-9.3-9A5.2 5.2 0 0 1 12 6.7 5.2 5.2 0 0 1 21.3 11c-1.7 4.2-9.3 9-9.3 9z"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h4"/></symbol>
+  <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M14 6l-6 6 6 6"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M10 6l6 6-6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12l5 5L20 7"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12L21 2M17 6l3 3M14 9l2 2"/></symbol>
+</svg>
+
+<!-- پیش‌بارگذار -->
+<div id="loader">
+  <div class="ld">
+    <div class="ld-shapes"><span class="s1"></span><span class="s2"></span><span class="s3"></span></div>
+    <b>لوکس‌استودیو</b>
+    <small>EST · 1385</small>
+  </div>
+</div>
+
+<div id="progress"></div>
+
+<!-- نوار بالا -->
+<div class="topstrip">
+  <div class="container ts-in">
+    <span id="faDate">—</span>
+    <span class="mid">★ این هفته: ۶ ملک تازه ثبت شد</span>
+    <span>شنبه تا پنجشنبه · ۹ تا ۱۹</span>
+  </div>
+</div>
+
+<!-- سرصفحه -->
+<header id="siteHeader">
+  <div class="container hd-in">
+    <a class="brand" href="#home">
+      <span class="brand-mark">ل</span>
+      <span class="brand-txt"><b>لوکس‌استودیو</b><small>LUX·STUDIO</small></span>
+    </a>
+    <ul class="nav" id="navList">
+      <li><a href="#home" class="on">خانه</a></li>
+      <li><a href="#properties">املاک</a></li>
+      <li><a href="#cats">دسته‌ها</a></li>
+      <li><a href="#new">تازه‌ها</a></li>
+      <li><a href="#journal">مجله</a></li>
+      <li><a href="#contact">تماس</a></li>
+    </ul>
+    <div class="actions">
+      <div class="swatches" title="رنگ سایت را عوض کن">
+        <button class="swatch sw-red on" data-c="#E4572E" aria-label="تم گوجه‌ای"></button>
+        <button class="swatch sw-green" data-c="#1F5F4A" aria-label="تم سبز"></button>
+        <button class="swatch sw-blue" data-c="#2C5784" aria-label="تم آبی"></button>
+      </div>
+      <button class="icon-btn" id="favBtn" aria-label="علاقه‌مندی‌ها"><svg class="ic"><use href="#i-heart"/></svg><span class="cnt" id="favCount">۰</span></button>
+      <button class="icon-btn" id="reqBtn" aria-label="بازدیدها"><svg class="ic"><use href="#i-doc"/></svg><span class="cnt" id="reqCount">۰</span></button>
+      <button class="burger" id="burger" aria-label="منو"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- منوی موبایل -->
+<div class="mmenu" id="mmenu">
+  <ul class="mm-list">
+    <li><a href="#home"><i>۰۱</i>خانه</a></li>
+    <li><a href="#properties"><i>۰۲</i>املاک</a></li>
+    <li><a href="#cats"><i>۰۳</i>دسته‌ها</a></li>
+    <li><a href="#new"><i>۰۴</i>تازه‌ها</a></li>
+    <li><a href="#journal"><i>۰۵</i>مجله</a></li>
+    <li><a href="#contact"><i>۰۶</i>تماس</a></li>
+  </ul>
+  <div class="mm-tel">☎ ۰۲۱ — ۸۸ ۷۴ ۲۲ ۱۰ · تهران، الهیه، پلاک ۱۴</div>
+</div>
+
+<main>
+  <!-- جلد -->
+  <section class="cover" id="home">
+    <div class="container">
+      <div class="cover-grid">
+        <div>
+          <span class="cover-tag reveal"><span class="dot"></span> ۴۸۰+ معاملهٔ موفق از سال ۱۳۸۵</span>
+          <h1 class="reveal" style="--d:.06s">خانه‌ات را<br />اینجا <span class="mark">پیدا کن</span></h1>
+          <p class="sub reveal" style="--d:.12s">ویلا، آپارتمان و ملک تجاری — همه قیمت‌گذاری‌شده توسط کارشناس خودمان. بدون واسطه، بدون تعارف.</p>
+          <div class="cover-cta reveal" style="--d:.18s">
+            <a class="btn" href="#properties">دیدن ملک‌ها <svg class="ic"><use href="#i-arr"/></svg></a>
+            <a class="btn ghost" href="#contact">مشاوره رایگان</a>
+          </div>
+          <div class="stats reveal" id="stats" style="--d:.24s">
+            <div class="stat"><b data-n="18">۰</b><span>سال سابقه</span></div>
+            <div class="stat"><b data-n="480" data-suf="+">۰</b><span>معامله موفق</span></div>
+            <div class="stat"><b data-n="98" data-suf="٪">۰</b><span>رضایت مشتری</span></div>
+          </div>
+        </div>
+        <div class="hero-vis reveal" style="--d:.15s">
+          <span class="sun" aria-hidden="true"></span>
+          <div class="arch">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="ویلای منتخب" />
+          </div>
+          <div class="hero-chip chip-price">
+            <span class="sq"><svg class="ic"><use href="#i-key"/></svg></span>
+            <span><b>از ۱۲ میلیارد</b><small>ارزان‌ترین ملک فعال</small></span>
+          </div>
+          <div class="hero-chip chip-check">
+            <span class="ck"><svg class="ic"><use href="#i-check"/></svg></span>
+            همه ملک‌ها کارشناسی‌شده
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- نوار متحرک -->
+  <div class="marquee" aria-hidden="true"><div class="mq-track" id="mqTrack"></div></div>
+
+  <!-- ردیف تعهد -->
+  <div class="promise">
+    <div class="container pr-grid">
+      <div class="pr-item reveal"><span class="pr-num">۱</span><div><h4>بدون واسطه</h4><p>معامله مستقیم با مالک</p></div></div>
+      <div class="pr-item reveal" style="--d:.07s"><span class="pr-num">۲</span><div><h4>بازدید ۲۴ ساعته</h4><p>هر روز هفته با هماهنگی</p></div></div>
+      <div class="pr-item reveal" style="--d:.14s"><span class="pr-num">۳</span><div><h4>کارمزد شفاف</h4><p>از روز اول روی کاغذ</p></div></div>
+      <div class="pr-item reveal" style="--d:.21s"><span class="pr-num">۴</span><div><h4>تا تحویل کلید</h4><p>از قولنامه تا سند با شما</p></div></div>
+    </div>
+  </div>
+
+  <!-- املاک -->
+  <section class="section" id="properties">
+    <div class="container">
+      <div class="shead reveal">
+        <div><h2>املاکِ <i>فعال</i></h2><div class="sbar"></div></div>
+        <p class="snote">قیمت‌ها قطعی است و قابل چانه نیست — چون منصفانه‌اند.</p>
+      </div>
+      <div class="tabs reveal" id="tabs" style="--d:.06s">
+        <button class="tab on" data-f="all">همه <em id="cAll">۰</em></button>
+        <button class="tab" data-f="villa">ویلا <em id="cVilla">۰</em></button>
+        <button class="tab" data-f="apt">آپارتمان <em id="cApt">۰</em></button>
+        <button class="tab" data-f="com">تجاری <em id="cCom">۰</em></button>
+      </div>
+      <div class="props reveal" id="props" style="--d:.12s"></div>
+    </div>
+  </section>
+
+  <!-- آفر -->
+  <section class="offer" id="offer">
+    <div class="stripes"></div>
+    <div class="container offer-in">
+      <div class="reveal">
+        <h2>۱۰٪ تخفیف، فقط برای اولین خرید</h2>
+        <p>تا پایان مهلت زیر، اولین معامله‌ات ۱۰٪ سبک‌تر تمام می‌شود. بدون شرط پنهان.</p>
+        <a class="btn cream" href="#contact">شرایط را بپرس <svg class="ic"><use href="#i-arr"/></svg></a>
+      </div>
+      <div class="tgrid reveal" style="--d:.1s">
+        <div class="tu"><b id="tD">۰</b><span>روز</span></div>
+        <div class="tu"><b id="tH">۰</b><span>ساعت</span></div>
+        <div class="tu"><b id="tM">۰</b><span>دقیقه</span></div>
+        <div class="tu"><b id="tS">۰</b><span>ثانیه</span></div>
+        <div class="tnote">بعد از مهلت، جدول قیمت‌ها آپدیت می‌شود.</div>
+      </div>
+    </div>
+    <div class="stripes" style="border-bottom:0;border-top:var(--bd)"></div>
+  </section>
+
+  <!-- دسته‌ها -->
+  <section class="section" id="cats">
+    <div class="container">
+      <div class="shead reveal">
+        <div><h2>دسته‌بندی به <i>سبک هندسی</i></h2><div class="sbar"></div></div>
+        <p class="snote">روی هر شکل کلیک کن؛ املاک همان دسته زیرش فیلتر می‌شود.</p>
+      </div>
+      <div class="cats">
+        <div class="cat reveal" data-f="villa" data-name="ویلا">
+          <div class="cat-shape sh-circle"><img loading="lazy" src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&q=70" alt="" /></div>
+          <h4>ویلا</h4><small>۴۲ ملک</small>
+        </div>
+        <div class="cat reveal" style="--d:.07s" data-f="apt" data-name="آپارتمان">
+          <div class="cat-shape sh-arch"><img loading="lazy" src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&q=70" alt="" /></div>
+          <h4>آپارتمان</h4><small>۸۶ ملک</small>
+        </div>
+        <div class="cat reveal" style="--d:.14s" data-f="com" data-name="تجاری">
+          <div class="cat-shape sh-tri"><img loading="lazy" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&q=70" alt="" /></div>
+          <h4>تجاری</h4><small>۲۴ ملک</small>
+        </div>
+        <div class="cat reveal" style="--d:.21s" data-f="all" data-name="همه ملک‌ها">
+          <div class="cat-shape sh-diamond"><img loading="lazy" src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&q=70" alt="" /></div>
+          <h4>زمین و باغ</h4><small>۳۰ ملک</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- تازه‌ها -->
+  <section class="section" id="new" style="background:var(--card);border-block:var(--bd)">
+    <div class="container">
+      <div class="rail-head reveal">
+        <div><h2 class="h-font" style="font-size:clamp(2rem,4vw,3rem)">تازه رسیده‌ها</h2><div class="sbar"></div></div>
+        <div class="rail-btns">
+          <button class="sqbtn" id="railPrev" aria-label="قبلی"><svg class="ic"><use href="#i-chev-r"/></svg></button>
+          <button class="sqbtn" id="railNext" aria-label="بعدی"><svg class="ic"><use href="#i-chev-l"/></svg></button>
+        </div>
+      </div>
+      <div class="rail reveal" id="rail"></div>
+      <div class="rail-line"><span id="railFill"></span></div>
+    </div>
+  </section>
+
+  <!-- نظرات -->
+  <section class="section" id="quotes">
+    <div class="container">
+      <div class="shead reveal">
+        <div><h2>مشتری‌ها چی <i>می‌گویند</i></h2><div class="sbar"></div></div>
+        <p class="snote">بعد از تحویل هر کلید، از مالک یک جمله می‌گیریم. همین.</p>
+      </div>
+      <div class="quotes">
+        <div class="quote reveal"><span class="qnum">۱</span><p>»سه‌شنبه تماس گرفتم، پنجشنبه قرارداد بستیم. این‌قدر سریع بود که هنوز باورم نشده.«</p><div class="q-author"><span class="q-av">م</span><div><b>محمدرضا ط.</b><small>خریدار ویلا — لواسان</small></div></div></div>
+        <div class="quote reveal" style="--d:.08s"><span class="qnum">۲</span><p>»شش سال دنبال خانه‌ای بودم که نور از دو طرفش بخوره. هفته دوم پیداش کردند.«</p><div class="q-author"><span class="q-av">س</span><div><b>سارا ک.</b><small>ساکن برج ارس</small></div></div></div>
+        <div class="quote reveal" style="--d:.16s"><span class="qnum">۳</span><p>»برای فروش ملک پدربزرگ بیشتر از خودمون پیگیری کردند. کارمزدش هم همون چیزی بود که اول گفتند.«</p><div class="q-author"><span class="q-av">ن</span><div><b>نرگس ا.</b><small>فروشنده ملک کلنگی</small></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- مجله -->
+  <section class="section" id="journal" style="padding-top:0">
+    <div class="container">
+      <div class="shead reveal">
+        <div><h2>مجلهٔ <i>استودیو</i></h2><div class="sbar"></div></div>
+        <p class="snote">کوتاه و کاربردی. بیشتر از این حوصله نداریم، شما هم ندارید.</p>
+      </div>
+      <div class="reveal">
+        <div class="jrow" data-demo="این مطلب جمعه منتشر می‌شود"><span class="jn">۰۱</span><h4>۱۰ نکته برای خرید ویلای اول</h4><span class="jd">۱۲ تیر ۱۴۰۴</span><svg class="ic"><use href="#i-arr"/></svg></div>
+        <div class="jrow" data-demo="این مطلب جمعه منتشر می‌شود"><span class="jn">۰۲</span><h4>کجا سرمایه‌گذاری کنیم؟</h4><span class="jd">۵ تیر ۱۴۰۴</span><svg class="ic"><use href="#i-arr"/></svg></div>
+        <div class="jrow" data-demo="این مطلب جمعه منتشر می‌شود"><span class="jn">۰۳</span><h4>قولنامه تا سند، بدون دردسر</h4><span class="jd">۲۸ خرداد ۱۴۰۴</span><svg class="ic"><use href="#i-arr"/></svg></div>
+        <div class="jrow" data-demo="این مطلب جمعه منتشر می‌شود"><span class="jn">۰۴</span><h4>چهار اشتباه رایج خریداران اول</h4><span class="jd">۲۰ خرداد ۱۴۰۴</span><svg class="ic"><use href="#i-arr"/></svg></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- تماس -->
+  <section class="contact section" id="contact">
+    <div class="container c-grid">
+      <div class="reveal">
+        <h2 class="h-font" style="font-size:clamp(2rem,4vw,3rem)">قرار بازدید بگذار</h2>
+        <div class="sbar"></div>
+        <p style="color:var(--ink2);max-width:380px;margin-top:14px">فرم را پر کن یا زنگ بزن. حداکثر تا ۲۴ ساعت بعد کارشناس همان محدوده تماس می‌گیرد.</p>
+        <a class="c-phone" href="tel:02188742210">
+          <span class="box"><svg class="ic"><use href="#i-phone"/></svg></span>
+          <span><b>۰۲۱ — ۸۸ ۷۴ ۲۲ ۱۰</b><small>شنبه تا پنجشنبه، ۹ تا ۱۹</small></span>
+        </a>
+        <div class="c-addr"><b>نشانی:</b> تهران، الهیه، خیابان مریم، نبش کوچه سوم، پلاک ۱۴</div>
+      </div>
+      <form class="frm reveal" id="visitForm" novalidate style="--d:.1s">
+        <div class="frm-head"><b>برگه درخواست بازدید</b><span>فرم ۷-الف</span></div>
+        <div class="f2">
+          <div class="fld">
+            <label for="fName">نام و نام خانوادگی</label>
+            <input id="fName" type="text" autocomplete="name" />
+            <span class="err" data-for="fName"></span>
+          </div>
+          <div class="fld">
+            <label for="fPhone">شماره تماس</label>
+            <input id="fPhone" type="tel" inputmode="tel" placeholder="۰۹۱۲ ···" autocomplete="tel" />
+            <span class="err" data-for="fPhone"></span>
+          </div>
+        </div>
+        <div class="fld">
+          <label for="fType">نوع ملک</label>
+          <select id="fType">
+            <option value="villa">ویلا / باغ‌ویلا</option>
+            <option value="apt">آپارتمان / پنت‌هاوس</option>
+            <option value="com">دفتر / تجاری</option>
+            <option value="land">زمین / کلنگی</option>
+          </select>
+        </div>
+        <div class="fld">
+          <label for="fNote">توضیحات (اختیاری)</label>
+          <textarea id="fNote" rows="3" placeholder="مثلاً: زعفرانیه، نورگیر، تا سقف ۲۵ میلیارد…"></textarea>
+        </div>
+        <button type="submit" class="btn">ثبت درخواست <svg class="ic"><use href="#i-arr"/></svg></button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!-- پابرگ -->
+<footer>
+  <div class="container">
+    <div class="f-grid">
+      <div>
+        <h5>لوکس‌استودیو</h5>
+        <p>از سال ۱۳۸۵ کم می‌فروشیم و درست می‌فروشیم. هر ملک این سایت را قبل از ثبت، خودمان دیده‌ایم.</p>
+        <div class="f-soc">
+          <a href="#" data-demo="اینستاگرام — به‌زودی" aria-label="اینستاگرام">◎</a>
+          <a href="#" data-demo="تلگرام — به‌زودی" aria-label="تلگرام">✈</a>
+          <a href="#" data-demo="واتساپ — به‌زودی" aria-label="واتساپ">✆</a>
+        </div>
+      </div>
+      <div>
+        <h5>فهرست</h5>
+        <a href="#home">خانه</a><a href="#properties">املاک</a><a href="#cats">دسته‌ها</a><a href="#journal">مجله</a><a href="#contact">تماس</a>
+      </div>
+      <div>
+        <h5>خدمات</h5>
+        <a href="#contact">مشاوره خرید</a><a href="#contact">کارشناسی قیمت</a><a href="#contact">مدیریت اجاره</a><a href="#contact">طراحی داخلی</a>
+      </div>
+      <div class="nl">
+        <h5>خبرنامه جمعه‌ها</h5>
+        <p style="margin-bottom:12px">هر جمعه یک ایمیل: ملک‌های تازه هفته. همین و بس.</p>
+        <form id="nlForm" novalidate>
+          <input type="email" id="nlEmail" placeholder="ایمیل شما" />
+          <button type="submit" class="btn">عضویت</button>
+        </form>
+      </div>
+    </div>
+    <div class="f-big">LUX·STUDIO</div>
+    <div class="f-bottom">
+      <span>© ۱۴۰۴ لوکس‌استودیو — همه حقوق محفوظ است.</span>
+      <span>ساخته‌شده با رنگ تخت، خط ضخیم و کمی شوخ‌طبعی.</span>
+    </div>
+  </div>
+</footer>
+
+<button id="backTop" aria-label="بازگشت به بالا"><svg class="ic"><use href="#i-up"/></svg></button>
+<div id="toast" role="status"><span class="t-ic"><svg class="ic"><use href="#i-check"/></svg></span><span id="toastMsg"></span></div>
+
+<script>
+/* ============ ابزار ============ */
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const toFa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+const faToEn = s => s.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+
+/* تاریخ شمسی */
+try{
+  $('#faDate').textContent = new Intl.DateTimeFormat('fa-IR',{weekday:'long',day:'numeric',month:'long'}).format(new Date());
+}catch(e){}
+
+/* توست */
+let toastTimer;
+function toast(msg){
+  const t = $('#toast');
+  $('#toastMsg').textContent = msg;
+  t.classList.remove('show'); void t.offsetWidth;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2800);
+}
+
+/* ============ پیش‌بارگذار ============ */
+let loaderDone = false;
+function finishLoad(){
+  if(loaderDone) return; loaderDone = true;
+  $('#loader').classList.add('done');
+  initReveals(); observeStats();
+}
+window.addEventListener('load', ()=>setTimeout(finishLoad, 900));
+setTimeout(finishLoad, 2200);
+
+/* ظهور تدریجی */
+function initReveals(){
+  const io = new IntersectionObserver(es=>{
+    es.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+  },{threshold:.1});
+  $$('.reveal').forEach(el=>io.observe(el));
+}
+
+/* اسکرول */
+let ticking = false;
+window.addEventListener('scroll', ()=>{
+  if(ticking) return; ticking = true;
+  requestAnimationFrame(()=>{
+    const h = document.documentElement;
+    $('#progress').style.width = (h.scrollTop/(h.scrollHeight-h.clientHeight||1)*100)+'%';
+    $('#backTop').classList.toggle('show', h.scrollTop > 500);
+    ticking = false;
+  });
+},{passive:true});
+ $('#backTop').addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+/* اسکرول‌اسپای */
+const spy = new IntersectionObserver(es=>{
+  es.forEach(en=>{
+    if(!en.isIntersecting) return;
+    $$('.nav a').forEach(a=>a.classList.toggle('on', a.getAttribute('href')==='#'+en.target.id));
+  });
+},{rootMargin:'-35% 0px -55% 0px'});
+['home','properties','cats','new','journal','contact'].forEach(id=>{
+  const el = document.getElementById(id); if(el) spy.observe(el);
+});
+
+/* منوی موبایل */
+ $('#burger').addEventListener('click', ()=>document.body.classList.toggle('menu-open'));
+ $$('.mm-list a').forEach(a=>a.addEventListener('click', ()=>document.body.classList.remove('menu-open')));
+
+/* ===== لکه‌های رنگ — تعویض تم زنده ===== */
+ $$('.swatch').forEach(s=>s.addEventListener('click', ()=>{
+  document.documentElement.style.setProperty('--accent', s.dataset.c);
+  $$('.swatch').forEach(x=>x.classList.remove('on'));
+  s.classList.add('on');
+  toast('تم عوض شد! ✓');
+}));
+
+/* ===== نوار متحرک ===== */
+const mqItems = [
+  ['جدید','پنت‌هاوس ارس — ۳۲۰ متر'],['تخفیف','۱۰٪ اولین خرید'],
+  ['فروخته شد','برج ارس — ۱۸۵ متر'],['بازدید امروز','ویلای شمشک، ساعت ۱۷'],
+  ['جدید','باغ‌ویلای لواسان — ۴۲۰ متر'],['☎','۰۲۱ ۸۸ ۷۴ ۲۲ ۱۰'],
+];
+(function(){
+  const half = mqItems.map(([b,t])=>`<span class="mq-item"><b>${b}</b>${t}</span><span class="mq-sq"></span>`).join('');
+  $('#mqTrack').innerHTML = half + half;
+})();
+
+/* ============ داده املاک ============ */
+const ESTATES = [
+  {id:1, code:'۰۱', cat:'villa', title:'ویلای جنگلی لواسان',   loc:'لواسان، جاده لشکرک',    area:'۴۲۰ متر', beds:5, baths:4, price:'۲۷',   old:'۳۰', disc:10, badge:'ویژه',   img:'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=75'},
+  {id:2, code:'۰۲', cat:'apt',   title:'پنت‌هاوس دوبلکس ارس',  loc:'زعفرانیه، وفامنش',      area:'۳۲۰ متر', beds:4, baths:4, price:'۳۸',   old:'۴۵', disc:15, badge:'ویژه',   img:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=75'},
+  {id:3, code:'۰۳', cat:'villa', title:'ویلای ساحلی مرجان',    loc:'کیش، ساحل مرجان',       area:'۵۵۰ متر', beds:6, baths:6, price:'۴۵',   old:'۵۲', disc:13, badge:'',       img:'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=75'},
+  {id:4, code:'۰۴', cat:'apt',   title:'آپارتمان وفامنش',      loc:'زعفرانیه',              area:'۲۱۵ متر', beds:3, baths:3, price:'۱۸',   old:'',   disc:0,  badge:'',       img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=75'},
+  {id:5, code:'۰۵', cat:'villa', title:'ویلای کوهپایه شمشک',   loc:'شمشک، کوهپایه ازنا',    area:'۳۸۰ متر', beds:4, baths:4, price:'۳۲',   old:'',   disc:0,  badge:'',       img:'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=75'},
+  {id:6, code:'۰۶', cat:'apt',   title:'برج مسکونی ارس',       loc:'سعادت‌آباد، مخابرات',    area:'۱۸۵ متر', beds:3, baths:2, price:'۱۴',   old:'',   disc:0,  badge:'', sold:true, img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=75'},
+  {id:7, code:'۰۷', cat:'com',   title:'دفتر مرکزی بهشتی',     loc:'خیابان بهشتی',          area:'۱۸۰ متر', beds:0, baths:2, price:'۱۲',   old:'۱۴', disc:14, badge:'',       img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=75'},
+  {id:8, code:'۰۸', cat:'com',   title:'واحد تجاری ولیعصر',    loc:'ولیعصر، نبش کشاورز',    area:'۹۰ متر',  beds:0, baths:2, price:'۷٫۵',  old:'',   disc:0,  badge:'',       img:'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=75'},
+];
+
+const wishes = new Set();
+let reqN = 0;
+
+function cardHTML(p, wide=false){
+  const specs = [
+    p.beds ? `<span><svg class="ic"><use href="#i-bed"/></svg>${toFa(p.beds)} خواب</span>` : '',
+    p.baths ? `<span><svg class="ic"><use href="#i-bath"/></svg>${toFa(p.baths)} سرویس</span>` : '',
+    `<span><svg class="ic"><use href="#i-area"/></svg>${p.area}</span>`
+  ].join('');
+  return `
+  <article class="pc${p.sold?' sold':''}${wide?' wide':''}">
+    <div class="pc-img">
+      <img loading="lazy" src="${p.img}" alt="${p.title}" />
+      <span class="pc-code">${p.code}</span>
+      ${p.badge && !p.sold ? `<span class="pc-badge">${p.badge}</span>` : ''}
+      ${p.sold ? `<span class="sold-tag">فروخته شد</span>` : ''}
+    </div>
+    <div class="pc-body">
+      <span class="pc-loc"><svg class="ic"><use href="#i-pin"/></svg>${p.loc}</span>
+      <h3>${p.title}</h3>
+      <div class="specs">${specs}</div>
+      <div class="prow">
+        <span class="pr">${p.price}</span><span class="pu">میلیارد تومان</span>
+        ${p.old ? `<s>${p.old}</s>` : ''}${p.disc ? `<span class="disc">${toFa(p.disc)}٪</span>` : ''}
+      </div>
+      <div class="pc-foot">
+        ${p.sold
+          ? `<span class="pc-loc" style="font-weight:700">صاحب جدید پیدا کرد ✓</span>`
+          : `<button class="req" data-title="${p.title}">رزرو بازدید</button>`}
+        <button class="fav${wishes.has(p.id)?' on':''}" data-id="${p.id}" aria-label="علاقه‌مندی"><svg class="ic"><use href="#i-heart"/></svg></button>
+      </div>
+    </div>
+  </article>`;
+}
+
+/* شبکه با ریتم ۴+۲ */
+const grid = $('#props');
+let curFilter = 'all';
+function renderGrid(animate=false){
+  const list = ESTATES.filter(p => curFilter==='all' || p.cat===curFilter);
+  let units = 0, html = '';
+  list.forEach((p,i)=>{
+    const wide = i % 4 === 0;          /* هر کارت اولِ سطر، عریض */
+    units += wide ? 4 : 2;
+    html += cardHTML(p, wide);
+  });
+  const rem = (6 - (units % 6)) % 6;
+  if(rem){
+    html += `<a class="pc-more" href="#contact" style="--sp:${rem}">
+      <b>${toFa(104)}+</b><small>ملک دیگر در آرشیو دفتر</small>
+      <span class="btn ghost" style="padding:9px 18px;font-size:.82rem">بپرس</span></a>`;
+  }
+  if(!list.length){
+    html += `<div class="pc-more" style="--sp:6"><b>—</b><small>فعلاً این دسته خالی است.</small></div>`;
+  }
+  grid.innerHTML = html;
+  if(animate){ grid.classList.add('fin'); setTimeout(()=>grid.classList.remove('fin'), 700); }
+}
+function setCounts(){
+  $('#cAll').textContent   = toFa(ESTATES.length);
+  $('#cVilla').textContent = toFa(ESTATES.filter(p=>p.cat==='villa').length);
+  $('#cApt').textContent   = toFa(ESTATES.filter(p=>p.cat==='apt').length);
+  $('#cCom').textContent   = toFa(ESTATES.filter(p=>p.cat==='com').length);
+}
+setCounts(); renderGrid();
+
+ $('#tabs').addEventListener('click', e=>{
+  const b = e.target.closest('.tab'); if(!b) return;
+  $$('.tab').forEach(t=>t.classList.remove('on'));
+  b.classList.add('on'); curFilter = b.dataset.f;
+  renderGrid(true);
+});
+
+/* کلیک روی دسته‌های هندسی → فیلتر */
+ $$('.cat').forEach(c=>c.addEventListener('click', ()=>{
+  curFilter = c.dataset.f;
+  $$('.tab').forEach(t=>t.classList.toggle('on', t.dataset.f===curFilter));
+  renderGrid(true);
+  document.getElementById('properties').scrollIntoView({behavior:'smooth'});
+  toast(`دسته «${c.dataset.name}» فیلتر شد`);
+}));
+
+/* علاقه‌مندی و بازدید — تفویض رویداد */
+document.addEventListener('click', e=>{
+  const fav = e.target.closest('.fav');
+  if(fav){
+    const id = +fav.dataset.id;
+    if(wishes.has(id)){ wishes.delete(id); fav.classList.remove('on'); toast('از علاقه‌مندی‌ها حذف شد'); }
+    else{ wishes.add(id); fav.classList.add('on'); toast('به علاقه‌مندی‌ها اضافه شد ♥'); }
+    $('#favCount').textContent = toFa(wishes.size);
+    return;
+  }
+  const req = e.target.closest('.req');
+  if(req){
+    reqN++; $('#reqCount').textContent = toFa(reqN);
+    toast(`بازدید «${req.dataset.title}» رزرو شد — تا ۲۴ ساعت تماس می‌گیریم`);
+  }
+});
+ $('#favBtn').addEventListener('click', ()=>toast(wishes.size ? `فهرست شما: ${toFa(wishes.size)} ملک` : 'هنوز چیزی نشان نکرده‌ای؛ قلب هر کارت را بزن'));
+ $('#reqBtn').addEventListener('click', ()=>toast(reqN ? `${toFa(reqN)} بازدید رزرو کرده‌ای` : 'هنوز بازدیدی رزرو نکرده‌ای'));
+
+/* ===== ریل تازه‌ها ===== */
+const rail = $('#rail');
+rail.innerHTML = [2,5,7,1,3,8].map(id=>cardHTML(ESTATES.find(p=>p.id===id))).join('');
+ $('#railNext').addEventListener('click', ()=>rail.scrollBy({left:-340,behavior:'smooth'}));
+ $('#railPrev').addEventListener('click', ()=>rail.scrollBy({left: 340,behavior:'smooth'}));
+function railFill(){
+  const max = rail.scrollWidth - rail.clientWidth;
+  $('#railFill').style.width = (max ? Math.abs(rail.scrollLeft)/max*100 : 0) + '%';
+}
+rail.addEventListener('scroll', railFill, {passive:true});
+window.addEventListener('resize', railFill);
+railFill();
+/* کشیدن با ماوس */
+let dragging=false, dx0=0, sl0=0, moved=0;
+rail.addEventListener('pointerdown', e=>{
+  dragging=true; moved=0; dx0=e.clientX; sl0=rail.scrollLeft;
+  rail.classList.add('drag'); rail.setPointerCapture(e.pointerId);
+});
+rail.addEventListener('pointermove', e=>{
+  if(!dragging) return;
+  const dx = e.clientX - dx0; moved = Math.max(moved, Math.abs(dx));
+  rail.scrollLeft = sl0 + dx;
+});
+['pointerup','pointercancel'].forEach(ev=>rail.addEventListener(ev, ()=>{dragging=false; rail.classList.remove('drag');}));
+rail.addEventListener('click', e=>{ if(moved>8){e.preventDefault();e.stopPropagation();} }, true);
+
+/* ===== شمارش معکوس ===== */
+const deadline = Date.now() + (2*86400 + 11*3600 + 24*60 + 40) * 1000;
+function countdown(){
+  const s = Math.max(0, Math.floor((deadline - Date.now())/1000));
+  $('#tD').textContent = toFa(String(Math.floor(s/86400)).padStart(2,'0'));
+  $('#tH').textContent = toFa(String(Math.floor(s%86400/3600)).padStart(2,'0'));
+  $('#tM').textContent = toFa(String(Math.floor(s%3600/60)).padStart(2,'0'));
+  $('#tS').textContent = toFa(String(s%60).padStart(2,'0'));
+}
+countdown(); setInterval(countdown, 1000);
+
+/* ===== آمار ===== */
+function animateCount(el){
+  const target = +el.dataset.n, suf = el.dataset.suf || '';
+  const t0 = performance.now(), dur = 1400;
+  (function step(t){
+    const p = Math.min(1,(t-t0)/dur);
+    el.textContent = toFa(Math.round(target*(1-Math.pow(1-p,3)))) + suf;
+    if(p<1) requestAnimationFrame(step);
+  })(t0);
+}
+function observeStats(){
+  const el = $('#stats'); if(!el) return;
+  const io = new IntersectionObserver(es=>{
+    if(es[0].isIntersecting){ el.querySelectorAll('b[data-n]').forEach(animateCount); io.disconnect(); }
+  },{threshold:.4});
+  io.observe(el);
+}
+
+/* ===== فرم‌ها ===== */
+ $('#visitForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const name = $('#fName'), phone = $('#fPhone');
+  let ok = true;
+  const setErr = (inp,msg)=>{
+    inp.classList.toggle('bad', !!msg);
+    document.querySelector(`.err[data-for="${inp.id}"]`).textContent = msg;
+    if(msg) ok = false;
+  };
+  setErr(name, name.value.trim().length>=3 ? '' : 'نام را کامل بنویس.');
+  const ph = faToEn(phone.value).replace(/[^\d]/g,'');
+  setErr(phone, /^09\d{9}$/.test(ph) ? '' : 'مثل ۰۹۱۲۳۴۵۶۷۸۹ بنویس.');
+  if(!ok){ toast('چند جای فرم خالی مانده', false); return; }
+  reqN++; $('#reqCount').textContent = toFa(reqN);
+  toast('ثبت شد! تا ۲۴ ساعت تماس می‌گیریم ✓');
+  e.target.reset();
+});
+ $('#nlForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const em = $('#nlEmail').value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ toast('ایمیل درست نیست'); return; }
+  toast('عضو خبرنامه شدی ✓'); e.target.reset();
+});
+
+/* لینک‌های نمایشی */
+document.addEventListener('click', e=>{
+  const d = e.target.closest('[data-demo]');
+  if(d){ e.preventDefault(); toast(d.dataset.demo); }
+});
+
+console.log('%c■ لوکس‌استودیو — باهاوس Edition','background:#171310;color:#F5B82E;padding:6px 14px;font-weight:bold');
+</script>
+</body>
+</html>
