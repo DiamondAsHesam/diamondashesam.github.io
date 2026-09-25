@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>کافه تک‌تک — بگیرش، بنوشش، تکرارش کن</title>
+<meta name="description" content="کافه تک‌تک — قهوه تخصصی، صبحانه و دسر با انرژی کامل. سفارش در ۳ دقیقه یا پولش برنمی‌گرده! علی‌آباد کتول.">
+<meta property="og:title" content="کافه تک‌تک — بگیرش، بنوشش، تکرارش کن">
+<meta property="og:description" content="قهوه تخصصی، صبحانه داغِ داغ، دسرهای خطرناکاً خوشمزه ☕🔥">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23FF8A1E'/><text x='16' y='23' font-size='16' text-anchor='middle' fill='%23241708' font-family='sans-serif' font-weight='bold'>ت</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   کافه تک‌تک — سبک: رترو گرووی · تایپ چاق · موج · استیکر
+   ═══════════════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --orange:#FF8A1E; --orange2:#F07300; --orange-s:#FFF0DC;
+  --cream:#FFF6E6; --cream2:#FCEBD2;
+  --dark:#241708; --dark2:#2E1D0D; --brown:#5C3A21;
+  --ink:#2A1A0A; --ink2:#7A6752; --faint:#A89377;
+  --red:#E4572E; --grn:#3E8E5A;
+  --line:rgba(42,26,10,.14); --line2:rgba(42,26,10,.3);
+  --fa:'Vazirmatn',sans-serif; --disp:'Lalezar',cursive;
+  --ez:cubic-bezier(.22,1,.36,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{background:var(--cream);color:var(--ink);font-family:var(--fa);line-height:1.9;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;padding-bottom:78px}
+::selection{background:var(--orange);color:var(--dark)}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;border:0;background:none;color:inherit;cursor:pointer}
+img{display:block;max-width:100%}
+.wrap{max-width:1120px;margin:0 auto;padding:0 1.4rem}
+main{position:relative;z-index:2}
+.fa-num{font-variant-numeric:tabular-nums}
+@media(min-width:900px){body{padding-bottom:0}}
+
+/* ═══ اسپلش ═══ */
+#splash{position:fixed;inset:0;z-index:500;background:var(--dark);display:grid;place-items:center;transition:opacity .5s,visibility .5s}
+#splash.off{opacity:0;visibility:hidden;pointer-events:none}
+#splash .em{font-size:3rem;display:flex;gap:1rem}
+#splash .em span{animation:bnc .6s var(--spring) infinite alternate;animation-delay:calc(var(--i)*.12s)}
+@keyframes bnc{to{transform:translateY(-18px)}}
+
+/* ═══ نوار بالا ═══ */
+.topbar{background:var(--dark);color:var(--cream);font-size:.72rem;font-weight:600}
+.topbar .wrap{display:flex;justify-content:space-between;gap:1rem;padding:.45rem 1.4rem;flex-wrap:wrap}
+.topbar b{color:var(--orange)}
+@media(max-width:640px){.topbar .hide-s{display:none}}
+
+/* ═══ هدر ═══ */
+header{position:sticky;top:0;z-index:300;background:var(--cream);border-bottom:2px solid var(--line);transition:.3s}
+header.solid{box-shadow:0 8px 30px -12px rgba(42,26,10,.25)}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 0}
+.logo{font-family:var(--disp);font-size:1.55rem;color:var(--dark);display:flex;align-items:center;gap:.45rem;line-height:1}
+.logo .dot{width:2.1rem;height:2.1rem;border-radius:12px;background:var(--orange);border:2.5px solid var(--dark);
+  display:grid;place-items:center;font-size:1.1rem;box-shadow:3px 3px 0 var(--dark);transition:.3s var(--spring)}
+.logo:hover .dot{transform:rotate(-12deg)}
+.hnav{display:flex;gap:.2rem}
+.hnav a{font-size:.9rem;font-weight:700;color:var(--ink2);padding:.45rem .95rem;border-radius:40px;transition:.25s}
+.hnav a:hover{background:var(--orange-s);color:var(--ink)}
+.h-acts{display:flex;align-items:center;gap:.55rem}
+.cartbtn{position:relative;background:var(--dark);color:var(--cream);border-radius:40px;
+  padding:.55rem 1.2rem;font-size:.85rem;font-weight:800;display:flex;align-items:center;gap:.45rem;transition:.3s var(--ez)}
+.cartbtn:hover{background:var(--orange);color:var(--dark);transform:translateY(-2px)}
+.cartbtn .badge{position:absolute;top:-7px;left:-7px;min-width:21px;height:21px;background:var(--orange);
+  color:var(--dark);border:2px solid var(--dark);border-radius:20px;font-size:.62rem;font-weight:900;
+  display:grid;place-items:center;padding:0 4px;transform:scale(0);transition:.3s var(--spring)}
+.cartbtn .badge.on{transform:scale(1)}
+.burger{display:none;width:42px;height:42px;border:2.5px solid var(--dark);border-radius:12px;
+  flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.burger span{width:20px;height:3px;background:var(--dark);border-radius:2px;transition:.3s}
+body.menu-open .burger span:first-child{transform:translateY(4px) rotate(45deg)}
+body.menu-open .burger span:last-child{transform:translateY(-4px) rotate(-45deg)}
+@media(max-width:860px){.hnav{display:none}.burger{display:flex}}
+
+/* منوی موبایل */
+.mmenu{position:fixed;inset:0;background:var(--dark);z-index:250;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:.4rem;transform:translateY(-102%);transition:transform .5s var(--ez)}
+body.menu-open .mmenu{transform:none}
+body.menu-open{overflow:hidden}
+.mmenu a{font-family:var(--disp);font-size:2.4rem;color:var(--cream);padding:.3rem 1rem;transition:.25s}
+.mmenu a:hover{color:var(--orange)}
+.mmenu .mtel{font-family:var(--fa);font-size:.95rem;font-weight:700;color:var(--orange);margin-top:1.2rem}
+
+/* ═══ هیرو ═══ */
+.hero{background:var(--dark);color:var(--cream);padding:4.2rem 1.4rem 5.5rem;text-align:center;position:relative;overflow:hidden}
+.hero .kick{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,246,230,.08);
+  border:1.5px dashed rgba(255,138,30,.55);border-radius:40px;padding:.4rem 1.2rem;
+  font-size:.78rem;font-weight:700;color:var(--orange);margin-bottom:1.6rem}
+.hero h1{font-family:var(--disp);font-weight:400;font-size:clamp(3.4rem,12vw,8.2rem);
+  line-height:1.02;position:relative;z-index:1}
+.hero h1 .l2{color:var(--orange);display:block;position:relative;z-index:1}
+/* استیکرها */
+.stk{position:absolute;z-index:3;font-family:var(--disp);font-size:clamp(.95rem,2vw,1.25rem);
+  background:var(--orange);color:var(--dark);border:2.5px solid var(--dark);border-radius:40px;
+  padding:.3rem 1.1rem;box-shadow:4px 4px 0 rgba(0,0,0,.4);pointer-events:none;
+  animation:stkfloat 4s ease-in-out infinite alternate}
+.stk.s1{top:16%;right:12%;transform:rotate(-9deg);background:var(--cream)}
+.stk.s2{top:52%;left:9%;transform:rotate(7deg);animation-delay:-2s}
+.stk.s3{bottom:14%;right:16%;transform:rotate(-5deg);background:var(--cream);animation-delay:-1s;font-family:var(--fa);font-weight:900;font-size:.8rem}
+@keyframes stkfloat{to{transform:translateY(-9px) rotate(3deg)}}
+@media(max-width:760px){.stk{display:none}}
+/* تصویر روی تیتر — ⚠️ عکس خودت را این‌جا بگذار */
+.hero-img{width:min(300px,62vw);aspect-ratio:1/1.05;object-fit:cover;border-radius:28px;
+  border:4px solid var(--orange);box-shadow:10px 12px 0 rgba(0,0,0,.45);
+  margin:1.4rem auto .2rem;display:block;position:relative;z-index:2;
+  transform:rotate(-2.5deg);transition:.5s var(--spring)}
+.hero-img:hover{transform:rotate(0) scale(1.03)}
+.hero .sub{max-width:430px;margin:1.2rem auto 1.8rem;color:rgba(255,246,230,.68);font-size:.98rem}
+.hero-ctas{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:40px;padding:.85rem 1.9rem;
+  font-weight:800;font-size:.94rem;transition:.3s var(--ez);border:2.5px solid transparent}
+.btn-o{background:var(--orange);color:var(--dark);border-color:var(--dark);box-shadow:0 5px 0 var(--dark)}
+.btn-o:hover{transform:translateY(-3px);box-shadow:0 8px 0 var(--dark);background:#FFA040}
+.btn-c{background:var(--cream);color:var(--dark);border-color:var(--cream)}
+.btn-c:hover{transform:translateY(-3px);background:#fff}
+.btn-d{background:var(--dark);color:var(--cream);border-color:var(--dark);box-shadow:0 5px 0 rgba(0,0,0,.35)}
+.btn-d:hover{transform:translateY(-3px);background:var(--dark2)}
+
+/* ═══ موج‌ها ═══ */
+.wave{line-height:0;direction:ltr}
+.wave svg{width:100%;height:clamp(34px,6vw,64px);display:block}
+.wave.flip svg{transform:scaleY(-1)}
+
+/* ═══ چرا تک‌تک (داخل بلوک تیره) ═══ */
+.why{background:var(--dark);color:var(--cream);padding:1.5rem 1.4rem 4.5rem;text-align:center}
+.why h2{font-family:var(--disp);font-size:clamp(2.4rem,6vw,4rem);color:var(--orange);margin-bottom:2.4rem}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6rem;max-width:1060px;margin:0 auto}
+.why-item .em{font-size:2.4rem;display:block;margin-bottom:.5rem;transition:.3s var(--spring)}
+.why-item:hover .em{transform:scale(1.2) rotate(-8deg)}
+.why-item h3{font-family:var(--disp);font-size:1.3rem;color:var(--cream);line-height:1.4}
+.why-item p{font-size:.82rem;color:rgba(255,246,230,.55);margin-top:.3rem}
+@media(max-width:760px){.why-grid{grid-template-columns:1fr 1fr;gap:1.4rem}}
+
+/* ═══ سکشن عمومی ═══ */
+.sec{padding:4.2rem 0 4.8rem}
+.sec-head{text-align:center;margin-bottom:2.2rem;position:relative}
+/* استیکر روی تیترها */
+.sec-head .lbl{position:absolute;top:-1.4rem;right:50%;transform:translateX(50%) rotate(4deg);
+  background:var(--orange);color:var(--dark);border:2.5px solid var(--dark);border-radius:40px;
+  padding:.15rem 1rem;font-size:.7rem;font-weight:900;letter-spacing:.03em;box-shadow:3px 3px 0 var(--dark);z-index:2}
+.sec-head h2{font-family:var(--disp);font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.25}
+.sec-head .sub{color:var(--ink2);font-size:.94rem;margin-top:.2rem}
+
+/* ═══ چیپس ═══ */
+.chips{display:flex;gap:.5rem;overflow-x:auto;padding:2px 4px .9rem;scrollbar-width:none;
+  justify-content:flex-start}
+.chips::-webkit-scrollbar{display:none}
+@media(min-width:760px){.chips{justify-content:center}}
+.chip{flex:none;background:var(--card,#fff);border:2.5px solid var(--dark);border-radius:40px;
+  padding:.5rem 1.15rem;font-size:.86rem;font-weight:800;color:var(--ink);
+  display:flex;align-items:center;gap:.4rem;transition:.25s var(--ez);white-space:nowrap;box-shadow:3px 3px 0 var(--dark)}
+.chip em{font-style:normal;font-size:1.05rem}
+.chip:hover{transform:translateY(-3px) rotate(-2deg);background:var(--orange-s)}
+.chip.on{background:var(--orange);color:var(--dark)}
+.chip .n{font-size:.64rem;font-weight:900;background:rgba(42,26,10,.1);border-radius:20px;padding:0 7px}
+.chip.on .n{background:rgba(42,26,10,.15)}
+
+/* ═══ گرید محصولات — کارت‌های رنگارنگ ═══ */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:1.3rem}
+.pcard{border-radius:26px;border:3px solid var(--dark);overflow:hidden;display:flex;flex-direction:column;
+  box-shadow:6px 6px 0 var(--dark);transition:.35s var(--ez);cursor:pointer;position:relative;
+  animation:pcin .5s var(--ez) both;animation-delay:var(--d,0s)}
+@keyframes pcin{from{opacity:0;transform:translateY(18px) scale(.97)}}
+.pcard:hover{transform:translate(-3px,-6px) rotate(-.6deg);box-shadow:11px 12px 0 var(--dark)}
+/* سه رنگ چرخشی مثل Loafly */
+.pcard.v-brown{background:var(--brown);color:var(--cream)}
+.pcard.v-orange{background:var(--orange);color:var(--dark)}
+.pcard.v-cream{background:var(--cream2);color:var(--ink)}
+.pimg{position:relative;aspect-ratio:4/3;overflow:hidden;border-bottom:3px solid var(--dark)}
+.pimg img{width:100%;height:100%;object-fit:cover;transition:.6s var(--ez)}
+.pcard:hover .pimg img{transform:scale(1.08) rotate(1deg)}
+.pheart{position:absolute;top:10px;left:10px;width:36px;height:36px;border-radius:50%;
+  background:var(--cream);border:2.5px solid var(--dark);display:grid;place-items:center;
+  font-size:.95rem;color:var(--ink);transition:.25s var(--spring)}
+.pheart:hover{transform:scale(1.15) rotate(8deg)}
+.pheart.on{background:var(--red);color:#fff}
+.pbody{padding:1rem 1.1rem 1.15rem;display:flex;flex-direction:column;flex:1;gap:.1rem}
+.pname{font-family:var(--disp);font-size:1.55rem;line-height:1.3}
+.pdesc{font-size:.74rem;opacity:.72;display:-webkit-box;-webkit-line-clamp:2;
+  -webkit-box-orient:vertical;overflow:hidden;min-height:2.3em}
+.pfoot{margin-top:auto;padding-top:.8rem;display:flex;justify-content:space-between;align-items:center;gap:.6rem}
+.price{font-family:var(--disp);font-size:1.35rem;line-height:1}
+.price small{font-family:var(--fa);font-size:.6rem;font-weight:700;opacity:.7;margin-inline-start:.2rem}
+.addbtn{background:var(--dark);color:var(--cream);border-radius:40px;padding:.5rem 1.1rem;
+  font-size:.78rem;font-weight:900;transition:.25s var(--spring);white-space:nowrap}
+.pcard.v-dark-add .addbtn{background:var(--cream);color:var(--dark)}
+.addbtn:hover{transform:scale(1.08);background:var(--cream);color:var(--dark)}
+.pcard.v-orange .addbtn:hover,.pcard.v-cream .addbtn:hover{background:var(--orange);color:var(--dark)}
+.pcard.v-brown .addbtn:hover{background:var(--orange);color:var(--dark)}
+.addbtn:active{transform:scale(.94)}
+.empty-msg{grid-column:1/-1;text-align:center;padding:3rem 1rem;color:var(--faint);font-weight:700}
+@media(max-width:560px){.grid{grid-template-columns:1fr 1fr;gap:.8rem}
+.pname{font-size:1.2rem}.pdesc{font-size:.66rem}.addbtn{padding:.45rem .8rem;font-size:.7rem}}
+
+/* ═══ مارکی ═══ */
+.marq{background:var(--orange);border-block:3px solid var(--dark);overflow:hidden;
+  transform:rotate(-1.2deg) scale(1.02);padding:.7rem 0;margin:3.4rem 0 1rem}
+.mq-track{display:flex;width:max-content;animation:mq 22s linear infinite;direction:ltr}
+.mq-track span{font-family:var(--disp);font-size:1.3rem;color:var(--dark);white-space:nowrap;padding-inline-end:1.2rem}
+.mq-track b{color:#fff;-webkit-text-stroke:1.5px var(--dark);padding-inline-end:1.2rem}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ═══ رزرو میز ═══ */
+.book{display:grid;grid-template-columns:1.15fr 1fr;gap:1.4rem;align-items:stretch;margin-top:2.4rem}
+.bcard{border:3px solid var(--dark);border-radius:26px;box-shadow:7px 7px 0 var(--dark);overflow:hidden}
+.bform{background:#fff;padding:1.8rem 1.7rem}
+.bform h3{font-family:var(--disp);font-size:1.7rem;margin-bottom:1rem}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem}
+.fld label{display:block;font-size:.72rem;font-weight:900;margin-bottom:.3rem}
+.fld input,.fld select{width:100%;border:2.5px solid var(--dark);border-radius:14px;background:var(--cream);
+  padding:.65rem .9rem;font-family:var(--fa);font-size:.88rem;font-weight:600;color:var(--ink);outline:0;transition:.25s}
+.fld input:focus,.fld select:focus{background:#fff;box-shadow:3px 3px 0 var(--orange)}
+.fld input.bad{border-color:var(--red);background:#FFF0EC}
+.bform .btn{width:100%;justify-content:center;margin-top:.4rem}
+.f-err{color:var(--red);font-size:.7rem;font-weight:800;min-height:1.1em;margin-top:.3rem}
+/* کارت ساعت با سایه‌بان */
+.hours{background:var(--brown);color:var(--cream);display:flex;flex-direction:column}
+.awning{height:30px;display:flex;flex:none}
+.awning i{flex:1;border-inline-end:3px solid var(--dark)}
+.awning i:nth-child(odd){background:var(--orange)}
+.awning i:nth-child(even){background:var(--cream)}
+.hours-in{padding:1.6rem 1.7rem;flex:1;display:flex;flex-direction:column}
+.hours h3{font-family:var(--disp);font-size:1.7rem;margin-bottom:.9rem}
+.hrow{display:flex;justify-content:space-between;padding:.5rem 0;font-size:.9rem;
+  border-bottom:1.5px dashed rgba(255,246,230,.25)}
+.hrow:last-of-type{border:0}
+.hrow.today{color:var(--orange);font-weight:900}
+.hours .note{margin-top:auto;padding-top:1rem;font-size:.72rem;opacity:.6}
+@media(max-width:760px){.book{grid-template-columns:1fr}}
+
+/* ═══ نظرات ═══ */
+.dark-zone{background:var(--dark)}
+.testi{padding:4.5rem 1.4rem;text-align:center;color:var(--cream)}
+.testi .q{font-family:var(--disp);font-size:clamp(1.5rem,3.6vw,2.4rem);line-height:1.8;
+  max-width:760px;margin:1rem auto 1.6rem;color:var(--cream)}
+.testi .q b{color:var(--orange)}
+.testi .who{display:inline-flex;align-items:center;gap:.8rem;background:var(--orange);
+  color:var(--dark);border:2.5px solid var(--dark);border-radius:40px;padding:.4rem 1.3rem;
+  font-weight:900;font-size:.88rem;box-shadow:4px 4px 0 rgba(0,0,0,.4);transform:rotate(-1.5deg)}
+.testi .stars5{color:var(--orange);letter-spacing:4px;font-size:1.2rem}
+
+/* ═══ خبرنامه ═══ */
+.news{padding:1rem 1.4rem 5rem;text-align:center;color:var(--cream)}
+.news h2{font-family:var(--disp);font-size:clamp(2rem,5.4vw,3.4rem);line-height:1.3;margin-bottom:.5rem}
+.news h2 .lbl2{display:inline-block;background:var(--orange);color:var(--dark);border-radius:40px;
+  padding:0 .9rem;transform:rotate(-2deg);border:2.5px solid var(--cream);box-shadow:3px 3px 0 rgba(0,0,0,.4)}
+.news p{color:rgba(255,246,230,.6);font-size:.92rem;max-width:420px;margin:0 auto 1.6rem}
+.nform{display:flex;gap:.6rem;max-width:440px;margin:0 auto;background:var(--cream);
+  border:3px solid var(--orange);border-radius:60px;padding:.4rem;box-shadow:6px 6px 0 rgba(0,0,0,.4)}
+.nform input{flex:1;border:0;outline:0;background:none;font-family:var(--fa);font-size:.9rem;
+  font-weight:600;color:var(--ink);padding:.4rem 1rem;min-width:0}
+.nform button{background:var(--dark);color:var(--cream);border-radius:40px;padding:.7rem 1.5rem;
+  font-weight:900;font-size:.86rem;transition:.25s var(--spring)}
+.nform button:hover{background:var(--orange);color:var(--dark)}
+.n-ok{color:var(--orange);font-weight:800;font-size:.85rem;margin-top:.9rem;opacity:0;transition:.4s}
+.n-ok.show{opacity:1}
+
+/* ═══ فوتر ═══ */
+footer{padding:1rem 1.4rem 0;border-top:2px solid rgba(255,246,230,.12)}
+.f-in{max-width:1060px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2rem;padding:2.6rem 0}
+.f-in h5{font-family:var(--disp);font-size:1.3rem;color:var(--orange);margin-bottom:.7rem}
+.f-in p,.f-in a{font-size:.84rem;color:rgba(255,246,230,.6);display:block;padding:.16rem 0;transition:.25s}
+.f-in a:hover{color:var(--orange);padding-inline-start:6px}
+.f-soc{display:flex;gap:.6rem;margin-top:1rem}
+.f-soc a{width:40px;height:40px;border:2px solid rgba(255,246,230,.3);border-radius:12px;
+  display:grid;place-items:center;font-size:1rem;transition:.25s}
+.f-soc a:hover{background:var(--orange);color:var(--dark);border-color:var(--orange);transform:translateY(-4px) rotate(-6deg)}
+.f-big{font-family:var(--disp);text-align:center;font-size:clamp(4rem,15vw,11rem);line-height:.95;
+  color:transparent;-webkit-text-stroke:2px rgba(255,138,30,.25);user-select:none;pointer-events:none;
+  transform:translateY(14%)}
+.f-bottom{max-width:1060px;margin:0 auto;border-top:1.5px solid rgba(255,246,230,.12);
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  padding:1rem 0 1.3rem;font-size:.7rem;color:rgba(255,246,230,.4);position:relative;z-index:1}
+@media(max-width:700px){.f-in{grid-template-columns:1fr;gap:1.6rem}}
+
+/* ═══ نوار پایین موبایل ═══ */
+.mnav{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);z-index:300;
+  width:min(430px,calc(100% - 20px));background:var(--dark);border:2.5px solid var(--orange);
+  border-radius:60px;display:flex;justify-content:space-around;padding:.5rem .4rem;
+  box-shadow:0 16px 44px -8px rgba(0,0,0,.6)}
+.mnav a,.mnav button{display:flex;flex-direction:column;align-items:center;gap:.05rem;
+  color:rgba(255,246,230,.55);font-size:.6rem;font-weight:800;padding:.35rem .9rem;border-radius:40px;transition:.25s;position:relative}
+.mnav i{font-style:normal;font-size:1.2rem}
+.mnav .on{background:var(--orange);color:var(--dark)}
+.mnav .badge2{position:absolute;top:-4px;right:2px;min-width:16px;height:16px;background:var(--red);
+  color:#fff;border:2px solid var(--dark);font-size:.5rem;border-radius:20px;display:grid;place-items:center;font-weight:900}
+
+/* ═══ توست ═══ */
+#toast{position:fixed;bottom:92px;left:50%;transform:translate(-50%,16px);z-index:600;
+  background:var(--dark);color:var(--cream);border:2.5px solid var(--orange);border-radius:40px;
+  padding:.7rem 1.5rem;font-size:.86rem;font-weight:800;opacity:0;pointer-events:none;
+  transition:.35s var(--ez);box-shadow:0 14px 44px rgba(0,0,0,.4);max-width:92vw;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+@media(min-width:900px){#toast{bottom:30px}}
+
+/* ظهور تدریجی */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ez),transform .8s var(--ez);transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<!-- اسپلش -->
+<div id="splash"><div class="em"><span style="--i:0">☕</span><span style="--i:1">🔥</span><span style="--i:2">🥐</span></div></div>
+
+<!-- نوار بالا -->
+<div class="topbar">
+  <div class="wrap">
+    <span>📍 علی‌آباد کتول، خیابان اصلی</span>
+    <span class="hide-s"><b>✳</b> سفارش حضوری و بیرون‌بر</span>
+    <span>🕐 هر روز ۷ تا ۲۳</span>
+  </div>
+</div>
+
+<!-- هدر -->
+<header id="hdr">
+  <div class="wrap hd">
+    <a class="logo" href="#top"><span class="dot">☕</span>تک‌تک</a>
+    <nav class="hnav">
+      <a href="#menu">منو</a>
+      <a href="#why">چرا تک‌تک؟</a>
+      <a href="#book">رزرو میز</a>
+      <a href="#contact">تماس</a>
+    </nav>
+    <div class="h-acts">
+      <button class="cartbtn" id="cartBtn">🛒 سبد <span class="badge" id="cartBadge">۰</span></button>
+      <button class="burger" id="burger" aria-label="منو"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- منوی موبایل -->
+<div class="mmenu" id="mmenu">
+  <a href="#menu">منو</a>
+  <a href="#why">چرا تک‌تک؟</a>
+  <a href="#book">رزرو میز</a>
+  <a href="#contact">تماس</a>
+  <a class="mtel" href="tel:02188642210">☎ ۰۲۱-۸۸۶۴۲۲۱۰</a>
+</div>
+
+<main id="top">
+
+<!-- ═══ هیرو ═══ -->
+<section class="hero">
+  <span class="stk s1">داغِ داغ 🔥</span>
+  <span class="stk s2">تازه دم ✳</span>
+  <span class="stk s3">تحویل در ۳ دقیقه</span>
+
+  <span class="kick">☕ کافهٔ تخصصی — علی‌آباد کتول</span>
+  <h1>بگیرش. <span class="l2">بنوشش. تکرارش کن.</span></h1>
+
+  <!-- ⚠️ عکس هیرو: فایل خودت را جایگزین کن (مثلاً images/hero.jpg) -->
+  <img class="hero-img" src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=700&q=85" alt="قهوهٔ ویژهٔ تک‌تک">
+
+  <p class="sub">قهوهٔ تخصصی، صبحانهٔ داغِ داغ و دسرهایی که خطرناکاً خوشمزه‌ان. سفارشت قبل از این‌که پشیمون بشی روی میزه.</p>
+  <div class="hero-ctas">
+    <a class="btn btn-o" href="#menu">مشاهده منو ↓</a>
+    <a class="btn btn-c" href="#book">رزرو میز</a>
+  </div>
+</section>
+
+<!-- ═══ چرا تک‌تک — بلوک تیره ═══ -->
+<section class="why" id="why">
+  <h2>چرا تک‌تک؟</h2>
+  <div class="why-grid">
+    <div class="why-item rv"><span class="em">☕</span><h3>دانهٔ تازه</h3><p>هفته‌ای یک‌بار برشتِ خودمان — نه خوراکیِ مونده از پارسال.</p></div>
+    <div class="why-item rv" style="--d:.07s"><span class="em">⚡</span><h3>سریع مثل برق</h3><p>سفارشت در ۳ دقیقه روی میزت. یا پولش برنمی‌گرده. جدی می‌گیم.</p></div>
+    <div class="why-item rv" style="--d:.14s"><span class="em">📸</span><h3>فضای باحال</h3><p>جایی که عکس انداختن قانونه و «یه قهوه دیگه» پیشنهاد دوستانه‌ست.</p></div>
+    <div class="why-item rv" style="--d:.21s"><span class="em">💰</span><h3>قیمتِ منصفانه</h3><p>بدون تعارف، بدون چانه. روی تابلو نوشتیم، همون هم هست.</p></div>
+  </div>
+</section>
+
+<!-- موج تیره → کرم -->
+<div class="wave" style="color:var(--dark);margin-bottom:-2px" aria-hidden="true">
+  <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path fill="currentColor" d="M0,35 C240,75 480,-5 720,35 C960,75 1200,-5 1440,35 L1440,70 L0,70 Z"/></svg>
+</div>
+
+<!-- ═══ منو ═══ -->
+<section class="sec" id="menu" style="padding-top:1.5rem">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="lbl">منوی امروز ✳</span>
+      <h2>دنبال طعمت بگرد</h2>
+      <p class="sub">قیمت‌ها به تومان — بدون کسر خدمات، بدون سورپرایز</p>
+    </div>
+
+    <div class="chips rv" id="chips" style="--d:.08s"></div>
+    <div class="grid" id="grid" style="margin-top:1.2rem"></div>
+
+    <!-- مارکی -->
+    <div class="marq" aria-hidden="true"><div class="mq-track" id="mqTrack"></div></div>
+
+    <!-- ═══ رزرو میز ═══ -->
+    <div class="book" id="book">
+      <div class="bcard bform rv">
+        <h3>میز رزرو کن 🪑</h3>
+        <form id="bookForm" novalidate>
+          <div class="frow">
+            <div class="fld"><label>اسم شما</label><input id="bName" type="text" placeholder="مثلاً سارا"></div>
+            <div class="fld"><label>شماره تماس</label><input id="bPhone" type="tel" inputmode="tel" placeholder="۰۹۱۲···"></div>
+          </div>
+          <div class="frow">
+            <div class="fld"><label>چند نفر؟</label>
+              <select id="bGuests"><option>۲ نفر</option><option>۳ نفر</option><option>۴ نفر</option><option>۵+ نفر</option></select></div>
+            <div class="fld"><label>چه ساعتی؟</label>
+              <select id="bTime"><option>صبح (۷–۱۱)</option><option>ظهر (۱۱–۱۵)</option><option>عصر (۱۵–۱۹)</option><option>شب (۱۹–۲۳)</option></select></div>
+          </div>
+          <div class="f-err" id="bErr"></div>
+          <button class="btn btn-o" type="submit">رزرو کن ↯</button>
+        </form>
+      </div>
+      <div class="bcard hours rv" style="--d:.1s">
+        <div class="awning" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="hours-in">
+          <h3>ساعت کاری</h3>
+          <div id="hoursBox">
+            <div class="hrow" data-k="0"><span>شنبه تا چهارشنبه</span><span class="fa-num">۷:۰۰ — ۲۳:۰۰</span></div>
+            <div class="hrow" data-k="1"><span>پنجشنبه</span><span class="fa-num">۷:۰۰ — ۲۳:۳۰</span></div>
+            <div class="hrow" data-k="2"><span>جمعه</span><span class="fa-num">۹:۰۰ — ۲۳:۳۰</span></div>
+          </div>
+          <p class="note">آشپزخانه تا نیم‌ساعت قبل از بستن بازه · جمعه‌ها صندلیِ پنجره زودتر پر می‌شه 😉</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ تماس ═══ -->
+    <div class="sec-head rv" id="contact" style="margin-top:4rem">
+      <span class="lbl">پیدا کن ما رو ✳</span>
+      <h2>آدرس و رزرو تلفنی</h2>
+    </div>
+    <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-d" href="tel:02188642210">☎ ۰۲۱-۸۸۶۴۲۲۱۰</a>
+      <a class="btn btn-o" href="#" target="_blank" rel="noopener">📍 مسیریابی</a>
+    </div>
+  </div>
+</section>
+
+<!-- موج کرم → تیره -->
+<div class="wave flip" style="color:var(--dark);margin-top:-2px" aria-hidden="true">
+  <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path fill="currentColor" d="M0,35 C240,75 480,-5 720,35 C960,75 1200,-5 1440,35 L1440,70 L0,70 Z"/></svg>
+</div>
+
+</main><!-- اصلی تمام — ادامه تیره بیرونِ main تا پس‌زمینه یکپارچه باشه -->
+
+<div style="background:var(--dark)">
+  <!-- ═══ نظر ═══ -->
+  <section class="testi">
+    <span class="stars5">★★★★★</span>
+    <p class="q rv">«کاپوچینوشون <b>بی‌نظیره</b> — کفش ابریشمی، طعمش هنوز تو ذائقه‌م مونده. آخر هفته‌ها بدونِ تک‌تک، کامل نمی‌شه.»</p>
+    <span class="who rv" style="--d:.1s">رضا م. — مشتری ثابت از روز اول</span>
+  </section>
+
+  <!-- ═══ خبرنامه ═══ -->
+  <section class="news">
+    <h2 class="rv">اولین نفری باش که می‌فهمه<br><span class="lbl2">امروز چی داریم می‌پزیم</span></h2>
+    <p class="rv" style="--d:.08s">هفته‌ای یک پیام کوتاه: کیکِ روز، پیشنهاد ویژه و خبرای داغ. نه اسپم، قول.</p>
+    <form class="nform rv" style="--d:.14s" id="nForm" novalidate>
+      <input id="nEmail" type="email" placeholder="ایمیل یا شماره‌ت…" autocomplete="email">
+      <button type="submit">عضو شم ↯</button>
+    </form>
+    <p class="n-ok" id="nOk">✓ عضو شدی! اولین خبر، شنبه می‌رسه.</p>
+  </section>
+
+  <!-- ═══ فوتر ═══ -->
+  <footer>
+    <div class="f-in">
+      <div>
+        <h5>☕ تک‌تک</h5>
+        <p>یه کافهٔ کوچیک با قهوهٔ بزرگ. از ۱۴۰۱ توی همین کوچه‌ایم و هنوزم عاشق بوی صبحانه‌ایم.</p>
+        <div class="f-soc">
+          <a href="#" aria-label="اینستاگرام">IG</a>
+          <a href="#" aria-label="تلگرام">TG</a>
+          <a href="tel:02188642210" aria-label="تلفن">☎</a>
+        </div>
+      </div>
+      <div>
+        <h5>دسترسی سریع</h5>
+        <a href="#menu">منو</a>
+        <a href="#why">چرا تک‌تک؟</a>
+        <a href="#book">رزرو میز</a>
+        <a href="#top">بالای صفحه</a>
+      </div>
+      <div>
+        <h5>تماس</h5>
+        <a href="tel:02188642210">☎ ۰۲۱-۸۸۶۴۲۲۱۰</a>
+        <a href="#">📍 علی‌آباد کتول، خیابان اصلی، پلاک ۷</a>
+        <a href="#">✉ hello@taktak.cafe</a>
+      </div>
+    </div>
+    <div class="f-big" aria-hidden="true">تک‌تک</div>
+    <div class="f-bottom">
+      <span>© ۱۴۰۵ کافه تک‌تک — همهٔ حقوق محفوظه.</span>
+      <span>نمونهٔ طراحی اختصاصی ✳</span>
+    </div>
+  </footer>
+</div>
+
+<!-- نوار پایین موبایل -->
+<nav class="mnav">
+  <a href="#top" class="on"><i>⌂</i>خانه</a>
+  <a href="#menu"><i>☰</i>منو</a>
+  <button id="mnavCart"><i>🛒</i>سبد<span class="badge2" id="cartBadge2">۰</span></button>
+  <a href="tel:02188642210"><i>☎</i>تماس</a>
+</nav>
+
+<div id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const fa=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+
+/* اسپلش */
+setTimeout(()=>$('#splash').classList.add('off'),1000);
+
+/* هدر + منوی موبایل */
+addEventListener('scroll',()=>$('#hdr').classList.toggle('solid',scrollY>20),{passive:true});
+ $('#burger').addEventListener('click',()=>document.body.classList.toggle('menu-open'));
+ $$('.mmenu a').forEach(a=>a.addEventListener('click',()=>document.body.classList.remove('menu-open')));
+
+/* ظهور تدریجی */
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}
+}),{threshold:.14});
+ $$('.rv').forEach(el=>io.observe(el));
+
+/* ═══════ دادهٔ منو ═══════
+   ⚠️ عکس‌ها: فقط خاصیت img هر آیتم را با فایل خودت عوض کن (images/…jpg) */
+const CATS=[
+ {id:'hot',  n:'قهوه گرم', ic:'☕'},
+ {id:'cold', n:'قهوه سرد', ic:'🧊'},
+ {id:'food', n:'صبحانه',   ic:'🥐'},
+ {id:'des',  n:'دسر',      ic:'🍰'},
+ {id:'shk',  n:'شیک',      ic:'🥤'},
+];
+const ITEMS=[
+ {id:1,c:'hot', n:'کاپوچینو',        p:92000, d:'یک‌سوم اسپرسو، یک‌سوم شیر، یک‌سوم کفِ ابریشمی', img:'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&q=80'},
+ {id:2,c:'hot', n:'لاته',            p:98000, d:'شات دوبل و شیر بخارخورده — لته‌آرتِ روز', img:'https://images.unsplash.com/photo-1561047029-3000c68339ca?w=600&q=80'},
+ {id:3,c:'hot', n:'موکا',            p:115000,d:'اسپرسو و شکلات تلخ — دوستِ قدیمیِ همه‌مون', img:'https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?w=600&q=80'},
+ {id:4,c:'cold',n:'کولد برو',        p:125000,d:'۱۸ ساعت دم کشیده — نرم، شیرین، بی‌تلخی', img:'https://images.unsplash.com/photo-1517959105821-eaf2591984ca?w=600&q=80'},
+ {id:5,c:'cold',n:'آیس لاته',        p:105000,d:'یخِ کم، شیرِ سرد، اسپرسوی دوبل', img:'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80'},
+ {id:6,c:'food',n:'صبحانهٔ انگلیسی', p:245000,d:'تخم‌مرغ، سوسیس، لوبیا و نان تست — تا ۱۲ ظهر', img:'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=600&q=80'},
+ {id:7,c:'food',n:'کروسان کره‌ای',   p:82000, d:'ورقه‌ورقه، تازه از فرِ صبح — محدود!', img:'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80'},
+ {id:8,c:'des', n:'چیزکیک نیویورکی', p:158000,d:'کلاسیکِ خامه‌ای با سس توت‌فرنگی', img:'https://images.unsplash.com/photo-1524351199678-941a58a3df50?w=600&q=80'},
+ {id:9,c:'des', n:'براونی گردویی',   p:128000,d:'گرمِ گرم، با یک اسکوپ بستنی وانیل', img:'https://images.unsplash.com/photo-1607920591413-4ec007e70023?w=600&q=80'},
+ {id:10,c:'shk',n:'شیک نسکافه',      p:145000,d:'بستنی وانیل، قهوه و خامهٔ زده‌شده', img:'https://images.unsplash.com/photo-1577805947697-89e18249d767?w=600&q=80'},
+ {id:11,c:'shk',n:'اسموتی انبه',     p:135000,d:'انبه، ماست یونانی و عسل طبیعی', img:'https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=600&q=80'},
+ {id:12,c:'hot', n:'اسپرسو دوبل',    p:65000, d:'دانهٔ ترکیبی ۷۰/۳۰ — کوتاه و کوبنده', img:'https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600&q=80'},
+];
+
+/* ═══════ سبد (شمارنده + توست) ═══════ */
+let CART=0;
+let tt;
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');
+  clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2400)}
+function updCart(){
+  [['#cartBadge'],['#cartBadge2']].forEach(([s])=>{
+    const b=$(s);b.textContent=fa(CART);b.classList.toggle('on',CART>0)});
+}
+function addToCart(name){
+  CART++;updCart();
+  toast(`«${name}» به سبد اضافه شد ✅ (${fa(CART)} قلم)`);
+}
+ $('#cartBtn').addEventListener('click',()=>toast(CART?`${fa(CART)} قلم توی سبدته — برای نهایی‌کردن زنگ بزن: ۰۲۱-۸۸۶۴۲۲۱۰ ☎`:'سبدت خالیه — یه چیزی اضافه کن ☕'));
+ $('#mnavCart').addEventListener('click',()=>$('#cartBtn').click());
+
+/* ═══════ چیپس ═══════ */
+function renderChips(){
+  let h=`<button class="chip on" data-c="all"><em>✳</em>همه <span class="n">${fa(ITEMS.length)}</span></button>`;
+  CATS.forEach(c=>{
+    const n=ITEMS.filter(i=>i.c===c.id).length;
+    h+=`<button class="chip" data-c="${c.id}"><em>${c.ic}</em>${c.n} <span class="n">${fa(n)}</span></button>`;
+  });
+  $('#chips').innerHTML=h;
+}
+let CAT='all';
+ $('#chips').addEventListener('click',e=>{
+  const b=e.target.closest('.chip');if(!b)return;
+  $$('.chip').forEach(x=>x.classList.toggle('on',x===b));
+  CAT=b.dataset.c;render();
+});
+
+/* ═══════ گرید — کارت‌های رنگ چرخشی ═══════ */
+const V=['v-brown','v-orange','v-cream'];
+const price=v=>fa(v.toLocaleString('en-US'));
+function cardHTML(i,idx){
+  return `<article class="pcard ${V[idx%3]}" data-id="${i.id}" style="--d:${(idx%8)*.05}s">
+    <div class="pimg">
+      <img loading="lazy" src="${i.img}" alt="${i.n}" onerror="this.src='https://picsum.photos/seed/tk${i.id}/600/450'">
+      <button class="pheart" data-fav="${i.id}" aria-label="علاقه‌مندی">♥</button>
+    </div>
+    <div class="pbody">
+      <span class="pname">${i.n}</span>
+      <span class="pdesc">${i.d}</span>
+      <div class="pfoot">
+        <span class="price">${price(i.p)}<small>تومان</small></span>
+        <button class="addbtn" data-add="${i.id}">+ افزودن</button>
+      </div>
+    </div>
+  </article>`;
+}
+function render(){
+  const list=ITEMS.filter(i=>CAT==='all'||i.c===CAT);
+  $('#grid').innerHTML=list.length?list.map(cardHTML).join(''):'<div class="empty-msg">چیزی این‌جا نیست — یه دستهٔ دیگه رو امتحان کن</div>';
+}
+render();
+
+/* کلیک‌ها */
+let FAV=new Set();
+document.addEventListener('click',e=>{
+  const add=e.target.closest('[data-add]');
+  if(add){e.stopPropagation();
+    const it=ITEMS.find(x=>x.id===+add.dataset.add);
+    addToCart(it.n);
+    add.textContent='✓ اضافه شد';setTimeout(()=>add.textContent='+ افزودن',1200);
+    return;
+  }
+  const h=e.target.closest('[data-fav]');
+  if(h){e.stopPropagation();
+    const id=+h.dataset.fav;
+    h.classList.toggle('on');
+    if(FAV.has(id)){FAV.delete(id);toast('از علاقه‌مندی‌ها حذف شد')}
+    else{FAV.add(id);h.classList.add('on');toast('علاقه‌مندی شد ♥')}
+    return;
+  }
+});
+
+/* ═══════ مارکی ═══════ */
+const MQ=['قهوهٔ تازه دم','صبحانه تا ۱۲ ظهر','کیکِ روز','بیرون‌بر داریم','وای‌فای مجانی','دوستدار پت'];
+const half=MQ.map(t=>`<span>${t}</span><b>✳</b>`).join('');
+ $('#mqTrack').innerHTML=half+half;
+
+/* ═══════ فرم رزرو ═══════ */
+ $('#bookForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const name=$('#bName'),phone=$('#bPhone'),err=$('#bErr');
+  let ok=true;
+  const mark=(inp,bad)=>{inp.classList.toggle('bad',bad);if(bad)ok=false};
+  mark(name,name.value.trim().length<2);
+  const ph=phone.value.replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/\D/g,'');
+  mark(phone,!/^09\d{9}$/.test(ph));
+  err.textContent=ok?'':(name.value.trim().length<2?'اسمت رو کامل بنویس 🙂':'شماره موبایل مثل ۰۹۱۲۳۴۵۶۷۸۹');
+  if(!ok)return;
+  toast(`رزرو شد ${name.value.trim()} عزیز! ${$('#bGuests').value}، ${$('#bTime').value} ✓`);
+  e.target.reset();
+});
+
+/* ═══════ خبرنامه ═══════ */
+ $('#nForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const v=$('#nEmail').value.trim();
+  const okMail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  const okPh=/^09\d{9}$/.test(v.replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/\D/g,''));
+  if(!okMail&&!okPh){toast('ایمیل یا شماره درست وارد کن 🙏');return}
+  $('#nOk').classList.add('show');
+  e.target.reset();
+  setTimeout(()=>$('#nOk').classList.remove('show'),5000);
+});
+
+/* ═══════ روزِ امروز ═══════ */
+(function(){
+  const d=new Date().getDay();
+  const key=d===5?2:d===4?1:0;
+  $$('#hoursBox .hrow').forEach((r,idx)=>r.classList.toggle('today',idx===key));
+})();
+})();
+</script>
+</body>
+</html>
