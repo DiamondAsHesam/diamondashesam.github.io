@@ -151,8 +151,9 @@ body.menu-open{overflow:hidden}
 @media(max-width:760px){.why-grid{grid-template-columns:1fr 1fr;gap:1.4rem}}
 
 .sec{padding:4.2rem 0 4.8rem}
-.sec-head{text-align:center;margin-bottom:2.2rem;position:relative}
-.sec-head .lbl{position:absolute;top:-1.4rem;right:50%;transform:translateX(50%) rotate(4deg);
+/* ═══ فیکس نهایی سکشن هد و لیبل ═══ */
+.sec-head{text-align:center;margin-bottom:2.2rem;padding-top:2.2rem;position:relative}
+.sec-head .lbl{position:absolute;top:0;right:50%;transform:translateX(50%) rotate(4deg);
   background:var(--orange);color:var(--dark);border:2.5px solid var(--dark);border-radius:40px;
   padding:.15rem 1rem;font-size:.7rem;font-weight:900;letter-spacing:.03em;box-shadow:3px 3px 0 var(--dark);z-index:2}
 .sec-head h2{font-family:var(--disp);font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.25}
@@ -172,9 +173,7 @@ body.menu-open{overflow:hidden}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:1.3rem}
 .pcard{border-radius:26px;border:3px solid var(--dark);overflow:hidden;display:flex;flex-direction:column;
-  box-shadow:6px 6px 0 var(--dark);transition:.35s var(--ez);cursor:pointer;position:relative;
-  animation:pcin .5s var(--ez) both;animation-delay:var(--d,0s)}
-@keyframes pcin{from{opacity:0;transform:translateY(18px) scale(.97)}}
+  box-shadow:6px 6px 0 var(--dark);transition:.35s var(--ez);cursor:pointer;position:relative;}
 .pcard:hover{transform:translate(-3px,-6px) rotate(-.6deg);box-shadow:11px 12px 0 var(--dark)}
 .pcard.v-brown{background:var(--brown);color:var(--cream)}
 .pcard.v-orange{background:var(--orange);color:var(--dark)}
@@ -1050,7 +1049,13 @@ function cardHTML(i,idx){
 function render(){
   const list=ITEMS.filter(i=>CAT==='all'||i.c===CAT);
   $('#grid').innerHTML=list.length?list.map(cardHTML).join(''):'<div class="empty-msg">چیزی این‌جا نیست — یه دستهٔ دیگه رو امتحان کن</div>';
+  // فعال‌سازی انیمیشن ظاهر شدن برای کارت‌های جدید
+  $$('#grid .pcard').forEach(el=>{el.classList.add('rv');io.observe(el)});
 }
+
+/* ═══════ رندر اولیه (مهم: برای نمایش محصولات) ═══════ */
+renderChips();
+render();
 
 /* ═══════ کلیک سراسری ═══════ */
 document.addEventListener('click',e=>{
