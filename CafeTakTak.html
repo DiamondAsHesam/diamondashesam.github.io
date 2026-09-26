@@ -25,16 +25,17 @@
   --spring:cubic-bezier(.34,1.56,.64,1);
   --sab:env(safe-area-inset-bottom,0px);
 }
-html{scroll-behavior:smooth;scroll-padding-top:96px;scrollbar-width:none}
+/* ═══ فیکس: هیچ‌چیز نباید صفحه رو افقی باز کنه ═══ */
+html{scroll-behavior:smooth;scroll-padding-top:96px;scrollbar-width:none;overflow-x:hidden;overflow-x:clip}
 html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
 body{background:var(--cream);color:var(--ink);font-family:var(--fa);line-height:1.9;
-  overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  overflow-x:hidden;overflow-x:clip;-webkit-font-smoothing:antialiased}
 ::selection{background:var(--orange);color:var(--dark)}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;border:0;background:none;color:inherit;cursor:pointer}
 img{display:block;max-width:100%;-webkit-user-drag:none;user-select:none}
-.wrap{max-width:1120px;margin:0 auto;padding:0 1.4rem}
-main{position:relative;z-index:2}
+.wrap{max-width:1120px;margin:0 auto;padding:0 1.4rem;width:100%}
+main{position:relative;z-index:2;overflow-x:hidden;overflow-x:clip}
 .fa-num{font-variant-numeric:tabular-nums}
 
 /* ═══ اسکلتون لودینگ — ۵ ثانیه ═══ */
@@ -82,10 +83,13 @@ header.solid{box-shadow:0 8px 30px -12px rgba(42,26,10,.25)}
   background:#fff;display:grid;place-items:center;color:var(--ink);transition:.25s var(--spring)}
 .icbtn:hover{background:var(--orange);transform:translateY(-2px)}
 .icbtn svg{width:20px;height:20px}
-.icbtn .cbadge,.icbtn .fbadge{position:absolute;top:-8px;left:-8px;min-width:20px;height:20px;background:var(--orange);
+/* ═══ فیکس: بج‌ها برای «هر دو» دکمه — قبلاً فقط داخل icbtn استایل داشت و بجِ سبد
+       به‌صورت متن ساده «۰» کنار دکمه دیده می‌شد ═══ */
+.cbadge,.fbadge{position:absolute;top:-8px;left:-8px;min-width:20px;height:20px;background:var(--orange);
   color:var(--dark);border:2px solid var(--dark);border-radius:20px;font-size:.6rem;font-weight:900;
-  display:grid;place-items:center;padding:0 4px;transform:scale(0);transition:.3s var(--spring)}
-.icbtn .cbadge.on,.icbtn .fbadge.on{transform:scale(1)}
+  display:grid;place-items:center;padding:0 4px;transform:scale(0);transition:.3s var(--spring);
+  z-index:5;pointer-events:none}
+.cbadge.on,.fbadge.on{transform:scale(1)}
 .cartbtn{position:relative;background:var(--dark);color:var(--cream);border-radius:14px;
   padding:.6rem 1.1rem;font-size:.85rem;font-weight:800;display:flex;align-items:center;gap:.45rem;transition:.3s var(--ez)}
 .cartbtn:hover{background:var(--orange);color:var(--dark);transform:translateY(-2px)}
@@ -108,9 +112,9 @@ body.menu-open{overflow:hidden}
 .hero{background:var(--dark);color:var(--cream);padding:4.2rem 1.4rem 5.5rem;text-align:center;position:relative;overflow:hidden}
 .hero .kick{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,246,230,.08);
   border:1.5px dashed rgba(255,138,30,.55);border-radius:40px;padding:.4rem 1.2rem;
-  font-size:.78rem;font-weight:700;color:var(--orange);margin-bottom:1.6rem}
+  font-size:.78rem;font-weight:700;color:var(--orange);margin-bottom:1.6rem;max-width:100%}
 .hero h1{font-family:var(--disp);font-weight:400;font-size:clamp(3.4rem,12vw,8.2rem);
-  line-height:1.02;position:relative;z-index:1}
+  line-height:1.02;position:relative;z-index:1;overflow-wrap:break-word}
 .hero h1 .l2{color:var(--orange);display:block;position:relative;z-index:1}
 .stk{position:absolute;z-index:3;font-family:var(--disp);font-size:clamp(.95rem,2vw,1.25rem);
   background:var(--orange);color:var(--dark);border:2.5px solid var(--dark);border-radius:40px;
@@ -124,7 +128,7 @@ body.menu-open{overflow:hidden}
 .hero-img{width:min(300px,62vw);aspect-ratio:1/1.05;object-fit:cover;border-radius:28px;
   border:4px solid var(--orange);box-shadow:10px 12px 0 rgba(0,0,0,.45);
   margin:1.4rem auto .2rem;display:block;position:relative;z-index:2;
-  transform:rotate(-2.5deg);transition:.5s var(--spring)}
+  transform:rotate(-2.5deg);transition:.5s var(--spring);background:var(--dark2)}
 .hero-img:hover{transform:rotate(0) scale(1.03)}
 .hero .sub{max-width:430px;margin:1.2rem auto 1.8rem;color:rgba(255,246,230,.68);font-size:.98rem}
 .hero-ctas{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
@@ -151,16 +155,22 @@ body.menu-open{overflow:hidden}
 @media(max-width:760px){.why-grid{grid-template-columns:1fr 1fr;gap:1.4rem}}
 
 .sec{padding:4.2rem 0 4.8rem}
-.sec-head{text-align:center;margin-bottom:2.2rem;position:relative}
-.sec-head .lbl{position:absolute;top:-1.4rem;right:50%;transform:translateX(50%) rotate(4deg);
-  background:var(--orange);color:var(--dark);border:2.5px solid var(--dark);border-radius:40px;
-  padding:.15rem 1rem;font-size:.7rem;font-weight:900;letter-spacing:.03em;box-shadow:3px 3px 0 var(--dark);z-index:2}
+.sec-head{text-align:center;margin-bottom:2.2rem}
+.sec-head .lbl{display:inline-block;background:var(--orange);color:var(--dark);
+  border:2.5px solid var(--dark);border-radius:40px;padding:.15rem 1rem;
+  font-size:.72rem;font-weight:900;letter-spacing:.03em;
+  box-shadow:3px 3px 0 var(--dark);transform:rotate(-2deg);margin-bottom:.8rem}
 .sec-head h2{font-family:var(--disp);font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.25}
 .sec-head .sub{color:var(--ink2);font-size:.94rem;margin-top:.2rem}
 
-.chips{display:flex;gap:.5rem;overflow-x:auto;padding:2px 4px .9rem;scrollbar-width:none;justify-content:flex-start}
+/* ═══ فیکس کامل چیپ‌ها: nowrap + اسکرول لمسی نرم + full-bleed روی موبایل ═══ */
+.chips{display:flex;flex-wrap:nowrap;gap:.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:contain;scrollbar-width:none;padding:2px 4px .9rem;
+  justify-content:flex-start;max-width:100%;cursor:grab}
+.chips.drag{cursor:grabbing}
 .chips::-webkit-scrollbar{display:none}
-@media(min-width:760px){.chips{justify-content:center}}
+@media(min-width:760px){.chips{justify-content:flex-start;justify-content:safe center;cursor:default}}
+@media(max-width:759px){.chips{margin-inline:-1.4rem;padding-inline:1.1rem}}
 .chip{flex:none;background:#fff;border:2.5px solid var(--dark);border-radius:40px;
   padding:.5rem 1.15rem;font-size:.86rem;font-weight:800;color:var(--ink);
   display:flex;align-items:center;gap:.4rem;transition:.25s var(--ez);white-space:nowrap;box-shadow:3px 3px 0 var(--dark)}
@@ -170,16 +180,17 @@ body.menu-open{overflow:hidden}
 .chip .n{font-size:.64rem;font-weight:900;background:rgba(42,26,10,.1);border-radius:20px;padding:0 7px}
 .chip.on .n{background:rgba(42,26,10,.15)}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:1.3rem}
+/* ═══ فیکس گرید: min() جلوی سرریز افقی صفحه رو می‌گیره ═══ */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(235px,100%),1fr));gap:1.3rem}
 .pcard{border-radius:26px;border:3px solid var(--dark);overflow:hidden;display:flex;flex-direction:column;
   box-shadow:6px 6px 0 var(--dark);transition:.35s var(--ez);cursor:pointer;position:relative;
-  animation:pcin .5s var(--ez) both;animation-delay:var(--d,0s)}
+  min-width:0;animation:pcin .5s var(--ez) both;animation-delay:var(--d,0s)}
 @keyframes pcin{from{opacity:0;transform:translateY(18px) scale(.97)}}
 .pcard:hover{transform:translate(-3px,-6px) rotate(-.6deg);box-shadow:11px 12px 0 var(--dark)}
 .pcard.v-brown{background:var(--brown);color:var(--cream)}
 .pcard.v-orange{background:var(--orange);color:var(--dark)}
 .pcard.v-cream{background:var(--cream2);color:var(--ink)}
-.pimg{position:relative;aspect-ratio:4/3;overflow:hidden;border-bottom:3px solid var(--dark)}
+.pimg{position:relative;aspect-ratio:4/3;overflow:hidden;border-bottom:3px solid var(--dark);background:var(--cream2)}
 .pimg img{width:100%;height:100%;object-fit:cover;transition:.6s var(--ez)}
 .pcard:hover .pimg img{transform:scale(1.08) rotate(1deg)}
 .pheart{position:absolute;top:10px;left:10px;width:36px;height:36px;border-radius:50%;
@@ -187,12 +198,13 @@ body.menu-open{overflow:hidden}
   font-size:.95rem;color:var(--ink);transition:.25s var(--spring);z-index:2}
 .pheart:hover{transform:scale(1.15) rotate(8deg)}
 .pheart.on{background:var(--red);color:#fff}
-.pbody{padding:1rem 1.1rem 1.15rem;display:flex;flex-direction:column;flex:1;gap:.1rem}
-.pname{font-family:var(--disp);font-size:1.55rem;line-height:1.3}
+.pbody{padding:1rem 1.1rem 1.15rem;display:flex;flex-direction:column;flex:1;gap:.1rem;min-width:0}
+.pname{font-family:var(--disp);font-size:1.55rem;line-height:1.3;overflow-wrap:break-word}
 .pdesc{font-size:.74rem;opacity:.72;display:-webkit-box;-webkit-line-clamp:2;
   -webkit-box-orient:vertical;overflow:hidden;min-height:2.3em}
-.pfoot{margin-top:auto;padding-top:.8rem;display:flex;justify-content:space-between;align-items:center;gap:.6rem}
-.price{font-family:var(--disp);font-size:1.35rem;line-height:1}
+.pfoot{margin-top:auto;padding-top:.8rem;display:flex;justify-content:space-between;align-items:center;
+  gap:.6rem;flex-wrap:wrap;row-gap:.45rem;min-width:0}
+.price{font-family:var(--disp);font-size:1.35rem;line-height:1;white-space:nowrap}
 .price small{font-family:var(--fa);font-size:.6rem;font-weight:700;opacity:.7;margin-inline-start:.2rem}
 .addbtn{background:var(--dark);color:var(--cream);border-radius:40px;padding:.5rem 1.1rem;
   font-size:.78rem;font-weight:900;transition:.25s var(--spring);white-space:nowrap}
@@ -233,7 +245,7 @@ body.menu-open{overflow:hidden}
 .about-imgwrap{position:relative;transform:rotate(-2deg);transition:.4s var(--spring)}
 .about-imgwrap:hover{transform:rotate(0)}
 .about-img{width:100%;aspect-ratio:4/3.2;object-fit:cover;border-radius:24px;
-  border:3.5px solid var(--dark);box-shadow:8px 10px 0 rgba(42,26,10,.2)}
+  border:3.5px solid var(--dark);box-shadow:8px 10px 0 rgba(42,26,10,.2);background:var(--cream2)}
 .about-stk{position:absolute;top:-16px;inset-inline-end:-10px;background:var(--orange);color:var(--dark);
   border:2.5px solid var(--dark);border-radius:40px;padding:.25rem 1rem;font-family:var(--disp);
   font-size:1.05rem;box-shadow:3px 3px 0 var(--dark);transform:rotate(4deg)}
@@ -249,8 +261,9 @@ body.menu-open{overflow:hidden}
 @media(max-width:820px){.about-grid{grid-template-columns:1fr;gap:2rem}}
 
 /* ═══ گالری ═══ */
-.gal{display:flex;gap:1.3rem;overflow-x:auto;padding:2.4rem .4rem 1.2rem;cursor:grab;
-  scrollbar-width:none;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.gal{display:flex;gap:1.3rem;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:contain;padding:2.4rem .4rem 1.2rem;cursor:grab;
+  scrollbar-width:none;scroll-snap-type:x proximity}
 .gal::-webkit-scrollbar{display:none}
 .gal.drag{cursor:grabbing}
 .polaroid{flex:0 0 240px;background:#fff;border:3px solid var(--dark);padding:.55rem .55rem .3rem;
@@ -258,7 +271,7 @@ body.menu-open{overflow:hidden}
 .polaroid:nth-child(odd){transform:rotate(-2deg)}
 .polaroid:nth-child(even){transform:rotate(1.6deg)}
 .polaroid:hover{transform:rotate(0) translateY(-8px);box-shadow:10px 12px 0 rgba(42,26,10,.3)}
-.polaroid img{width:100%;height:190px;object-fit:cover;border-radius:14px;border:2px solid var(--dark);pointer-events:none}
+.polaroid img{width:100%;height:190px;object-fit:cover;border-radius:14px;border:2px solid var(--dark);pointer-events:none;background:var(--cream2)}
 .polaroid figcaption{font-size:.76rem;color:var(--ink2);padding:.55rem .2rem .5rem;text-align:center;font-weight:700}
 .polaroid figcaption b{color:var(--ink)}
 .galhint{text-align:center;font-size:.72rem;color:var(--faint);font-weight:700;letter-spacing:.06em}
@@ -266,7 +279,7 @@ body.menu-open{overflow:hidden}
 /* ═══ شعبه‌ها + نقشه ═══ */
 .branches{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:2.2rem}
 .branch{border:3px solid var(--dark);border-radius:26px;box-shadow:7px 7px 0 var(--dark);
-  background:#fff;overflow:hidden;display:flex;flex-direction:column;transition:.3s var(--ez)}
+  background:#fff;overflow:hidden;display:flex;flex-direction:column;transition:.3s var(--ez);min-width:0}
 .branch:hover{transform:translateY(-5px);box-shadow:10px 11px 0 var(--dark)}
 .b-top{display:flex;justify-content:space-between;align-items:center;gap:.6rem;
   padding:.75rem 1.3rem;background:var(--dark);color:var(--cream);flex-wrap:wrap}
@@ -278,7 +291,7 @@ body.menu-open{overflow:hidden}
 .b-status.open{color:#7DDE92}
 .b-status.closed{color:#F2A08D}
 @keyframes blink{50%{opacity:.3}}
-.branch .bin{padding:1.25rem 1.4rem 1.4rem;display:flex;flex-direction:column;gap:.4rem;flex:1}
+.branch .bin{padding:1.25rem 1.4rem 1.4rem;display:flex;flex-direction:column;gap:.4rem;flex:1;min-width:0}
 .branch h3{font-family:var(--disp);font-size:1.7rem;line-height:1.3}
 .b-row{font-size:.86rem;color:var(--ink2);display:flex;gap:.5rem;align-items:baseline}
 .b-row b{color:var(--ink);font-weight:800;flex:none}
@@ -323,7 +336,7 @@ body.menu-open{overflow:hidden}
 .cdrop.open .cbtn .carr{transform:rotate(180deg);color:var(--orange2)}
 .cmenu{position:absolute;top:calc(100% + 6px);right:0;left:0;background:#fff;
   border:2.5px solid var(--dark);border-radius:16px;box-shadow:6px 7px 0 rgba(42,26,10,.22);
-  padding:.4rem;z-index:90;display:none;max-height:230px;overflow-y:auto}
+  padding:.4rem;z-index:90;display:none;max-height:230px;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .cdrop.open .cmenu{display:block;animation:cdropIn .3s var(--spring)}
 @keyframes cdropIn{from{opacity:0;transform:translateY(-10px) scale(.97)}}
 .copt{padding:.55rem .9rem;border-radius:10px;font-size:.88rem;font-weight:700;
@@ -341,7 +354,7 @@ body.menu-open{overflow:hidden}
 .bGuestCustom.bad{border-color:var(--red);background:#FFF0EC}
 
 .book{display:grid;grid-template-columns:1.15fr 1fr;gap:1.4rem;align-items:stretch;margin-top:2.4rem}
-.bcard{border:3px solid var(--dark);border-radius:26px;box-shadow:7px 7px 0 var(--dark)}
+.bcard{border:3px solid var(--dark);border-radius:26px;box-shadow:7px 7px 0 var(--dark);min-width:0}
 .bform{background:#fff;padding:1.8rem 1.7rem;border-radius:23px}
 .bform h3{font-family:var(--disp);font-size:1.7rem;margin-bottom:1rem}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem}
@@ -463,11 +476,12 @@ footer{padding:1rem 1.4rem 0;border-top:2px solid rgba(255,246,230,.12)}
 .dr-close{width:36px;height:36px;border-radius:50%;background:rgba(255,246,230,.12);color:var(--cream);
   display:grid;place-items:center;font-size:1rem;transition:.25s}
 .dr-close:hover{background:var(--orange);color:var(--dark);transform:rotate(90deg)}
-.dr-list{flex:1;overflow-y:auto;scrollbar-width:none;padding:1rem 1.2rem;display:flex;flex-direction:column;gap:.8rem}
+.dr-list{flex:1;overflow-y:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  padding:1rem 1.2rem;display:flex;flex-direction:column;gap:.8rem}
 .dr-list::-webkit-scrollbar{display:none}
 .dr-item{background:#fff;border:2.5px solid var(--dark);border-radius:18px;padding:.7rem .8rem;
   display:flex;gap:.7rem;align-items:center;animation:fin .3s}
-.dr-item img{width:58px;height:58px;border-radius:12px;object-fit:cover;border:2px solid var(--dark);flex:none}
+.dr-item img{width:58px;height:58px;border-radius:12px;object-fit:cover;border:2px solid var(--dark);flex:none;background:var(--cream2)}
 .dr-item .di{flex:1;min-width:0}
 .dr-item .di b{display:block;font-size:.88rem;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .dr-item .di span{font-size:.74rem;color:var(--orange2);font-weight:800}
@@ -497,17 +511,17 @@ footer{padding:1rem 1.4rem 0;border-top:2px solid rgba(255,246,230,.12)}
 .favlist{display:flex;flex-direction:column;gap:.7rem}
 .favrow{background:#fff;border:2.5px solid var(--dark);border-radius:18px;padding:.65rem .8rem;
   display:flex;gap:.7rem;align-items:center}
-.favrow img{width:56px;height:56px;border-radius:12px;object-fit:cover;border:2px solid var(--dark);flex:none}
+.favrow img{width:56px;height:56px;border-radius:12px;object-fit:cover;border:2px solid var(--dark);flex:none;background:var(--cream2)}
 .favrow .fi{flex:1;min-width:0}
 .favrow .fi b{display:block;font-size:.9rem}
 .favrow .fi span{font-size:.74rem;color:var(--orange2);font-weight:800}
 .fav-empty{text-align:center;padding:2.5rem 1rem;color:var(--faint);font-weight:700}
 .fav-empty .big{font-size:3rem;display:block;margin-bottom:.5rem}
 
-/* ═══ مارکی — فیکس کامل ═══ */
+/* ═══ مارکی — بدون سرریز افقی ═══ */
 .marq{background:var(--orange);border-block:3px solid var(--dark);overflow:hidden;
   direction:ltr;width:100vw;max-width:100vw;
-  margin-inline:calc(50% - 51vw);
+  margin-inline:calc(50% - 50vw);
   transform:rotate(-1.2deg);padding:.7rem 0;margin-block:3.4rem 1rem}
 .mq-track{display:flex;width:max-content;animation:mq 30s linear infinite;direction:ltr;will-change:transform}
 .mq-track span{font-family:var(--disp);font-size:1.3rem;color:var(--dark);white-space:nowrap;padding-inline-end:1.2rem}
@@ -521,14 +535,14 @@ footer{padding:1rem 1.4rem 0;border-top:2px solid rgba(255,246,230,.12)}
 @media(min-width:1440px){
   .wrap{max-width:1240px}
   .hero h1{font-size:clamp(4.5rem,9vw,9.5rem)}
-  .grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));gap:1.5rem}
   .why-grid{max-width:1160px;gap:2rem}
   .book,.branches{max-width:1240px;margin-inline:auto}
 }
 @media(min-width:2000px){
   html{font-size:19px}
   .wrap{max-width:1720px}
-  .grid{grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:2rem}
   .sec{padding:6.5rem 0}
   .hero{padding:6rem 2rem 7rem}
   .hero-img{width:400px}
@@ -558,22 +572,26 @@ footer{padding:1rem 1.4rem 0;border-top:2px solid rgba(255,246,230,.12)}
   .fld input,.nform input{font-size:16px}
 }
 @media(max-width:560px){
-  .grid{grid-template-columns:1fr 1fr;gap:.8rem}
-  .pname{font-size:1.2rem}.pdesc{font-size:.66rem}
-  .addbtn{padding:.45rem .8rem;font-size:.7rem}
+  .grid{grid-template-columns:1fr 1fr;gap:.7rem}
+  .pname{font-size:1.2rem}.pdesc{font-size:.66rem;min-height:2.1em}
+  .addbtn{padding:.42rem .7rem;font-size:.68rem}
+  .price{font-size:1.1rem}
   .polaroid{flex:0 0 200px}
   .polaroid img{height:150px}
+  .gal{margin-inline:-1.4rem;padding-inline:1.1rem}
   .sec{padding:3.4rem 0 4rem}
   .hero{padding:3.4rem 1.2rem 4.2rem}
   .hero .sub{font-size:.9rem}
   .offer{padding:1.7rem 1.3rem}
   .offer h3{font-size:1.7rem}
+  .ocard .btn{font-size:.8rem;padding:.7rem 1rem}
   .bform{padding:1.5rem 1.2rem}
   .f-big{font-size:clamp(3.2rem,18vw,6rem)}
 }
 @media(pointer:coarse){
   .pheart{width:40px;height:40px;font-size:1.05rem}
   .chip{padding:.55rem 1.25rem}
+  .chips{cursor:auto}
 }
 @media(max-width:430px){
   .drawer{width:100vw;border-inline-end:0}
@@ -682,8 +700,8 @@ footer{padding:1rem 1.4rem 0;border-top:2px solid rgba(255,246,230,.12)}
   <span class="stk s3">تحویل در ۳ دقیقه</span>
   <span class="kick">☕ کافهٔ تخصصی — علی‌آباد کتول</span>
   <h1>بگیرش. <span class="l2">بنوشش. تکرارش کن.</span></h1>
-  <!-- ⚠️ عکس هیروی خودت را برگردان -->
-  <img class="hero-img" src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=700&q=85" alt="قهوهٔ ویژهٔ تک‌تک">
+  <!-- ⚠️ عکس هیروی خودت را برگردان (مسیر لوکال بهتره — Unsplash روی بعضی اپراتورها باز نمی‌شه) -->
+  <img class="hero-img" src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=700&q=85" alt="قهوهٔ ویژهٔ تک‌تک" data-em="☕" data-bg="#33220F">
   <p class="sub">قهوهٔ تخصصی، صبحانهٔ داغِ داغ و دسرهایی که خطرناکاً خوشمزه‌ان. سفارشت قبل از این‌که پشیمون بشی روی میزه.</p>
   <div class="hero-ctas">
     <a class="btn btn-o" href="#menu">مشاهده منو ↓</a>
@@ -743,7 +761,7 @@ footer{padding:1rem 1.4rem 0;border-top:2px solid rgba(255,246,230,.12)}
     <div class="about-grid" id="about" style="margin:3.5rem 0 1rem">
       <div class="about-imgwrap rv">
         <!-- ⚠️ عکس فضای کافه‌ت را این‌جا بگذار -->
-        <img class="about-img" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&q=85" alt="فضای کافه تک‌تک">
+        <img class="about-img" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&q=85" alt="فضای کافه تک‌تک" data-em="🪑">
         <span class="about-stk">از ۱۴۰۱ ✳</span>
       </div>
       <div class="about-copy rv" style="--d:.1s">
@@ -766,12 +784,12 @@ footer{padding:1rem 1.4rem 0;border-top:2px solid rgba(255,246,230,.12)}
       <p class="sub">بکش و بگرد — اینا همه از خودِ کافه‌ان</p>
     </div>
     <div class="gal rv" id="gal">
-      <figure class="polaroid"><img loading="lazy" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500&q=80" alt=""><figcaption><b>۷:۰۴ صبح</b> — اولین دمِ روز</figcaption></figure>
-      <figure class="polaroid"><img loading="lazy" src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=500&q=80" alt=""><figcaption><b>گوشهٔ پنجره</b> — محبوب‌ترین میز</figcaption></figure>
-      <figure class="polaroid"><img loading="lazy" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500&q=80" alt=""><figcaption><b>لته‌آرت</b> — دستِ باریستا</figcaption></figure>
-      <figure class="polaroid"><img loading="lazy" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=500&q=80" alt=""><figcaption><b>عصرها</b> — نورِ طلایی</figcaption></figure>
-      <figure class="polaroid"><img loading="lazy" src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=500&q=80" alt=""><figcaption><b>کیکِ روز</b> — تا ۶ عصر</figcaption></figure>
-      <figure class="polaroid"><img loading="lazy" src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=500&q=80" alt=""><figcaption><b>۲۲:۴۰</b> — آخرین فنجان</figcaption></figure>
+      <figure class="polaroid"><img loading="lazy" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500&q=80" alt="" data-em="☕"><figcaption><b>۷:۰۴ صبح</b> — اولین دمِ روز</figcaption></figure>
+      <figure class="polaroid"><img loading="lazy" src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=500&q=80" alt="" data-em="🪟"><figcaption><b>گوشهٔ پنجره</b> — محبوب‌ترین میز</figcaption></figure>
+      <figure class="polaroid"><img loading="lazy" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500&q=80" alt="" data-em="🎨"><figcaption><b>لته‌آرت</b> — دستِ باریستا</figcaption></figure>
+      <figure class="polaroid"><img loading="lazy" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=500&q=80" alt="" data-em="🌅"><figcaption><b>عصرها</b> — نورِ طلایی</figcaption></figure>
+      <figure class="polaroid"><img loading="lazy" src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=500&q=80" alt="" data-em="🍰"><figcaption><b>کیکِ روز</b> — تا ۶ عصر</figcaption></figure>
+      <figure class="polaroid"><img loading="lazy" src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=500&q=80" alt="" data-em="🌙"><figcaption><b>۲۲:۴۰</b> — آخرین فنجان</figcaption></figure>
     </div>
     <p class="galhint">← بکش و بگرد →</p>
 
@@ -942,6 +960,22 @@ const fa=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
 const STORE={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},
   set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 
+/* ═══ جای‌نگهدار برای عکس‌هایی که لود نمی‌شن ═══ */
+function imgFail(img){
+  if(img.dataset.fbk)return;
+  img.dataset.fbk='1';
+  const em=img.dataset.em||'☕';
+  const bg=img.dataset.bg||'#F7E8CB';
+  img.src='data:image/svg+xml,'+encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450">'+
+    '<rect width="600" height="450" fill="'+bg+'"/>'+
+    '<text x="300" y="330" font-size="210" text-anchor="middle">'+em+'</text></svg>');
+}
+document.addEventListener('error',e=>{
+  if(e.target&&e.target.tagName==='IMG')imgFail(e.target);
+},true);
+ $$('img').forEach(im=>{if(im.src&&im.complete&&im.naturalWidth===0)imgFail(im)});
+
 /* ═══ اسکلتون — ۵ ثانیه ═══ */
 setTimeout(()=>{
   const s=$('#skel');
@@ -1003,6 +1037,7 @@ let tt;
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');
   clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2300)}
 const itemById=id=>ITEMS.find(x=>x.id===id);
+const catIc=c=>(CATS.find(x=>x.id===c)||{ic:'☕'}).ic;
 const price=v=>fa(v.toLocaleString('en-US'));
 function cartCount(){return Object.values(CART).reduce((a,b)=>a+b,0)}
 function cartTotal(){return Object.entries(CART).reduce((s,[id,q])=>s+itemById(+id).p*q,0)}
@@ -1024,17 +1059,36 @@ function renderChips(){
   $('#chips').innerHTML=h;
 }
 let CAT='all';
- $('#chips').addEventListener('click',e=>{
+const chipsEl=$('#chips');
+chipsEl.addEventListener('click',e=>{
   const b=e.target.closest('.chip');if(!b)return;
   $$('.chip').forEach(x=>x.classList.toggle('on',x===b));
   CAT=b.dataset.c;render();
+  /* فیکس: چیپ انتخابی خودش وسط نوار قرار می‌گیره */
+  if(chipsEl.scrollWidth>chipsEl.clientWidth+4)
+    b.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
 });
+/* درگ با موس برای نوار دسته‌بندی (دسکتاپ) */
+(function(){
+  let down=false,sx=0,sl=0,moved=0;
+  chipsEl.addEventListener('pointerdown',e=>{
+    if(e.pointerType!=='mouse')return;
+    down=true;moved=0;sx=e.clientX;sl=chipsEl.scrollLeft;chipsEl.classList.add('drag');
+  });
+  addEventListener('pointermove',e=>{
+    if(!down)return;
+    const dx=e.clientX-sx;moved=Math.max(moved,Math.abs(dx));
+    chipsEl.scrollLeft=sl-dx;
+  });
+  ['pointerup','pointercancel','pointerleave'].forEach(ev=>addEventListener(ev,()=>{down=false;chipsEl.classList.remove('drag')}));
+  chipsEl.addEventListener('click',e=>{if(moved>8){e.preventDefault();e.stopPropagation()}},true);
+})();
 const V=['v-brown','v-orange','v-cream'];
 function cardHTML(i,idx){
   const fav=FAV.has(i.id);
   return `<article class="pcard ${V[idx%3]}" data-id="${i.id}" style="--d:${(idx%8)*.05}s">
     <div class="pimg">
-      <img loading="lazy" src="${i.img}" alt="${i.n}" onerror="this.src='https://picsum.photos/seed/tk${i.id}/600/450'">
+      <img loading="lazy" src="${i.img}" alt="${i.n}" data-em="${catIc(i.c)}">
       <button class="pheart${fav?' on':''}" data-fav="${i.id}" aria-label="علاقه‌مندی">♥</button>
     </div>
     <div class="pbody">
@@ -1051,6 +1105,8 @@ function render(){
   const list=ITEMS.filter(i=>CAT==='all'||i.c===CAT);
   $('#grid').innerHTML=list.length?list.map(cardHTML).join(''):'<div class="empty-msg">چیزی این‌جا نیست — یه دستهٔ دیگه رو امتحان کن</div>';
 }
+renderChips();
+render();
 
 /* ═══════ کلیک سراسری ═══════ */
 document.addEventListener('click',e=>{
@@ -1066,9 +1122,12 @@ document.addEventListener('click',e=>{
   const h=e.target.closest('[data-fav]');
   if(h){e.stopPropagation();
     const id=+h.dataset.fav;
-    if(FAV.has(id)){FAV.delete(id);h.classList.remove('on');toast('از علاقه‌مندی‌ها حذف شد')}
-    else{FAV.add(id);h.classList.add('on');toast('علاقه‌مندی شد ♥')}
-    saveFav();return;
+    if(FAV.has(id)){FAV.delete(id);toast('از علاقه‌مندی‌ها حذف شد')}
+    else{FAV.add(id);toast('علاقه‌مندی شد ♥')}
+    saveFav();
+    $$(`.pheart[data-fav="${id}"]`).forEach(x=>x.classList.toggle('on',FAV.has(id)));
+    if($('#fModal').classList.contains('on'))openFav();
+    return;
   }
   const card=e.target.closest('.pcard');
   if(card)openPModal(+card.dataset.id);
@@ -1079,8 +1138,10 @@ let pmId=null,pmQ=1;
 function openPModal(id){
   const i=itemById(id);if(!i)return;
   pmId=id;pmQ=1;
-  $('#pmImg').src=i.img;$('#pmImg').alt=i.n;
-  $('#pmTag').textContent=CATS.find(c=>c.id===i.c).ic+' '+CATS.find(c=>c.id===i.c).n;
+  const pmi=$('#pmImg');
+  pmi.removeAttribute('data-fbk');pmi.dataset.em=catIc(i.c);pmi.dataset.bg='#FCEBD2';
+  pmi.src=i.img;pmi.alt=i.n;
+  $('#pmTag').textContent=catIc(i.c)+' '+CATS.find(c=>c.id===i.c).n;
   $('#pmName').textContent=i.n;
   $('#pmPrice').innerHTML=price(i.p)+'<small> تومان</small>';
   $('#pmDesc').textContent=i.d;
@@ -1113,7 +1174,7 @@ function renderDrawer(){
   list.innerHTML=ids.map(id=>{
     const it=itemById(+id),q=CART[id];
     return `<div class="dr-item">
-      <img src="${it.img}" alt="${it.n}">
+      <img src="${it.img}" alt="${it.n}" data-em="${catIc(it.c)}">
       <div class="di"><b>${it.n}</b><span>${price(it.p*q)} تومان</span></div>
       <div class="dr-qty">
         <button data-qplus="${id}">+</button><b>${fa(q)}</b><button data-qminus="${id}">−</button>
@@ -1136,7 +1197,7 @@ function openFav(){
   const list=$('#favList'),items=ITEMS.filter(i=>FAV.has(i.id));
   list.innerHTML=items.length?items.map(i=>`
     <div class="favrow">
-      <img src="${i.img}" alt="${i.n}">
+      <img src="${i.img}" alt="${i.n}" data-em="${catIc(i.c)}">
       <div class="fi"><b>${i.n}</b><span>${price(i.p)} تومان</span></div>
       <button class="addbtn" data-add="${i.id}">+ سبد</button>
       <button class="pheart on" data-fav="${i.id}" style="position:static">♥</button>
@@ -1153,12 +1214,12 @@ addEventListener('keydown',e=>{
   if(e.key==='Escape'){closePModal();closeDrawer();closeFav();document.body.classList.remove('menu-open')}
 });
 
-/* ═══════ مارکی — ۸ ست ═══════ */
+/* ═══════ مارکی ═══════ */
 const MQ=['قهوهٔ تازه دم','صبحانه تا ۱۲ ظهر','کیکِ روز','بیرون‌بر داریم','وای‌فای مجانی','دوستدار پت'];
 const half=MQ.map(t=>`<span>${t}</span><b>✳</b>`).join('');
  $('#mqTrack').innerHTML=half.repeat(8);
 
-/* ═══════ دراپ‌داون — با callback ═══════ */
+/* ═══════ دراپ‌داون ═══════ */
 function makeDrop(el,items,def,onChange){
   el.innerHTML=`<button type="button" class="cbtn"><span class="cval">${def}</span><span class="carr">▾</span></button>
     <div class="cmenu">${items.map(i=>`<div class="copt${i===def?' on':''}" data-v="${i}">${i}</div>`).join('')}</div>`;
@@ -1178,7 +1239,6 @@ function makeDrop(el,items,def,onChange){
     if(onChange)onChange(o.dataset.v);
   }));
 }
-/* تعداد مهمان‌ها + اینپوت دلخواه */
 makeDrop($('#dropGuests'),['۱ نفر','۲ نفر','۳ نفر','۴ نفر','۵+ نفر','دلخواه ✏️'],'۲ نفر',v=>{
   const inp=$('#bGuestCustom');
   if(v==='دلخواه ✏️'){inp.classList.add('on');setTimeout(()=>inp.focus(),100)}
@@ -1187,7 +1247,6 @@ makeDrop($('#dropGuests'),['۱ نفر','۲ نفر','۳ نفر','۴ نفر','۵+ 
 makeDrop($('#dropTime'),['صبح (۷–۱۱)','ظهر (۱۱–۱۵)','عصر (۱۵–۱۹)','شب (۱۹–۲۳)'],'صبح (۷–۱۱)');
 document.addEventListener('click',()=>$$('.cdrop.open').forEach(d=>d.classList.remove('open')));
 
-/* فقط عدد قبول کنه */
  $('#bGuestCustom').addEventListener('input',e=>{
   e.target.value=e.target.value.replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/\D/g,'').slice(0,2);
 });
@@ -1232,13 +1291,14 @@ renderBranches();
 });
 
 /* ═══════ شمارندهٔ پیشنهاد ═══════ */
-setInterval(()=>{
+function cdTick(){
   const n=new Date(),end=new Date(n);end.setHours(23,59,59,999);
   let s=Math.max(0,(end-n)/1000|0);
   $('#cdH').textContent=fa(String(s/3600|0).padStart(2,'0'));
   $('#cdM').textContent=fa(String((s%3600)/60|0).padStart(2,'0'));
   $('#cdS').textContent=fa(String(s%60).padStart(2,'0'));
-},1000);
+}
+cdTick();setInterval(cdTick,1000);
  $('#offerAdd').addEventListener('click',()=>{
   CART[6]=(CART[6]||0)+1;saveCart();
   toast('پیشنهاد ویژه به سبد اضافه شد 🔥 (٪۲۰ ارزون‌تر!)');
@@ -1272,7 +1332,6 @@ if(!('ontouchstart' in window)){
   const ph=phone.value.replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/\D/g,'');
   mark(phone,!/^09\d{9}$/.test(ph));
   if(!/^09\d{9}$/.test(ph)&&!msg)msg='شماره موبایل مثل ۰۹۱۲۳۴۵۶۷۸۹';
-  /* ═══ تعداد دلخواه ═══ */
   let guests=$('#dropGuests').dataset.value;
   const gInp=$('#bGuestCustom');
   if(guests==='دلخواه ✏️'){
