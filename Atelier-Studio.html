@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>آتلیه — طراحی سایت اختصاصی برای کسب‌وکارهای محلی</title>
+<meta name="description" content="طراحی و اجرای وب‌سایت اختصاصی برای کافه‌ها، رستوران‌ها و کسب‌وکارهای محلی. پیش‌نمایش رایگان قبل از هر پرداختی — بدون تمپلیت آماده.">
+<meta property="og:title" content="آتلیه — سایت اختصاصی برای کسب‌وکار شما">
+<meta property="og:description" content="قبل از هر پرداختی، یک پیش‌نمایش رایگان ببینید. تحویل ۷ تا ۱۴ روز. بدون تمپلیت آماده.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23B71C1C'/><text x='16' y='23' font-size='15' text-anchor='middle' fill='%23F6F4EA' font-weight='bold'>✳</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gulzar&family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   آتلیه V5.3 — سه قرمز: جیگری + آجری + زرشکی
+   «میز کار طراح» · بدون کرسر · لودر گو
+   ═══════════════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paper:#F6F4EA; --paper2:#EFEBDD; --card:#FFFFFF;
+  --ink:#1C2420; --ink2:#5A635B; --faint:#97A094;
+  --line:rgba(28,36,32,.13); --line2:rgba(28,36,32,.28);
+  /* قرمز جیگری (Jaguar) */
+  --jag:#B71C1C; --jag2:#D32F2F; --jag-s:rgba(183,28,28,.09);
+  /* قرمز آجری (Brick) */
+  --brick:#C0392B; --brick2:#A93226; --brick-s:rgba(192,57,43,.12);
+  /* قرمز زرشکی (Crimson) */
+  --crim:#8E1B2E; --crim2:#A82038; --crim-s:rgba(142,27,46,.1);
+  --fa:'Vazirmatn',sans-serif; --naz:'Gulzar',serif;
+  --ez:cubic-bezier(.22,1,.36,1);
+  --r:14px;
+  --sh:0 20px 50px -22px rgba(28,36,32,.28);
+  --sh2:0 34px 70px -28px rgba(28,36,32,.35);
+}
+html{scroll-behavior:smooth;scroll-padding-top:92px}
+body{background:var(--paper);color:var(--ink);font-family:var(--fa);line-height:1.9;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--jag);color:#fff}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;border:0;background:none;color:inherit;cursor:pointer}
+img{display:block;max-width:100%}
+.wrap{max-width:1140px;margin:0 auto;padding:0 1.5rem}
+.naz{font-family:var(--naz);font-weight:400;line-height:1.6;color:var(--brick)}
+main,footer{position:relative;z-index:2}
+.fa-num{font-variant-numeric:tabular-nums}
+
+/* ═══ کاغذ شطرنجی قرمز ═══ */
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(183,28,28,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(183,28,28,.05) 1px,transparent 1px);
+  background-size:34px 34px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 40%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 40%,transparent 100%)}
+.grain{position:fixed;inset:0;z-index:80;pointer-events:none;opacity:.5;
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2"/></filter><rect width="150" height="150" filter="url(%23n)" opacity="0.03"/></svg>')}
+
+/* ═══ خط‌کش پیشرفت ═══ */
+.ruler{position:fixed;top:0;left:0;right:0;height:6px;z-index:450;pointer-events:none}
+.ruler i{display:block;height:100%;background:linear-gradient(90deg,var(--jag),var(--crim));width:0;transition:width .1s linear}
+.ruler-marks{position:fixed;top:6px;left:0;right:0;z-index:399;pointer-events:none;height:10px;
+  background:repeating-linear-gradient(90deg,rgba(28,36,32,.14) 0 1px,transparent 1px 60px);
+  -webkit-mask-image:linear-gradient(90deg,#000,transparent 15%,transparent 85%,#000);
+  mask-image:linear-gradient(90deg,#000,transparent 15%,transparent 85%,#000)}
+
+/* ═══ پیش‌لودر — گو ═══ */
+#pre{position:fixed;inset:0;z-index:500;background:var(--paper);display:grid;place-items:center;transition:opacity .6s var(--ez)}
+#pre.off{opacity:0;pointer-events:none}
+#pre svg{color:#B71C1C;--rate:1}
+.goo-bound{stroke:currentColor;stroke-width:1;opacity:.14}
+.goo-arm{transform-box:view-box;transform-origin:center;animation:goo-swing calc(var(--dur)*var(--rate,1)) linear infinite}
+.goo-core{transform-box:view-box;transform-origin:center;animation:goo-breathe calc(3.2s*var(--rate,1)) ease-in-out infinite}
+@keyframes goo-swing{from{transform:rotate(0)}to{transform:rotate(calc(var(--dir)*360deg))}}
+@keyframes goo-breathe{0%,100%{transform:scale(.82)}50%{transform:scale(1.05)}}
+@media (prefers-reduced-motion:reduce){.goo-arm{animation:none;transform:rotate(var(--rest))}.goo-core{animation:none;transform:scale(1)}}
+
+/* ═══ هدر ═══ */
+nav{position:sticky;top:0;z-index:300;background:rgba(246,244,234,.88);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 1.1rem}
+.logo{display:flex;align-items:center;gap:.55rem;font-weight:900;font-size:1.12rem}
+.logo .mark{width:36px;height:36px;border:2px solid var(--ink);border-radius:10px;display:grid;place-items:center;
+  color:var(--jag);font-size:1rem;background:#fff;transition:.3s var(--ez)}
+.logo:hover .mark{background:var(--jag);color:#fff;transform:rotate(-8deg)}
+.logo small{font-size:.55rem;letter-spacing:.26em;color:var(--faint);font-weight:700}
+.hnav{display:flex;gap:.15rem}
+.hnav a{font-size:.87rem;font-weight:600;color:var(--ink2);padding:.42rem .9rem;border-radius:9px;transition:.25s}
+.hnav a:hover{background:var(--jag-s);color:var(--jag)}
+.hcta{background:var(--jag);color:#fff;border-radius:11px;padding:.6rem 1.35rem;
+  font-size:.84rem;font-weight:800;transition:.3s var(--ez);box-shadow:0 3px 0 var(--ink)}
+.hcta:hover{transform:translateY(-2px);box-shadow:0 5px 0 var(--ink);background:var(--jag2)}
+.burger{display:none;width:40px;height:40px;border:2px solid var(--ink);border-radius:10px;
+  flex-direction:column;align-items:center;justify-content:center;gap:4.5px}
+.burger span{width:18px;height:2.5px;background:var(--ink);border-radius:2px;transition:.3s}
+body.menu-open .burger span:first-child{transform:translateY(3.5px) rotate(45deg)}
+body.menu-open .burger span:last-child{transform:translateY(-3.5px) rotate(-45deg)}
+@media(max-width:920px){.hnav{display:none}.burger{display:flex}.hcta{display:none}}
+.mmenu{position:fixed;inset:0;background:var(--paper);z-index:250;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:.5rem;transform:translateY(-102%);transition:transform .5s var(--ez)}
+body.menu-open .mmenu{transform:none}
+body.menu-open{overflow:hidden}
+.mmenu a{font-size:1.35rem;font-weight:800;padding:.4rem 1.4rem;border-bottom:1.5px dashed var(--line2);width:82%;text-align:center}
+.mmenu a:hover{color:var(--jag)}
+
+/* ═══ هیرو ═══ */
+.hero{min-height:96svh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:7.5rem 1.4rem 3.5rem;position:relative}
+.cap{display:inline-flex;align-items:center;gap:.6rem;border:1.5px solid var(--line2);
+  border-radius:999px;padding:.45rem 1.15rem;font-size:.8rem;font-weight:700;color:var(--ink2);
+  background:var(--card);box-shadow:0 3px 0 var(--line2)}
+.cap i{width:9px;height:9px;border-radius:50%;background:var(--jag2);animation:blink 1.7s steps(2) infinite;font-style:normal}
+@keyframes blink{50%{opacity:.25}}
+.hero h1{font-weight:900;font-size:clamp(2.1rem,5.8vw,4.2rem);line-height:1.65;margin-top:1.5rem;max-width:880px}
+.hero h1 .u{position:relative;display:inline-block;color:var(--jag)}
+.hero h1 .u svg{position:absolute;right:0;left:0;bottom:-.1em;width:100%;height:.3em;overflow:visible}
+.hero h1 .u svg path{stroke:var(--crim);stroke-width:6;fill:none;stroke-linecap:round;
+  stroke-dasharray:320;stroke-dashoffset:320;animation:draw 1.1s var(--ez) .8s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.hero .sub{max-width:600px;margin:1.3rem auto 0;color:var(--ink2);font-size:1.02rem}
+.hero .sub b{color:var(--ink)}
+.hero-ctas{display:flex;gap:.9rem;margin-top:2.2rem;flex-wrap:wrap;justify-content:center}
+.btn{display:inline-flex;align-items:center;gap:.6rem;border-radius:12px;padding:.95rem 2rem;
+  font-weight:800;font-size:.95rem;transition:.35s var(--ez)}
+.btn-p{background:var(--brick);color:#fff;box-shadow:0 4px 0 var(--ink)}
+.btn-p:hover{transform:translateY(-3px);box-shadow:0 7px 0 var(--ink);background:var(--brick2)}
+.btn-g{background:var(--card);border:1.5px solid var(--line2);box-shadow:0 3px 0 var(--line2)}
+.btn-g:hover{transform:translateY(-3px);border-color:var(--ink);box-shadow:0 6px 0 var(--line2)}
+.badge-spin{position:absolute;top:12%;inset-inline-start:6%;width:120px;height:120px;animation:spin 16s linear infinite;pointer-events:none}
+.badge-spin text{font-family:'Vazirmatn';font-size:11px;font-weight:800;letter-spacing:2.5px;fill:var(--ink2)}
+.badge-spin .mid{font-size:30px;fill:var(--brick)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:960px){.badge-spin{display:none}}
+.memo{position:absolute;top:16%;inset-inline-end:6%;width:150px;background:#F8E1E4;
+  border:1.5px solid var(--line2);border-radius:6px;padding:.9rem 1rem;font-size:.72rem;
+  font-weight:700;line-height:1.9;box-shadow:var(--sh);transform:rotate(4deg);text-align:right}
+.memo::before{content:'';position:absolute;top:-9px;right:50%;transform:translateX(50%) rotate(-2deg);
+  width:52px;height:18px;background:rgba(142,27,46,.3);border:1px solid rgba(28,36,32,.12)}
+.memo b{color:var(--crim)}
+@media(max-width:960px){.memo{display:none}}
+.stk{position:absolute;font-weight:800;font-size:.78rem;background:var(--card);border:1.5px solid var(--ink);
+  border-radius:12px;padding:.45rem 1rem;box-shadow:var(--sh);pointer-events:none;z-index:3;
+  animation:bob 5s ease-in-out infinite alternate}
+.stk.s1{top:30%;inset-inline-end:12%;transform:rotate(6deg);background:#F8E1E4;border-color:var(--crim);color:var(--crim)}
+.stk.s2{bottom:30%;inset-inline-start:7%;transform:rotate(-5deg);animation-delay:-2.4s;background:var(--jag-s);border-color:var(--jag);color:var(--jag)}
+.stk.s3{bottom:16%;inset-inline-end:10%;transform:rotate(3deg);animation-delay:-1.2s;background:var(--brick-s);border-color:var(--brick);color:var(--brick2)}
+@keyframes bob{from{transform:translateY(-7px) rotate(5deg)}to{transform:translateY(9px) rotate(-4deg)}}
+@media(max-width:1100px){.stk{display:none}}
+.hstats{display:flex;justify-content:center;margin-top:3rem;background:var(--card);border:1.5px solid var(--ink);
+  border-radius:16px;overflow:hidden;box-shadow:0 4px 0 var(--ink);max-width:760px;width:100%}
+.hstat{flex:1;padding:1.1rem .8rem;border-inline-start:1.5px solid var(--line);min-width:130px}
+.hstat:first-child{border:0}
+.hstat b{display:block;font-size:1.3rem;font-weight:900}
+.hstat b em{font-style:normal;color:var(--brick)}
+.hstat span{font-size:.7rem;color:var(--faint);font-weight:600}
+@media(max-width:640px){.hstats{flex-wrap:wrap}.hstat{min-width:46%;border:0;border-top:1.5px solid var(--line)}}
+
+/* ═══ مارکی ═══ */
+.mq{direction:ltr;background:var(--ink);color:var(--paper);padding:.85rem 0;overflow:hidden;
+  transform:rotate(-1.1deg) scale(1.02);border-block:2px solid var(--ink)}
+.mq-track{display:flex;width:max-content;animation:mq 26s linear infinite}
+.mq-track span{white-space:nowrap;font-weight:700;font-size:.9rem;padding-inline-end:2rem;opacity:.85}
+.mq-track b{color:var(--crim2);padding-inline-end:2rem}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ═══ سکشن‌ها ═══ */
+section{padding:5.5rem 0;position:relative}
+.snum{position:absolute;top:2rem;inset-inline-start:.5rem;font-weight:900;font-size:clamp(4.5rem,11vw,8rem);
+  color:transparent;-webkit-text-stroke:1.5px rgba(28,36,32,.1);line-height:1;user-select:none;pointer-events:none}
+.kick{display:inline-flex;align-items:center;gap:.55rem;font-size:.73rem;font-weight:800;
+  letter-spacing:.2em;color:var(--brick);margin-bottom:1rem}
+.kick i{font-style:normal;display:inline-block;animation:spin 8s linear infinite}
+.h2{font-size:clamp(1.9rem,4.2vw,2.8rem);font-weight:900;line-height:1.55}
+.lead{color:var(--ink2);max-width:580px;font-size:.99rem;margin-top:.8rem}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ez),transform .9s var(--ez);transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:none}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:1.4rem;flex-wrap:wrap;margin-bottom:2.2rem}
+
+/* ═══ برای چه کسی ═══ */
+.who{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:2.6rem}
+.wcard{background:var(--card);border:1.5px solid var(--line2);border-radius:var(--r);padding:1.7rem 1.4rem;
+  position:relative;transition:.3s var(--ez);box-shadow:0 3px 0 var(--line)}
+.wcard:hover{transform:translateY(-6px);box-shadow:0 9px 0 var(--line);border-color:var(--jag)}
+.wcard .tab3{position:absolute;top:-11px;inset-inline-start:1.2rem;background:var(--jag);color:#fff;
+  font-size:.58rem;font-weight:900;border-radius:5px;padding:.18rem .7rem;letter-spacing:.1em}
+.wcard .ic{width:2.6rem;height:2.6rem;border-radius:12px;display:grid;place-items:center;font-size:1.25rem;
+  margin:.5rem 0 .9rem;background:var(--brick-s);border:1.5px solid rgba(192,57,43,.3)}
+.wcard h3{font-size:1.05rem;font-weight:900;margin-bottom:.35rem}
+.wcard p{font-size:.83rem;color:var(--ink2)}
+.wcard ul{list-style:none;margin-top:.8rem;display:flex;flex-direction:column;gap:.3rem}
+.wcard li{font-size:.77rem;color:var(--ink2);display:flex;gap:.45rem;align-items:flex-start}
+.wcard li i{font-style:normal;color:var(--jag);font-weight:900;font-size:.7rem;margin-top:.3rem}
+@media(max-width:940px){.who{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.who{grid-template-columns:1fr}}
+
+/* ═══ نمونه‌کارهای زنده ═══ */
+.works-sec{background:#fff;border-block:1.5px solid var(--line)}
+.concept-tag{display:inline-flex;align-items:center;gap:.5rem;background:var(--jag-s);border:1.5px dashed var(--jag);
+  border-radius:99px;padding:.4rem 1.1rem;font-size:.76rem;font-weight:700;color:var(--jag);margin-top:.9rem}
+.works{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;max-width:900px;margin:2.4rem auto 0}
+.wcard2{border:1.5px solid var(--ink);border-radius:var(--r);overflow:hidden;background:var(--paper);
+  transition:.35s var(--ez);display:flex;flex-direction:column;position:relative;box-shadow:0 4px 0 var(--ink)}
+.wcard2:hover{transform:translateY(-6px);box-shadow:0 10px 0 var(--ink)}
+.whead{background:var(--ink);color:var(--paper);padding:.7rem 1.3rem;display:flex;
+  justify-content:space-between;align-items:center;font-size:.72rem;font-weight:700}
+.whead .dots{display:flex;gap:5px}
+.whead .dots i{width:9px;height:9px;border-radius:50%;background:rgba(246,244,234,.3)}
+.whead .dots i:first-child{background:var(--brick)}
+.wpv{position:relative;aspect-ratio:16/10;background:#E9E6DE;overflow:hidden;border-block:1.5px solid var(--ink)}
+.wpv iframe{position:absolute;top:0;left:0;width:1200px;height:750px;border:0;pointer-events:none;transform-origin:0 0}
+.wbody2{padding:1.15rem 1.35rem 1.3rem;display:flex;align-items:center;gap:1rem;flex:1}
+.wbody2 .t{flex:1}
+.wbody2 h3{font-weight:900;font-size:1.15rem}
+.wbody2 p{font-size:.78rem;color:var(--ink2)}
+.wgo2{width:42px;height:42px;flex:none;border-radius:10px;border:1.5px solid var(--ink);background:#fff;
+  display:grid;place-items:center;font-weight:900;font-size:1.05rem;color:var(--brick);transition:.3s var(--ez)}
+.wcard2:hover .wgo2{background:var(--brick);color:#fff;transform:translateX(-4px)}
+@media(max-width:700px){.works{grid-template-columns:1fr}}
+
+/* ═══ گالری مفهومی ═══ */
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4rem 1.8rem;margin-top:2.4rem}
+.piece{text-align:center}
+.frame{position:relative;aspect-ratio:4/5;background:var(--card);border:1px solid var(--line2);
+  border-radius:4px;padding:.55rem;box-shadow:var(--sh);transition:.45s var(--ez);cursor:pointer}
+.piece:hover .frame{transform:translateY(-8px) rotate(-1deg);box-shadow:var(--sh2)}
+.frame .art{position:absolute;inset:.55rem;bottom:3.2rem;display:grid;place-items:center;overflow:hidden;
+  filter:grayscale(.85);transition:filter .55s var(--ez)}
+.piece:hover .frame .art{filter:none}
+.frame .mono{font-family:var(--naz);font-size:6rem;line-height:1.3}
+.frame .tag2{position:absolute;top:1.1rem;inset-inline-start:1.1rem;z-index:2;font-size:.56rem;font-weight:800;
+  letter-spacing:.16em;background:var(--ink);color:var(--paper);border-radius:6px;padding:.3rem .65rem}
+.frame .dots{position:absolute;bottom:1rem;inset-inline:0;display:flex;gap:.4rem;justify-content:center}
+.frame .dots i{width:13px;height:13px;border-radius:50%;border:1px solid rgba(28,36,32,.25)}
+.tape{position:absolute;top:-12px;right:50%;transform:translateX(50%) rotate(-4deg);width:92px;height:26px;
+  background:repeating-linear-gradient(45deg,rgba(142,27,46,.75) 0 8px,rgba(142,27,46,.45) 8px 16px);
+  opacity:.9;z-index:3;border-radius:2px;box-shadow:0 2px 6px rgba(28,36,32,.15)}
+.piece:nth-child(2n) .tape{transform:translateX(50%) rotate(3deg);background:repeating-linear-gradient(45deg,rgba(192,57,43,.6) 0 8px,rgba(192,57,43,.35) 8px 16px)}
+.placard{margin:.9rem auto 0;width:fit-content;max-width:92%;font-size:.73rem;line-height:1.75;color:var(--ink2)}
+.placard b{color:var(--ink);font-weight:900;font-size:.85rem}
+.placard span{display:block;font-size:.66rem;color:var(--faint)}
+@media(max-width:900px){.gal{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.gal{grid-template-columns:1fr}}
+
+/* ═══ مراحل ═══ */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:2.8rem}
+.steps::before{content:'';position:absolute;top:1.55rem;right:12%;left:12%;border-top:2px dashed var(--line2)}
+.step{text-align:center;padding:0 .6rem;position:relative}
+.step .ball{width:3.1rem;height:3.1rem;margin:0 auto .9rem;border-radius:50%;background:#fff;
+  border:2px solid var(--ink);display:grid;place-items:center;font-weight:900;font-size:1.05rem;
+  transition:.3s var(--ez);position:relative;z-index:1}
+.step:hover .ball{background:var(--jag);color:#fff;transform:scale(1.12);border-color:var(--jag)}
+.step h3{font-size:.98rem;font-weight:900;margin-bottom:.3rem}
+.step p{font-size:.79rem;color:var(--ink2)}
+.step .t{display:inline-block;margin-top:.6rem;font-size:.62rem;font-weight:800;color:var(--faint);
+  background:#fff;border:1px solid var(--line2);border-radius:40px;padding:.12rem .7rem}
+@media(max-width:760px){.steps{grid-template-columns:1fr 1fr;gap:1.6rem 1rem}.steps::before{display:none}}
+@media(max-width:460px){.steps{grid-template-columns:1fr}}
+
+/* ═══ DNA ═══ */
+.dna{margin-top:2.6rem;background:var(--ink);color:var(--paper);border-radius:22px;padding:2.6rem 2.4rem;
+  display:grid;grid-template-columns:1fr 1.35fr;gap:2.6rem;position:relative;overflow:hidden;box-shadow:0 5px 0 rgba(28,36,32,.25)}
+.dna::before{content:'✳';position:absolute;inset-inline-end:-2rem;bottom:-3.5rem;font-size:11rem;color:rgba(246,244,234,.05)}
+.dna h3{font-size:1.5rem;font-weight:900}
+.dna .naz{font-size:1.7rem;display:block;margin-top:.2rem;color:var(--crim2)}
+.dna .dl{color:rgba(246,244,234,.7);font-size:.9rem;margin-top:1rem}
+.dna-qs{display:flex;flex-direction:column;gap:1rem;justify-content:center;position:relative;z-index:1}
+.dq{display:flex;gap:.9rem;align-items:baseline;font-size:.93rem;color:rgba(246,244,234,.85);
+  border-bottom:1px dashed rgba(246,244,234,.18);padding-bottom:.9rem}
+.dq:last-child{border:0;padding-bottom:0}
+.dq i{font-style:normal;font-family:var(--naz);color:var(--crim2);font-size:1.35rem;min-width:1.3rem}
+.dq b{color:#fff}
+@media(max-width:900px){.dna{grid-template-columns:1fr}}
+@media(max-width:560px){.dna{padding:2rem 1.5rem}}
+
+/* ═══ تعرفه ═══ */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-top:2.6rem;align-items:stretch}
+.tier{background:var(--card);border:1.5px solid var(--line2);border-radius:18px;padding:1.9rem 1.6rem;
+  display:flex;flex-direction:column;transition:.4s var(--ez);position:relative;box-shadow:0 3px 0 var(--line2)}
+.tier:hover{transform:translateY(-6px);box-shadow:var(--sh);border-color:var(--jag)}
+.tier .tn{font-size:.66rem;font-weight:900;letter-spacing:.18em;color:var(--jag)}
+.tier h3{font-size:1.4rem;font-weight:900;margin:.4rem 0 .1rem}
+.tier .for{font-size:.8rem;color:var(--faint)}
+.tier .price{margin:1.1rem 0 .2rem;font-size:1.8rem;font-weight:900}
+.tier .price small{font-size:.75rem;color:var(--faint);font-weight:500}
+.tier .per{font-size:.71rem;color:var(--faint);margin-bottom:1rem}
+.tier ul{list-style:none;margin:.8rem 0 1.6rem;display:flex;flex-direction:column;gap:.55rem;flex:1}
+.tier li{display:flex;gap:.55rem;font-size:.85rem;color:var(--ink2);align-items:flex-start}
+.tier li i{font-style:normal;color:var(--jag);font-weight:900;font-size:.78rem;margin-top:.3rem}
+.tier .go{text-align:center;border:1.5px solid var(--ink);border-radius:12px;padding:.8rem;font-weight:800;font-size:.9rem;transition:.3s}
+.tier .go:hover{background:var(--jag);color:#fff;border-color:var(--jag)}
+.tier.hot{background:var(--ink);color:var(--paper);border-color:var(--ink);transform:scale(1.03);box-shadow:0 6px 0 var(--jag)}
+.tier.hot:hover{transform:scale(1.03) translateY(-6px)}
+.tier.hot .tn{color:var(--crim2)}
+.tier.hot .for,.tier.hot .per{color:rgba(246,244,234,.55)}
+.tier.hot .price{color:var(--crim2)}
+.tier.hot li{color:rgba(246,244,234,.82)}
+.tier.hot li i{color:var(--crim2)}
+.tier.hot .go{background:var(--brick);border-color:var(--brick);color:#fff}
+.tier.hot .go:hover{background:var(--brick2)}
+.tier.hot .rib{position:absolute;top:-13px;right:50%;transform:translateX(50%);background:var(--brick);color:#fff;
+  font-size:.66rem;font-weight:800;border-radius:99px;padding:.32rem 1rem;white-space:nowrap;box-shadow:0 8px 20px -6px rgba(192,57,43,.6)}
+@media(max-width:900px){.tiers{grid-template-columns:1fr}.tier.hot{transform:none}}
+.pnote{margin-top:1.6rem;text-align:center;font-size:.86rem;color:var(--ink2);
+  background:var(--card);border:1.5px dashed var(--line2);border-radius:14px;padding:1rem 1.4rem;max-width:720px;margin-inline:auto}
+.pnote b{color:var(--ink)}
+
+/* ═══ رسید قیمت ═══ */
+.receipt-box{margin-top:2.6rem;display:grid;grid-template-columns:1fr 1.3fr;gap:2.2rem;align-items:center}
+.receipt{background:#FFFEF9;border:1px dashed var(--line2);border-radius:6px;padding:1.5rem 1.4rem;
+  box-shadow:var(--sh);position:relative;max-width:360px;justify-self:center;width:100%}
+.receipt::before,.receipt::after{content:'';position:absolute;width:22px;height:22px;border-radius:50%;
+  background:var(--paper);border:1px dashed var(--line2);top:50%;transform:translateY(-50%)}
+.receipt::before{right:-12px}.receipt::after{left:-12px}
+.receipt h4{text-align:center;font-weight:900;font-size:.95rem;letter-spacing:.06em;border-bottom:1.5px dashed var(--line2);padding-bottom:.7rem;margin-bottom:.8rem}
+.receipt .rrow{display:flex;justify-content:space-between;font-size:.82rem;color:var(--ink2);padding:.32rem 0}
+.receipt .rrow b{color:var(--ink);font-weight:700}
+.receipt .rtotal{border-top:1.5px dashed var(--line2);margin-top:.7rem;padding-top:.7rem;
+  display:flex;justify-content:space-between;font-weight:900;font-size:.95rem}
+.receipt .rtotal b{color:var(--jag)}
+.receipt .rnote{margin-top:.7rem;font-size:.64rem;color:var(--faint);text-align:center;letter-spacing:.04em}
+.whylist{display:flex;flex-direction:column;gap:.85rem}
+.whylist .w{display:flex;gap:.8rem;align-items:flex-start;font-size:.94rem;color:var(--ink2)}
+.whylist .w i{font-style:normal;font-weight:900;color:var(--brick);flex-shrink:0}
+.whylist .w b{color:var(--ink)}
+@media(max-width:900px){.receipt-box{grid-template-columns:1fr}.receipt{justify-self:stretch;max-width:none}}
+
+/* ═══ FAQ ═══ */
+.faq{max-width:740px;margin:2.4rem auto 0}
+.qa{background:var(--card);border:1.5px solid var(--line2);border-radius:14px;margin-bottom:.8rem;transition:.3s;box-shadow:0 3px 0 var(--line)}
+.qa.open{border-color:var(--jag);box-shadow:0 3px 0 var(--jag)}
+.qa button{width:100%;display:flex;justify-content:space-between;gap:1.2rem;text-align:right;
+  padding:1.15rem 1.3rem;font-size:.97rem;font-weight:800;transition:.25s;align-items:center}
+.qa button:hover{color:var(--jag)}
+.qa button i{font-style:normal;color:var(--brick);font-size:1.3rem;font-weight:400;transition:.4s var(--ez);flex-shrink:0}
+.qa.open button i{transform:rotate(45deg)}
+.qa .ans{max-height:0;overflow:hidden;transition:max-height .5s var(--ez)}
+.qa .ans p{padding:0 1.3rem 1.2rem;color:var(--ink2);font-size:.89rem}
+
+/* ═══ بریف ═══ */
+.brief{background:var(--ink);color:var(--paper);border-radius:24px;padding:2.8rem 2.4rem;position:relative;overflow:hidden}
+.brief::before{content:'✳';position:absolute;inset-inline-end:-1.5rem;bottom:-3rem;font-size:10rem;color:rgba(246,244,234,.05)}
+.brief .h2,.brief .lead{color:var(--paper)}
+.brief .lead{color:rgba(246,244,234,.65);max-width:600px}
+.brief .kick{color:var(--crim2)}
+.bgrid{display:grid;grid-template-columns:1.1fr 1fr;gap:2.4rem;margin-top:2.2rem;align-items:start;position:relative;z-index:1}
+.bform{display:flex;flex-direction:column;gap:1rem}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.bform label{display:block;font-size:.64rem;font-weight:800;letter-spacing:.12em;color:rgba(246,244,234,.55);margin-bottom:.4rem}
+.bform input,.bform select,.bform textarea{width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(246,244,234,.22);
+  border-radius:11px;padding:.85rem 1rem;color:var(--paper);font-family:var(--fa);font-size:.92rem;outline:0;transition:.3s}
+.bform input:focus,.bform select:focus,.bform textarea:focus{border-color:var(--crim2);background:rgba(255,255,255,.09)}
+.bform select option{background:var(--ink);color:var(--paper)}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chip{font-size:.78rem;font-weight:700;border:1.5px solid rgba(246,244,234,.25);border-radius:999px;padding:.42rem .95rem;color:rgba(246,244,234,.75);transition:.3s}
+.chip:hover{border-color:var(--crim2);color:var(--crim2)}
+.chip.on{background:var(--crim2);color:#fff;border-color:var(--crim2);font-weight:800}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.cbox{display:flex;align-items:center;gap:.5rem;font-size:.81rem;color:rgba(246,244,234,.75);cursor:pointer;
+  border:1.5px solid rgba(246,244,234,.18);border-radius:10px;padding:.55rem .8rem;transition:.3s}
+.cbox:hover{border-color:rgba(246,244,234,.4)}
+.cbox input{width:auto;accent-color:var(--crim2)}
+.cbox:has(input:checked){border-color:var(--crim2);color:var(--paper);background:rgba(142,27,46,.15)}
+.bsubmit{background:var(--crim2);color:#fff;border-radius:12px;padding:1rem;font-weight:900;font-size:1rem;transition:.35s var(--ez);box-shadow:0 4px 0 rgba(0,0,0,.4)}
+.bsubmit:hover{background:var(--crim);transform:translateY(-2px);box-shadow:0 6px 0 rgba(0,0,0,.4)}
+.bnote{font-size:.73rem;color:rgba(246,244,234,.4);text-align:center}
+.paperwrap{position:sticky;top:5.5rem}
+.paper{background:var(--paper);color:var(--ink);border-radius:6px;padding:1.5rem 1.4rem;box-shadow:var(--sh2);
+  position:relative;transform:rotate(.7deg);border:1.5px solid var(--line2)}
+.paper::before{content:'';position:absolute;top:0;left:0;right:0;height:24px;border-bottom:1.5px dashed var(--line2);
+  background:repeating-linear-gradient(90deg,rgba(28,36,32,.07) 0 2px,transparent 2px 24px)}
+.paper h4{font-weight:900;font-size:.9rem;margin:.9rem 0 .6rem;display:flex;justify-content:space-between;align-items:center}
+.paper h4 span{font-size:.56rem;letter-spacing:.16em;color:var(--faint)}
+.paper .body{font-size:.82rem;line-height:2;white-space:pre-wrap;min-height:270px;color:var(--ink2)}
+.paper .body .hl2{background:rgba(142,27,46,.25);border-radius:3px;padding:0 .2em;color:var(--crim);font-weight:700}
+.cursor2{display:inline-block;width:8px;height:1em;background:var(--brick);vertical-align:middle;animation:blink 1s steps(2) infinite}
+.copybtn{margin-top:1rem;width:100%;background:var(--jag);color:#fff;border-radius:11px;
+  padding:.8rem;font-weight:800;font-size:.85rem;transition:.3s;box-shadow:0 3px 0 var(--ink)}
+.copybtn:hover{transform:translateY(-2px);box-shadow:0 5px 0 var(--ink);background:var(--jag2)}
+@media(max-width:900px){.bgrid{grid-template-columns:1fr}.paperwrap{position:static}}
+@media(max-width:560px){.f2,.checks{grid-template-columns:1fr}}
+
+/* ═══ فوتر ═══ */
+footer{background:var(--ink);color:var(--paper);padding:5rem 0 2rem;text-align:center;position:relative;overflow:hidden}
+footer .big{font-size:clamp(1.9rem,5vw,3.4rem);font-weight:900;line-height:1.55}
+footer .big .naz{font-size:1.25em;color:var(--crim2)}
+.fcontact{display:flex;justify-content:center;gap:.8rem;margin:2rem 0;flex-wrap:wrap}
+.fbtn{border:1.5px solid rgba(246,244,234,.3);border-radius:12px;padding:.7rem 1.6rem;font-size:.88rem;font-weight:800;transition:.3s}
+.fbtn:hover{border-color:var(--crim2);color:var(--crim2);transform:translateY(-2px)}
+.fbtn.p{background:var(--jag);color:#fff;border-color:var(--jag)}
+.fbtn.p:hover{background:var(--jag2);color:#fff;box-shadow:0 14px 34px -10px rgba(183,28,28,.6)}
+.fsmall{font-size:.7rem;color:rgba(246,244,234,.4)}
+.fbig{font-weight:900;font-size:clamp(80px,17vw,230px);line-height:.9;letter-spacing:-.02em;
+  color:transparent;-webkit-text-stroke:1px rgba(246,244,234,.13);user-select:none;pointer-events:none;
+  transform:translateY(18%);font-family:'Vazirmatn'}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- خط‌کش پیشرفت -->
+<div class="ruler"><i id="rulerFill"></i></div>
+<div class="ruler-marks" aria-hidden="true"></div>
+
+<!-- پیش‌لودر — گو -->
+<div id="pre">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="96" height="96" fill="none" role="img" aria-label="Loading">
+    <defs>
+      <filter id="goo-weld" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="2.6" result="soft"/>
+        <feColorMatrix in="soft" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 19 -8"/>
+      </filter>
+    </defs>
+    <circle class="goo-bound" cx="32" cy="32" r="30"/>
+    <g filter="url(#goo-weld)" fill="currentColor">
+      <circle class="goo-core" cx="32" cy="32" r="9.5"/>
+      <g class="goo-arm" style="--dur:2.8s;--dir:1;--rest:20deg"><circle cx="32" cy="21" r="7"/></g>
+      <g class="goo-arm" style="--dur:3.6s;--dir:-1;--rest:140deg"><circle cx="32" cy="17.5" r="5.5"/></g>
+      <g class="goo-arm" style="--dur:2.2s;--dir:1;--rest:255deg"><circle cx="32" cy="23" r="4.6"/></g>
+      <g class="goo-arm" style="--dur:4.4s;--dir:-1;--rest:310deg"><circle cx="32" cy="16" r="4"/></g>
+    </g>
+  </svg>
+</div>
+
+<!-- هدر -->
+<nav id="nav">
+  <div class="wrap hd">
+    <a class="logo" href="#top"><span class="mark">✳</span><span>آتلیه <small>ATELIER STUDIO</small></span></a>
+    <div class="hnav">
+      <a href="#who">برای چه کسی؟</a>
+      <a href="#works">نمونه‌کارها</a>
+      <a href="#how">مراحل کار</a>
+      <a href="#pricing">تعرفه</a>
+      <a href="#faq">سوالات</a>
+    </div>
+    <button class="hcta" onclick="document.getElementById('brief').scrollIntoView({behavior:'smooth'})">پیش‌نمایش رایگان</button>
+    <button class="burger" id="burger" aria-label="منو"><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mmenu" id="mmenu">
+  <a href="#who">برای چه کسی؟</a>
+  <a href="#works">نمونه‌کارها</a>
+  <a href="#how">مراحل کار</a>
+  <a href="#pricing">تعرفه</a>
+  <a href="#faq">سوالات</a>
+  <a href="#brief">پیش‌نمایش رایگان</a>
+</div>
+
+<main id="top">
+
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <svg class="badge-spin" viewBox="0 0 120 120">
+    <defs><path id="circ" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
+    <text><textPath href="#circ">FREE PREVIEW ✳ CUSTOM DESIGN ✳ NO TEMPLATE ✳</textPath></text>
+    <text x="60" y="71" text-anchor="middle" class="mid">✳</text>
+  </svg>
+
+  <div class="memo" aria-hidden="true">یادآوری:<br>هیچ تمپلیتی<br>روی میز ما نیست<br><b>✳ قسم خورده‌ایم</b></div>
+
+  <span class="stk s1">پیش‌نمایش رایگان 🎁</span>
+  <span class="stk s2">دامنه به نام شما ✓</span>
+  <span class="stk s3">تحویل ۷–۱۴ روز ⚡</span>
+
+  <span class="cap"><i></i>در حال پذیرش پروژه‌های جدید</span>
+  <h1>
+    یک سایت حرفه‌ای، برای کسب‌وکاری که
+    <span class="u">نمی‌خواهد شبیه همه<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M4 15 C40 7 80 19 120 11 C150 6 178 14 196 9"/></svg></span>
+    باشد.
+  </h1>
+  <p class="sub">طراحی و اجرای <b>وب‌سایت اختصاصی</b> برای کافه‌ها، رستوران‌ها، کلینیک‌ها و کسب‌وکارهای محلی — با پیش‌نمایش رایگان قبل از هر پرداختی و تمرکز بر دیده‌شدن، تماس راحت‌تر و اعتماد بیشتر.</p>
+  <div class="hero-ctas">
+    <button class="btn btn-p" onclick="document.getElementById('brief').scrollIntoView({behavior:'smooth'})">درخواست پیش‌نمایش رایگان ←</button>
+    <a class="btn btn-g" href="#works">دیدن نمونه‌کارهای زنده</a>
+  </div>
+  <div class="hstats">
+    <div class="hstat"><b>۷–۱۴</b><span>روز تا تحویل</span></div>
+    <div class="hstat"><b>&lt;<em>۲۴</em> ساعت</b><span>زمان پاسخ‌گویی</span></div>
+    <div class="hstat"><b>۳۰ روز</b><span>پشتیبانی رفع اشکال</span></div>
+    <div class="hstat"><b>۱۰۰٪</b><span>مالکیت با شما</span></div>
+  </div>
+</header>
+
+<div class="mq">
+  <div class="mq-track">
+    <span>کافه و رستوران</span><b>✳</b><span>کلینیک و پزشک</span><b>✳</b><span>فروشگاه و برند</span><b>✳</b><span>آرایشگاه</span><b>✳</b><span>آموزشگاه</span><b>✳</b><span>گل‌فروشی</span><b>✳</b><span>خدمات محلی</span><b>✳</b>
+    <span>کافه و رستوران</span><b>✳</b><span>کلینیک و پزشک</span><b>✳</b><span>فروشگاه و برند</span><b>✳</b><span>آرایشگاه</span><b>✳</b><span>آموزشگاه</span><b>✳</b><span>گل‌فروشی</span><b>✳</b><span>خدمات محلی</span><b>✳</b>
+  </div>
+</div>
+
+<!-- ═══ ۰۱ — برای چه کسی ═══ -->
+<section id="who">
+  <span class="snum">۰۱</span>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <span class="kick"><i>✳</i>پروندهٔ شمارهٔ ۱</span>
+        <h2 class="h2">سایت، دستیار فروشِ <span class="naz">همیشگی</span> شماست</h2>
+      </div>
+      <p class="lead">مشتری‌ها قبل از آمدن، اول سرچ می‌کنند. سایت شما همان لحظه است که شما را پیدا می‌کنند — یا رقیبتان را.</p>
+    </div>
+
+    <div class="who">
+      <div class="wcard rv"><span class="tab3">CASE 01</span><span class="ic">☕</span><h3>کافه و رستوران</h3>
+        <p>مشتری قبل از پا گذاشتن داخل، منو و حال‌وهوای شما را دیده است.</p>
+        <ul><li><i>✓</i>منوی آنلاین با قیمت</li><li><i>✓</i>ساعت کاری و نقشه</li><li><i>✓</i>دکمهٔ رزرو و تماس</li></ul>
+      </div>
+      <div class="wcard rv" style="--d:.07s"><span class="tab3">CASE 02</span><span class="ic">🩺</span><h3>کلینیک و پزشک</h3>
+        <p>اعتماد، از اولین جست‌وجوی بیمار شروع می‌شود — نه از پذیرش.</p>
+        <ul><li><i>✓</i>معرفی تخصص و خدمات</li><li><i>✓</i>فرم نوبت‌خواهی</li><li><i>✓</i>سوالات رایج بیماران</li></ul>
+      </div>
+      <div class="wcard rv" style="--d:.14s"><span class="tab3">CASE 03</span><span class="ic">🛍️</span><h3>فروشگاه و برند</h3>
+        <p>ویترین شما وقتی مغازه بسته است هم بازدید دارد.</p>
+        <ul><li><i>✓</i>نمایش محصولات و قیمت</li><li><i>✓</i>اتصال به اینستاگرام</li><li><i>✓</i>سفارش تلفنی و آنلاین</li></ul>
+      </div>
+      <div class="wcard rv" style="--d:.21s"><span class="tab3">CASE 04</span><span class="ic">📍</span><h3>کسب‌وکار محلی</h3>
+        <p>آرایشگاه، آموزشگاه، تعمیرات — هر کسی که مشتری‌اش همسایه‌ها هستند.</p>
+        <ul><li><i>✓</i>جست‌وجوی محلی</li><li><i>✓</i>گالری نمونهٔ کارها</li><li><i>✓</i>تماس با یک کلیک</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ۰۲ — نمونه‌کارهای زنده ═══ -->
+<section class="works-sec" id="works">
+  <span class="snum">۰۲</span>
+  <div class="wrap">
+    <div class="sec-head rv" style="justify-content:center;text-align:center">
+      <div style="margin:0 auto">
+        <span class="kick"><i>✳</i>پروندهٔ شمارهٔ ۲ — زنده و واقعی</span>
+        <h2 class="h2">نمونه‌کارهای اجراشده — کلیک کنید</h2>
+        <span class="concept-tag"><i>✳</i>این‌ها اسکرین‌شات نیستند؛ خودِ سایت‌ها هستند — وارد شوید و با آن‌ها کار کنید</span>
+      </div>
+    </div>
+
+    <div class="works">
+      <a class="wcard2 rv" href="https://diamondashesam.github.io/CafeTakTak" target="_blank" rel="noopener">
+        <div class="whead"><span class="dots"><i></i><i></i><i></i></span><span>PROJECT — CafeTakTak</span></div>
+        <div class="wpv"><div class="pv" data-src="https://diamondashesam.github.io/CafeTakTak" style="position:absolute;inset:0"></div></div>
+        <div class="wbody2">
+          <div class="t"><h3>کافه تک‌تک ☕</h3><p>منوی آنلاین رترو-گرووی · رزرو میز · سبد سفارش</p></div>
+          <span class="wgo2">←</span>
+        </div>
+      </a>
+      <a class="wcard2 rv" style="--d:.1s" href="https://diamondashesam.github.io/Lux-Studio" target="_blank" rel="noopener">
+        <div class="whead"><span class="dots"><i></i><i></i><i></i></span><span>PROJECT — Lux-Studio</span></div>
+        <div class="wpv"><div class="pv" data-src="https://diamondashesam.github.io/Lux-Studio" style="position:absolute;inset:0"></div></div>
+        <div class="wbody2">
+          <div class="t"><h3>لوکس‌استودیو 🏠</h3><p>سایت املاک باهاوس · فیلتر ملک · فرم بازدید</p></div>
+          <span class="wgo2">←</span>
+        </div>
+      </a>
+    </div>
+
+    <p style="text-align:center;font-size:.78rem;color:var(--faint);margin-top:1.8rem">✳ سبک سایت شما از صفر و بر اساس هویت خودتان طراحی می‌شود — کپی هیچ‌کدام از این‌ها نیست.</p>
+  </div>
+</section>
+
+<!-- ═══ ۰۳ — گالری مفهومی ═══ -->
+<section id="concepts">
+  <span class="snum">۰۳</span>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <span class="kick"><i>✳</i>پروندهٔ شمارهٔ ۳ — مفهومی</span>
+        <h2 class="h2">هر قاب، یک <span class="naz">دنیای متفاوت</span></h2>
+      </div>
+      <p class="lead">طرح‌های مفهومی برای نمایش دامنهٔ سبک — روی هر قاب بروید تا رنگ بگیرد.</p>
+    </div>
+
+    <div class="gal">
+      <div class="piece rv"><div class="frame"><span class="tape"></span><div class="art" style="background:linear-gradient(160deg,#141210,#2A2417)"><span class="mono" style="color:#C9A24B">م</span></div><span class="tag2">FINE DINING</span><div class="dots"><i style="background:#0B0B09"></i><i style="background:#C9A24B"></i><i style="background:#EDE6D6"></i></div></div><div class="placard"><b>میزون</b> — مفهومی<span>رستوران لوکس · بشقاب چرخان</span></div></div>
+      <div class="piece rv" style="--d:.08s"><div class="frame"><span class="tape"></span><div class="art" style="background:linear-gradient(160deg,#F3EADA,#E5C9A8)"><span class="mono" style="color:#A8331F">ف</span></div><span class="tag2">BARBERSHOP</span><div class="dots"><i style="background:#F3EADA"></i><i style="background:#A8331F"></i><i style="background:#2E2018"></i></div></div><div class="placard"><b>فِید</b> — مفهومی<span>آرایشگاه · تیر باربر چرخان</span></div></div>
+      <div class="piece rv" style="--d:.16s"><div class="frame"><span class="tape"></span><div class="art" style="background:linear-gradient(160deg,#FFF7EA,#F0D9A8)"><span class="mono" style="color:#C97B2D">ن</span></div><span class="tag2">BAKERY</span><div class="dots"><i style="background:#FFF7EA"></i><i style="background:#C97B2D"></i><i style="background:#3A2A18"></i></div></div><div class="placard"><b>کرومه</b> — مفهومی<span>نانوایی · هالهٔ تنور</span></div></div>
+      <div class="piece rv"><div class="frame"><span class="tape"></span><div class="art" style="background:linear-gradient(160deg,#FBF1EA,#EFC9DA)"><span class="mono" style="color:#B94768">گ</span></div><span class="tag2">FLORIST</span><div class="dots"><i style="background:#FBF1EA"></i><i style="background:#B94768"></i><i style="background:#43222E"></i></div></div><div class="placard"><b>فلورا</b> — مفهومی<span>گل‌فروشی · گل بازشونده</span></div></div>
+      <div class="piece rv" style="--d:.08s"><div class="frame"><span class="tape"></span><div class="art" style="background:linear-gradient(160deg,#F2FAF8,#CBEAE3)"><span class="mono" style="color:#0FA38C">م</span></div><span class="tag2">CLINIC</span><div class="dots"><i style="background:#F2FAF8"></i><i style="background:#0FA38C"></i><i style="background:#0E3A36"></i></div></div><div class="placard"><b>مدیکر</b> — مفهومی<span>کلینیک · نوبت‌دهی تعاملی</span></div></div>
+      <div class="piece rv" style="--d:.16s"><div class="frame"><span class="tape"></span><div class="art" style="background:linear-gradient(160deg,#F6EFE3,#E8D3B4)"><span class="mono" style="color:#5B371F">ک</span></div><span class="tag2">CAFE</span><div class="dots"><i style="background:#F6EFE3"></i><i style="background:#B4552D"></i><i style="background:#2E1D12"></i></div></div><div class="placard"><b>کافه لونا</b> — مفهومی<span>تک‌صفحهٔ فارسی · بخار زنده</span></div></div>
+    </div>
+    <p class="rv" style="--d:.2s;text-align:center;font-size:.78rem;color:var(--faint);margin-top:1.8rem">با تکمیل هر پروژهٔ واقعی، کار مشتری با اجازهٔ خودش این‌جا منتشر می‌شود.</p>
+  </div>
+</section>
+
+<!-- ═══ ۰۴ — مراحل کار ═══ -->
+<section id="how" style="background:#fff;border-block:1.5px solid var(--line)">
+  <span class="snum">۰۴</span>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <span class="kick"><i>✳</i>پروندهٔ شمارهٔ ۴</span>
+        <h2 class="h2">از پیام اول تا انتشار، <span class="naz">شفاف</span></h2>
+      </div>
+      <p class="lead">هیچ مرحلهٔ پنهانی وجود ندارد — شما همیشه می‌دانید پروژهٔ شما کجاست.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step rv"><span class="ball">۱</span><h3>پیام اول</h3><p>فرم پایین صفحه یا تلگرام. کمتر از ۲۴ ساعت جواب می‌گیرید — رایگان.</p><span class="t">روز ۱</span></div>
+      <div class="step rv" style="--d:.07s"><span class="ball">۲</span><h3>پیش‌نمایش رایگان</h3><p>قبل از هر پرداختی، پیش‌نمایش واقعی می‌بینید. تصمیم بعد از دیدن، نه قبل از آن.</p><span class="t">روز ۲–۳</span></div>
+      <div class="step rv" style="--d:.14s"><span class="ball">۳</span><h3>تأیید و ساخت</h3><p>پس از توافق و قراردادِ روشن، ساخت شروع می‌شود؛ لینک پیش‌نمایش زنده هر چند روز به‌روز می‌شود.</p><span class="t">روز ۳–۱۰</span></div>
+      <div class="step rv" style="--d:.21s"><span class="ball">۴</span><h3>انتشار و آموزش</h3><p>دامنه و هاست به نام خودتان راه‌اندازی می‌شود؛ با ویدیوی آموزشی و ۳۰ روز پشتیبانی رفع اشکال.</p><span class="t">روز ۷–۱۴</span></div>
+    </div>
+
+    <div class="dna rv" style="--d:.1s">
+      <div>
+        <h3>قبل از کد، چند سؤال</h3>
+        <span class="naz">اول شما را می‌فهمیم، بعد طراحی می‌کنیم</span>
+        <p class="dl">این پنج سؤال در گفت‌وگوی اول از شما پرسیده می‌شود — و جواب‌هایشان مستقیم به رنگ، فونت، حس و حتی انیمیشن‌های سایتتان می‌رسد. به همین دلیل هیچ دو سایتی از آتلیه شبیه هم نیست.</p>
+      </div>
+      <div class="dna-qs">
+        <div class="dq"><i>۱</i><span>اگر کسب‌وکارتان یک <b>انسان</b> بود، با ورودش به اتاق چه حسی می‌داد؟</span></div>
+        <div class="dq"><i>۲</i><span>مشتری در <b>۳ ثانیهٔ اول</b> باید چه حسی بگیرد؟</span></div>
+        <div class="dq"><i>۳</i><span>کدام <b>یک جزئیات</b> از شماست که مشتری به آن پز می‌دهد؟</span></div>
+        <div class="dq"><i>۴</i><span>رنگ‌های واقعی فضای فیزیکی‌تان کدام‌هاست؟ <b>(پالت از خودتان می‌آید، نه مد روز)</b></span></div>
+        <div class="dq"><i>۵</i><span>چه کاری را <b>هر روز</b> انجام می‌دهید که رقیبتان نمی‌تواند؟</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ۰۵ — تعرفه ═══ -->
+<section id="pricing">
+  <span class="snum">۰۵</span>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <span class="kick"><i>✳</i>پروندهٔ شمارهٔ ۵</span>
+        <h2 class="h2">شروع قیمت، <span class="naz">شفاف</span></h2>
+      </div>
+      <p class="lead">قیمت نهایی بعد از بررسی نیاز شما — کتبی و بدون تغییر تا پایان پروژه.</p>
+    </div>
+
+    <div class="tiers">
+      <div class="tier rv">
+        <span class="tn">۰۱ / STARTER</span>
+        <h3>شروع</h3>
+        <span class="for">برای حضور اولیهٔ آنلاین</span>
+        <div class="price">از ۵ میلیون <small>تومان</small></div>
+        <span class="per">تحویل حدود ۷ روز کاری</span>
+        <ul>
+          <li><i>✓</i>یک صفحهٔ اختصاصی کامل</li>
+          <li><i>✓</i>سازگار با موبایل و دسکتاپ</li>
+          <li><i>✓</i>معرفی خدمات + گالری</li>
+          <li><i>✓</i>دکمهٔ تماس، واتساپ و نقشه</li>
+          <li><i>✓</i>اتصال شبکه‌های اجتماعی</li>
+        </ul>
+        <button class="go" onclick="document.getElementById('brief').scrollIntoView({behavior:'smooth'})">درخواست پیش‌نمایش</button>
+      </div>
+      <div class="tier hot rv" style="--d:.1s">
+        <span class="rib">پرطرفدارترین ✳</span>
+        <span class="tn">۰۲ / BUSINESS</span>
+        <h3>کسب‌وکار</h3>
+        <span class="for">برای حضور کامل و حرفه‌ای</span>
+        <div class="price">از ۹ میلیون <small>تومان</small></div>
+        <span class="per">تحویل ۱۰ تا ۱۴ روز کاری</span>
+        <ul>
+          <li><i>✓</i>چند صفحه با معماری کامل</li>
+          <li><i>✓</i>منو یا خدمات تفصیلی</li>
+          <li><i>✓</i>فرم رزرو / سفارش کارا</li>
+          <li><i>✓</i>سئو پایه + بهینه‌سازی سرعت</li>
+          <li><i>✓</i>راه‌اندازی کامل دامنه و هاست</li>
+        </ul>
+        <button class="go" onclick="document.getElementById('brief').scrollIntoView({behavior:'smooth'})">درخواست پیش‌نمایش</button>
+      </div>
+      <div class="tier rv" style="--d:.2s">
+        <span class="tn">۰۳ / SIGNATURE</span>
+        <h3>امضا</h3>
+        <span class="for">برای برندهای جاافتاده</span>
+        <div class="price">توافقی</div>
+        <span class="per">پس از جلسهٔ نیازسنجی</span>
+        <ul>
+          <li><i>✓</i>سناریوی موشن اختصاصی</li>
+          <li><i>✓</i>پنل مدیریت محتوا</li>
+          <li><i>✓</i>ریزتعاملات دست‌ساز</li>
+          <li><i>✓</i>طراحی گرافیک و اسلایدها</li>
+          <li><i>✓</i>همراهی بلندمدت</li>
+        </ul>
+        <button class="go" onclick="document.getElementById('brief').scrollIntoView({behavior:'smooth'})">گفت‌وگو کنیم</button>
+      </div>
+    </div>
+
+    <p class="pnote rv"><b>همهٔ پلن‌ها شامل:</b> راه‌اندازی دامنه و هاست به نام خودتان · گواهی SSL · سئو پایه · ویدیوی آموزشی · ۳۰ روز پشتیبانی رفع اشکال</p>
+
+    <div class="receipt-box rv">
+      <div class="receipt">
+        <h4>✳ پشتِ قیمت، چیست؟</h4>
+        <div class="rrow"><span>طراحی اختصاصی از روی نیاز شما</span><b>شامل ✓</b></div>
+        <div class="rrow"><span>دامنه و هاست به نام شما</span><b>شامل ✓</b></div>
+        <div class="rrow"><span>گواهی SSL و امنیت پایه</span><b>شامل ✓</b></div>
+        <div class="rrow"><span>سئو پایه + بهینه‌سازی سرعت</span><b>شامل ✓</b></div>
+        <div class="rrow"><span>ویدیوی آموزشی تغییرات</span><b>شامل ✓</b></div>
+        <div class="rrow"><span>۳۰ روز پشتیبانی رفع اشکال</span><b>شامل ✓</b></div>
+        <div class="rtotal"><span>هزینهٔ پنهان:</span><b>صفر تومان</b></div>
+        <div class="rnote">— هیچ چیز بعداً اضافه پرداخت نمی‌شود —</div>
+      </div>
+      <div class="whylist">
+        <div class="w"><i>✳</i><span><b>چرا «از» می‌گوییم؟</b> چون سایت یک کافه با ۱۲ آیتم منو با یک رستوران با ۸۰ آیتم یکی نیست. قیمت نهایی پس از جلسهٔ اولیه، کتبی و قطعی است.</span></div>
+        <div class="w"><i>✳</i><span><b>چرا ارزان‌تر از آژانس‌ها؟</b> تیم کوچک است و هزینهٔ دفتر و بوروکراسی وجود ندارد — شما فقط بابت طراحی و اجرا پرداخت می‌کنید.</span></div>
+        <div class="w"><i>✳</i><span><b>مدل پرداخت؟</b> مرحله‌ای و مشخص در قرارداد — قبل از شروع پروژه، روی کاغذ.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ۰۶ — FAQ ═══ -->
+<section id="faq" style="padding-top:1.5rem">
+  <span class="snum">۰۶</span>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <span class="kick"><i>✳</i>پروندهٔ شمارهٔ ۶</span>
+        <h2 class="h2">پیش از شروع، <span class="naz">روشن کنیم</span></h2>
+      </div>
+    </div>
+    <div class="faq rv" style="--d:.1s">
+      <div class="qa"><button>پیش‌نمایش رایگان یعنی دقیقاً چه؟<i>+</i></button><div class="ans"><p>یعنی قبل از هر پرداختی، یک پیش‌نمایش واقعی از ظاهر سایتتان می‌بینید. اگر ادامه نخواهید، هیچ هزینه‌ای نمی‌دهید و هیچ تعهدی وجود ندارد. فقط بعد از تأیید شما و توافق کتبی، ساخت شروع می‌شود.</p></div></div>
+      <div class="qa"><button>چرا قالب آماده استفاده نمی‌کنید؟<i>+</i></button><div class="ans"><p>چون قالب یعنی سایت شما با صدها سایت دیگر یکسان می‌شود — در ظاهر، در جست‌وجوی گوگل و در ذهن مشتری. هر سایتی این‌جا از روی نیاز و هویت خودِ کسب‌وکار شما طراحی می‌شود؛ و این تفاوت را مشتری‌تان هم حس می‌کند.</p></div></div>
+      <div class="qa"><button>دامنه و هاست با کیست؟<i>+</i></button><div class="ans"><p>با شما. ما راه‌اندازی می‌کنیم، ولی همه‌چیز به نام خودتان ثبت و تحویل داده می‌شود. مالکیت ۱۰۰٪ دست شماست و برای ادامهٔ کار به ما وابسته نخواهید بود.</p></div></div>
+      <div class="qa"><button>بعد از تحویل، تغییرات با کیست؟<i>+</i></button><div class="ans"><p>۳۰ روز اول، رفع اشکال رایگان با ماست. ضمناً ویدیوی آموزشی اختصاصی می‌گیرید که تغییرات ساده (متن، عکس، قیمت) را خودتان انجام دهید. پس از آن، پشتیبانی ماهانه کاملاً اختیاری است.</p></div></div>
+      <div class="qa"><button>قیمت نهایی دقیقاً چقدر می‌شود؟<i>+</i></button><div class="ans"><p>پس از بررسی نیازتان، کتبی و قطعی اعلام می‌شود و تا پایان پروژه تغییر نمی‌کند. مراحل تأیید و پرداخت هم پیش از شروع، در قرارداد به‌صورت شفاف مشخص می‌شود.</p></div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ ۰۷ — بریف ═══ -->
+<section id="brief" style="padding:2rem 1.5rem 4.5rem">
+  <div class="brief">
+    <div class="sec-head rv" style="margin-bottom:0">
+      <div>
+        <span class="kick"><i>✳</i>قدم اول — کاملاً رایگان</span>
+        <h2 class="h2">درخواست <span class="naz">پیش‌نمایش رایگان</span></h2>
+        <p class="lead" style="margin-top:.6rem">فرم را پر کنید — برگهٔ کنارش همان لحظه پر می‌شود. کپی کنید و بفرستید؛ کمتر از ۲۴ ساعت بعد، وقت گفت‌وگو با شماست. بدون هیچ تعهدی.</p>
+      </div>
+    </div>
+
+    <div class="bgrid">
+      <form class="bform rv" id="bform" onsubmit="return false">
+        <div class="f2">
+          <div><label>نام شما *</label><input id="fYou" type="text" placeholder="مثلاً سارا محمدی"></div>
+          <div><label>نام کسب‌وکار *</label><input id="fName" type="text" placeholder="مثلاً کافه لونا"></div>
+        </div>
+        <div class="f2">
+          <div><label>حوزهٔ فعالیت</label>
+            <select id="fType">
+              <option>کافه / رستوران</option><option>فروشگاه / برند</option><option>کلینیک / پزشک</option>
+              <option>آرایشگاه / سالن زیبایی</option><option>آموزشگاه</option><option>املاک</option><option>سایر</option>
+            </select></div>
+          <div><label>شماره تماس یا آی‌دی تلگرام *</label><input id="fPhone" type="text" placeholder="۰۹۱۲···"></div>
+        </div>
+        <div>
+          <label>حس برند موردنظر (یک گزینه)</label>
+          <div class="chips" id="fVibe">
+            <button type="button" class="chip on" data-v="گرم و صمیمی">گرم و صمیمی</button>
+            <button type="button" class="chip" data-v="لوکس و آرام">لوکس و آرام</button>
+            <button type="button" class="chip" data-v="جسور و پرانرژی">جسور و پرانرژی</button>
+            <button type="button" class="chip" data-v="مینیمال و تمیز">مینیمال و تمیز</button>
+            <button type="button" class="chip" data-v="تکنولوژیک و مدرن">تکنولوژیک و مدرن</button>
+          </div>
+        </div>
+        <div>
+          <label>چه چیزی در سایت می‌خواهید؟</label>
+          <div class="checks">
+            <label class="cbox"><input type="checkbox" data-f="منو / لیست قیمت">منو / لیست قیمت</label>
+            <label class="cbox"><input type="checkbox" data-f="گالری تصاویر">گالری تصاویر</label>
+            <label class="cbox"><input type="checkbox" data-f="فرم رزرو / نوبت">فرم رزرو / نوبت</label>
+            <label class="cbox"><input type="checkbox" data-f="نقشه و مسیریابی">نقشه و مسیریابی</label>
+            <label class="cbox"><input type="checkbox" data-f="شبکه‌های اجتماعی">اینستاگرام و شبکه‌ها</label>
+            <label class="cbox"><input type="checkbox" data-f="پنل مدیریت">پنل مدیریت</label>
+          </div>
+        </div>
+        <div><label>توضیح کوتاه (اختیاری)</label><textarea id="fNote" rows="3" placeholder="مثلاً: سایت نداریم، فقط پیج اینستاگرام داریم و…"></textarea></div>
+        <button class="bsubmit" id="bCopy2">کپی درخواست و ارسال برای آتلیه</button>
+        <p class="bnote">پیش‌نمایش رایگان است — با ارسال این فرم هیچ تعهد مالی ایجاد نمی‌شود.</p>
+      </form>
+
+      <div class="paperwrap rv" style="--d:.14s">
+        <div class="paper">
+          <h4>برگهٔ درخواست پیش‌نمایش <span>ATELIER / PREVIEW</span></h4>
+          <div class="body" id="paperBody"></div>
+          <button class="copybtn" id="bCopy">کپی متن درخواست 📋</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ فوتر ═══ -->
+<footer>
+  <div class="wrap">
+    <div class="big rv">بیایید سایتی بسازیم که<br><span class="naz">فقط مالِ شما</span> باشد.</div>
+    <div class="fcontact rv" style="--d:.08s">
+      <a class="fbtn p" href="#">تلگرام آتلیه</a>
+      <a class="fbtn" href="#">واتساپ</a>
+      <a class="fbtn" href="#">تماس مستقیم</a>
+    </div>
+    <p class="fsmall rv" style="--d:.12s">© ۱۴۰۵ آتلیه — سایتی که از روی نیاز شما طراحی می‌شود ✳ · نمونه‌کارها: CafeTakTak · Lux-Studio</p>
+  </div>
+  <div class="fbig">آتِلیه</div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+
+/* ---- پیش‌لودر ---- */
+addEventListener('load',()=>setTimeout(()=>$('#pre').classList.add('off'),1000));
+setTimeout(()=>$('#pre').classList.add('off'),2300);
+
+/* ---- خط‌کش پیشرفت اسکرول ---- */
+addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  $('#rulerFill').style.width=(h.scrollTop/Math.max(1,h.scrollHeight-innerHeight)*100)+'%';
+},{passive:true});
+
+/* ---- منوی موبایل ---- */
+ $('#burger').addEventListener('click',()=>document.body.classList.toggle('menu-open'));
+ $$('.mmenu a').forEach(a=>a.addEventListener('click',()=>document.body.classList.remove('menu-open')));
+
+/* ---- ظهور تدریجی ---- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}
+}),{threshold:.12});
+ $$('.rv').forEach(el=>io.observe(el));
+
+/* ---- FAQ ---- */
+ $$('.qa').forEach(qa=>{
+  qa.querySelector('button').addEventListener('click',()=>{
+    const open=qa.classList.contains('open');
+    $$('.qa').forEach(x=>{x.classList.remove('open');x.querySelector('.ans').style.maxHeight=0});
+    if(!open){qa.classList.add('open');
+      const a=qa.querySelector('.ans');a.style.maxHeight=a.scrollHeight+'px'}
+  });
+});
+
+/* ---- پیش‌نمایش زندهٔ iframe (lazy) ---- */
+const pio=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){
+    const el=e.target;
+    if(!el.querySelector('iframe')){
+      const f=document.createElement('iframe');
+      f.src=el.dataset.src;
+      f.style.cssText='width:1200px;height:750px;border:0;pointer-events:none;transform-origin:0 0';
+      f.loading='lazy';
+      f.setAttribute('tabindex','-1');f.setAttribute('aria-hidden','true');
+      el.appendChild(f);
+      const sc=()=>{f.style.transform=`scale(${el.clientWidth/1200})`};
+      sc();addEventListener('resize',sc);
+    }
+    pio.unobserve(el);
+  }
+}),{threshold:.1});
+ $$('.pv').forEach(el=>pio.observe(el));
+
+/* ---- چیپ‌های حس برند ---- */
+let VIBE='گرم و صمیمی';
+ $('#fVibe').addEventListener('click',e=>{
+  const b=e.target.closest('.chip');if(!b)return;
+  $$('#fVibe .chip').forEach(c=>c.classList.toggle('on',c===b));
+  VIBE=b.dataset.v;build();
+});
+
+/* ---- بریف زنده ---- */
+function build(){
+  const you=$('#fYou').value.trim()||'—';
+  const name=$('#fName').value.trim()||'—';
+  const type=$('#fType').value;
+  const feats=$$('#bform input[type=checkbox]:checked').map(c=>c.dataset.f);
+  const phone=$('#fPhone').value.trim()||'—';
+  const note=$('#fNote').value.trim();
+  const txt=
+`━━━ درخواست پیش‌نمایش رایگان ━━━
+
+نام شما    : ${you}
+کسب‌وکار   : ${name}
+حوزه       : ${type}
+تماس       : ${phone}
+حس برند    : ${VIBE}
+امکانات    : ${feats.length?feats.join('، '):'—'}${note?`
+توضیح      : ${note}`:''}
+
+✳ بدون تعهد — فقط می‌خواهم یک پیش‌نمایش ببینم`;
+  $('#paperBody').innerHTML=
+    txt.replace(/(کسب‌وکار\s+:\s.+)/,'<span class="hl2">$1</span>')
+       .replace(/\n/g,'<br>')+'<span class="cursor2"></span>';
+  return txt;
+}
+ $$('#bform input,#bform select,#bform textarea').forEach(el=>el.addEventListener('input',build));
+build();
+
+/* ---- کپی ---- */
+let tt;
+function toast(m){const t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1C2420;color:#F6F4EA;border-radius:12px;padding:.7rem 1.5rem;font-size:.85rem;font-weight:700;z-index:600;box-shadow:0 14px 44px rgba(0,0,0,.35);transition:.35s';
+  t.textContent=m;document.body.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';setTimeout(()=>t.remove(),400)},2400)}
+function doCopy(){
+  const txt=build();
+  (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);
+    ta.select();document.execCommand('copy');ta.remove();
+  });
+  toast('درخواست کپی شد ✅ در تلگرام بفرست');
+}
+ $('#bCopy').addEventListener('click',doCopy);
+ $('#bCopy2').addEventListener('click',doCopy);
+})();
+</script>
+</body>
+</html>
